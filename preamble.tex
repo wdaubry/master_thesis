@@ -1,0 +1,32 @@
+\documentclass[a4paper,12pt]{report}
+
+% ----------- PACKAGES FOR LANGUAGES AND ENCODING ----------
+
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+% ---------- PACKAGES FOR DISPLAY -------------
+
+\usepackage{geometry}
+\usepackage[justification=centering]{caption}
+\geometry{hmargin=3cm,vmargin=2.5cm}
+\usepackage{graphicx}
+\usepackage{eso-pic} % for background image in front page
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % to draw big lines in front page
+\usepackage{indentfirst} % package used to indent first paragraph
+\usepackage[toc,page]{appendix} % package for appendixes
+
+% --------- PACKAGES FOR SCIENTIFIC WRITINGS ---------
+
+\usepackage{amsmath}
+\usepackage{siunitx}
+\usepackage{pgfplots} % drawing graphs
+\pgfplotsset{width=\textwidth}
+
+% --------- PACKAGES FOR REFERENCES AND BIBLIOGRAPHY ----------
+
+\usepackage{hyperref}
+\usepackage[sorting=none]{biblatex}
+\addbibresource{biblio.bib}
+
