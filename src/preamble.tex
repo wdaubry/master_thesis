@@ -1,4 +1,4 @@
-\documentclass[a4paper,12pt]{report}
+\documentclass[a4paper, 12pt]{report}
 
 % ----------- PACKAGES FOR LANGUAGES AND ENCODING ----------
 
@@ -8,14 +8,14 @@
 
 % ---------- PACKAGES FOR DISPLAY -------------
 
-\usepackage{geometry}
+\usepackage{color}
+\usepackage[top=2.5cm, bottom=1.5cm, left=2.5cm, right=1cm]{geometry}
 \usepackage[justification=centering]{caption}
 \geometry{hmargin=3cm,vmargin=2.5cm}
-\usepackage{graphicx}
-\usepackage{eso-pic} % for background image in front page
-\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % to draw big lines in front page
 \usepackage{indentfirst} % package used to indent first paragraph
+\usepackage[pdftex]{graphicx}
 \usepackage[toc,page]{appendix} % package for appendixes
+\usepackage{tikz}
 
 % --------- PACKAGES FOR SCIENTIFIC WRITINGS ---------
 
@@ -28,5 +28,5 @@
 
 \usepackage{hyperref}
 \usepackage[sorting=none]{biblatex}
-\addbibresource{biblio.bib}
+\addbibresource{src/biblio/biblio.bib}
 

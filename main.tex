@@ -4,7 +4,7 @@
 
 %%%% Preamble %%%%
 
-\input{preamble}
+\input{src/preamble}
 
 %%%% Beginning of the document %%%%
 
@@ -12,32 +12,32 @@
 
 %%% Title page %%%
 
-\input{front_page}
+\input{src/front_page}
 
-\chapter*{Abstract}
+%%% Abstract %%%
+
+\input{src/abstract.tex}
+
+%%% Tables %%%
 
 \tableofcontents
 \listoffigures
 
-\chapter{Introduction}
+%%% Introduction %%%
 
-\section{Reservoir computing}
+\input{src/introduction.tex}
 
-\section{Implementation of photonic reservoir computers}
+%%% Lambda-multiplexed reservoir scheme %%%
 
-\chapter{Experimental setups}
+\input{src/reservoir.tex}
 
-\section{Reservoir computer}
+%%% Reservoir %%%
 
-\section{Toy cavity}
+\input{src/results.tex}
 
-\section{Orthogonal polarization stabilization}
+%%% Conclusion %%%
 
-\chapter{Pound-Drewer-Hall stabilization technique}
-
-\chapter{PID tuning}
-
-\chapter{Conclusion}
+\input{src/conclusion.tex}
 
 %% bibliography %%
 
