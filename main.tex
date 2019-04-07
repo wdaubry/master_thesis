@@ -1,0 +1,46 @@
+%%%%%%%%%%%%%
+% Main code %
+%%%%%%%%%%%%%
+
+%%%% Preamble %%%%
+
+\input{src/preamble}
+
+%%%% Beginning of the document %%%%
+
+\begin{document}
+
+%%% Title page %%%
+
+\input{src/front_page}
+
+%%% Abstract %%%
+
+\input{src/abstract.tex}
+
+%%% Tables %%%
+
+\tableofcontents
+\listoffigures
+
+%%% Introduction %%%
+
+\input{src/introduction.tex}
+
+%%% Lambda-multiplexed reservoir scheme %%%
+
+\input{src/reservoir.tex}
+
+%%% Reservoir %%%
+
+\input{src/results.tex}
+
+%%% Conclusion %%%
+
+\input{src/conclusion.tex}
+
+%% bibliography %%
+
+\printbibliography
+	
+\end{document}
