@@ -1,0 +1,36 @@
+\documentclass[a4paper, 12pt]{report}
+
+% ----------- PACKAGES FOR LANGUAGES AND ENCODING ----------
+
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+% ---------- PACKAGES FOR DISPLAY -------------
+
+\usepackage{color}
+\usepackage[top=2.5cm, bottom=1.5cm, left=2.5cm, right=1cm]{geometry}
+\usepackage[justification=centering]{caption}
+\geometry{hmargin=3cm,vmargin=2.5cm}
+\usepackage{indentfirst} % package used to indent first paragraph
+\usepackage[pdftex]{graphicx}
+\usepackage[toc,page]{appendix} % package for appendixes
+\usepackage{tikz}
+\graphicspath{{../shared-resources/pictures/},{pictures/}}
+
+% --------- PACKAGES FOR SCIENTIFIC WRITINGS ---------
+
+\usepackage{amsmath}
+\usepackage{siunitx}
+\usepackage{pgfplots} % drawing graphs
+\pgfplotsset{width=\textwidth}
+
+% --------- PACKAGES FOR REFERENCES AND BIBLIOGRAPHY ----------
+
+\usepackage{hyperref}
+\usepackage[
+	backend=biber,
+	style=alphabetic,
+	citestyle=alphabetic
+]{biblatex}
+\addbibresource{../shared-resources/biblio/biblio.bib}

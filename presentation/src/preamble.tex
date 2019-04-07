@@ -1,0 +1,50 @@
+\documentclass{beamer}
+
+% ----------- PACKAGES FOR LANGUAGES AND ENCODING ----------
+
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+% ---------- PACKAGES FOR DISPLAY -------------
+
+\usepackage{geometry}
+\usepackage{graphicx}
+\usetheme{Copenhagen} % theme for beamer
+\beamertemplatenavigationsymbolsempty
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{bibliography item}[text]
+\graphicspath{{../shared-resources/pictures/}}
+
+% --------- PACKAGES FOR SCIENTIFIC WRITINGS ---------
+
+\usepackage{amsmath}
+\usepackage{stackengine}
+\usepackage{siunitx}
+\usepackage{pgfplots} % drawing graphs
+\pgfplotsset{width=\textwidth}
+
+% --------- PACKAGES FOR REFERENCES AND BIBLIOGRAPHY ----------
+
+\usepackage{hyperref}
+\usepackage[
+	backend=biber,
+	style=alphabetic,
+	citestyle=alphabetic
+]{biblatex}
+\addbibresource{../shared-resources/biblio/biblio.bib}
+
+% -------- Outline --------
+
+\AtBeginSection[]
+{
+  \begin{frame}
+  \frametitle{Outline}
+  \tableofcontents[currentsection, hideothersubsections]
+  \end{frame} 
+}
+
+% ------- Functions ----------
+
+\newcommand{\op}[1]{\mathop{}\!\ensurestackMath{\smash{\stackon[-0.8ex]{%
+    \mathbf{#1}}{\mathbf{\hat{}}}}}\vphantom{#1}} % used to display hat higher (look nicer)

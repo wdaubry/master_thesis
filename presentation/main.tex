@@ -1,0 +1,51 @@
+%%%%%%%%%%%%%
+% Main code %
+%%%%%%%%%%%%%
+
+%%%% Preamble %%%%
+
+\input{src/preamble}
+
+%%% Title page %%%
+
+\title{Interferometric stabilisation of a fiber-based optical computer}
+\subtitle{Experimental study}
+\author{Denis Verstraeten}
+\titlegraphic{\includegraphics[width=4cm]{/Users/denisverstraeten/Documents/Codes/LaTeX/Frontmatter/logo.jpg}
+}
+\institute{ULB - Opera Photonics}
+\date{April 5, 2019}
+
+\begin{document}
+
+	\begin{frame}[plain]
+		\titlepage
+	\end{frame}
+	
+	%%% Introduction %%%
+	
+	\input{src/introduction.tex}
+	
+	%%% Reservoir computing %%%
+	
+	\input{src/rc.tex}
+	
+	%%% Lambda-multiplexed reservoir scheme %%%
+
+	\input{src/reservoir.tex}
+
+	%%% Reservoir %%%
+
+	\input{src/results.tex}
+
+	%%% Conclusion %%%
+
+	\input{src/conclusion.tex}
+
+	%% bibliography %%
+	
+	\begin{frame}[t, allowframebreaks]
+		\printbibliography[heading=none]
+	\end{frame}
+	
+\end{document}
