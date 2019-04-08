@@ -17,6 +17,7 @@
 \usepackage[toc,page]{appendix} % package for appendixes
 \usepackage{tikz}
 \graphicspath{{../shared-resources/pictures/},{pictures/}}
+\usepackage{appendix}
 
 % --------- PACKAGES FOR SCIENTIFIC WRITINGS ---------
 
@@ -29,8 +30,12 @@
 
 \usepackage{hyperref}
 \usepackage[
-	backend=biber,
-	style=alphabetic,
-	citestyle=alphabetic
+	backend=biber
 ]{biblatex}
 \addbibresource{../shared-resources/biblio/biblio.bib}
+
+% ----- GLOASSARY -------
+
+\usepackage[toc,nopostdot]{glossaries} % needs to be placed after hyperref package to have clickable references
+\makeglossary
+\input{src/acronyms.tex}
