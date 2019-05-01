@@ -1,9 +1,13 @@
 \chapter{\acrlong{rc}}
+\label{rc}
 
 \section{Introduction}
 
-\gls{rc} is a bio-inspired artificial recurrent neural network which is based on the \gls{esn} paradigm introduced by Herbert Jaeger in \cite{Jaeger2004}. This computation scheme is well suited for real-time data processing and for chaotic time series prediction\cite{Jaeger2004, JaegerH.2001Tesa, Lukoeviius2012}, and achieves state of the art performances in those domains, as well as in speech recognition\cite{Verstraeten2006, NIPS2010_4056, Jaeger2007}, nonlinear channel equalisation\cite{Jaeger2004} and financial forecasting \cite{financialTimeSeries}.\\
 
+% What is a rc
+\gls{rc} is a bio-inspired artificial recurrent \gls{nn} which is based on the \gls{esn} paradigm introduced by Herbert Jaeger in \cite{Jaeger2004}. This computation scheme is well suited for real-time data processing and for chaotic time series prediction\cite{Jaeger2004, JaegerH.2001Tesa, Lukoeviius2012}, and achieves state of the art performances in those domains, as well as in speech recognition\cite{Verstraeten2006, NIPS2010_4056, Jaeger2007}, nonlinear channel equalisation\cite{Jaeger2004} and financial forecasting \cite{financialTimeSeries}.\\
+
+% How is it made
 A \gls{rcer} is made of a large ensemble of interconnected neurons, which are merely entities carrying an activation level. The activation level  is updated according to the connection weights of the reservoir, or \emph{synaptic matrix} as it is referred to in the field of neural networks, and with a nonlinear function, called the \textit{activation function}. The nonlinear character is one of the main features making neural networks so powerful. Moreover, with a proper activation function, one can reach a saturation state, which mimics the behaviour of biological neurons. This is traditionally achieved using the \textit{sigmoid} function. Those principles are introduced in \cite[p.227-228]{bishop2006pattern} and in \cite[p.727-728]{russell2010artificial}.\\
 
 \begin{figure}[h]
@@ -13,5 +17,10 @@ A \gls{rcer} is made of a large ensemble of interconnected neurons, which are me
 	\label{rc_principle}
 \end{figure}
 
-The activation level of the neurons making up the reservoir characterise its state, which is time-dependent object. The neurons are interconnected in such a way that they influence the dynamic of each other, leading to a complicated evolution the state of the reservoir. What a first glance may seem to be a mathematical nightmare turns out to be the main advantage of \gls{rc}, making it so powerful. Indeed, by making the connection matrix as messy as possible, \textit{i.e.} by using randomness, breaking symmetries,... one notices that the effect of such a reservoir, when being fed a time-dependent signal, is to map it to a higher-dimensional functional space, the dimensionality being determined by the intrinsic dynamics of the neurons and depending on the richness of the connection matrix. Its link to \gls{esn} provides  \gls{rc} with another advantage compared to other computation schemes,  namely it has a memory of the input, thanks to the fact that the neurons are \textit{echoing} the effect of the input to one another. The output of the reservoir is obtained by adequately combining the neurons using the output matrix. These notions are summarised at the Figure \ref{rc_principle}.\\
+% Principle of rc
+The activation level of the neurons making up the reservoir characterise its state, which is a time-dependent object. The neurons are interconnected in such a way that they influence the dynamic of each other, leading to a complicated evolution of the state of the reservoir. What a first glance may seem to be a mathematical nightmare turns out to be the main advantage of \gls{rc}, making it so powerful. Indeed, by making the connection matrix as messy as possible, \textit{i.e.} by using randomness, breaking symmetries,... one notices that the effect of such a reservoir, when being fed a time-dependent signal, is to map it to a higher-dimensional functional space, the dimensionality being determined by the intrinsic dynamics of the neurons and depending on the richness of the connection matrix. Its link to \gls{esn} provides \gls{rc} with another advantage compared to other computation schemes,  namely it has a memory of the input, thanks to the fact that the neurons are \textit{echoing} the effect of the input to one another. The output of the reservoir is obtained by adequately combining the neurons using the output matrix. A good intuition about those principles can be gained by having a looking at \cite{Goudarzi2014ACS}. They are summarised at Figure \ref{rc_principle}.\\
+% Talk about optimal performance at echo state
 
+% ML
+Another advantage of \gls{rc} over other \gls{ai} algorithms is that it is not computationally intensive, which is usually the case for \gls{nn}. Indeed, a special feature of \gls{rcer} is that they only require the output weights to be tuned through \gls{ml}.
+% Add two figures next to each other comparing weights of rc and usual nn
