@@ -1,0 +1,31 @@
+\begin{pspicture}[showgrid](15,10)
+	\newpsstyle{Fiber}{linecolor=red, linewidth=\pslinewidth}
+	\psset[optexp]{fiber=none}
+	\psset{wire=none}
+	\pnodes(2,8){start}
+	\pnodes(10,8.5){c1left}
+	\pnodes(12,8.5){c1right}
+	\pnodes(13,8){bendtr}
+	\pnodes(13,4){bendbr}
+	\pnodes(1.3,4){bendbl}
+	\optbox[innerlabel, position=start, compname=laser, extnode=b](start)(bendtr){Laser}
+	\optisolator[compname=isolator, abspos=1](start)(bendtr)
+	\optfiberpolarizer[compname=pola, abspos=2.5](start)(bendtr)
+	\optmzm[compname=mzm, abspos=4, extnode=t](start)(bendtr)
+	\pnodes([offset=0.5]\oenodeExt{mzm}){ni}
+	\optbox[innerlabel, position=end, compname=niawg, optboxsize=0.6 1.2, labelref=relgrav](\oenodeExt{mzm})(ni){AWG}
+	\optcoupler[fiber=t, coupleralign=b, compname=c1, labeloffset=0.3, abspos=9](c1left)(start)(c1right)(bendtr){20/80}
+	\optamp[abspos=1, compname=preamp](bendtr)(bendbr)
+	\optbox[innerlabel, abspos=2.5, compname=pmpdh, optboxsize=0.8 0.8, extnode=b, labelref=relgrav](bendtr)(bendbr){PM}
+	\optdetector[position=0.8, compname=ref](bendbr)(bendbl)
+	\optbox[innerlabel, abspos=1.5, labelref=relgrav, compname=digilock, optboxsize=1 2](bendbl)(\oenodeExt{laser}){Digilock}
+	\psdot[linecolor=red](bendbr)
+	\psdot[linecolor=red](bendbl)
+	\psdot[linecolor=red](bendtr)
+	\psdot[linecolor=red](\oenodeExt{laser})
+	\drawfiber[fiberstyle=angle, linearc=0.5]{1-4}
+	\drawfiber{4}{6}
+	\drawfiber[fiberstyle=angle, linearc=0.5]{6-7}
+	\drawwire(\oenodeExt{mzm}){5}
+	%\drawfiber[fiberstyle=angle, linearc=0.5]{6-9} 
+\end{pspicture}

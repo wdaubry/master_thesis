@@ -62,4 +62,61 @@ In order to reach the echo state regime, the constraints on the coupling between
 
 \section{Mathematical Model}
 
+In this section, an overview of the mathematical framework linked to \gls{rc} is given. First, let us define the \textit{state} of the reservoir. As said previously, the \gls{rc} can be fully described by the activation level of each of its neurons. The state is therefore defined as a vector whose components are the activation levels of the neurons. If the number of neurons making up the reservoir is $N$, and if $x_i$ is the activation level of the $i^{\text{th}}$ neuron, the the state vector reads as follows:
+
+\begin{equation}
+	\mathbf{x} = \begin{bmatrix}
+		x_1\\
+		\vdots \\
+		x_i \\
+		\vdots \\
+		x_N
+	\end{bmatrix}
+\end{equation}
+
+\newpage
+
+The dynamics governing the state vector and the output of the reservoir proposed in \cite{JaegerH.2001Tesa} are presented below. In practice, it is too general for the implementations studied in this work. However, the equations are introduced without loss of generality, and simplifying assumptions will be specified later.
+
+\begin{align}
+	\mathbf{x}(n+1) &= \mathbf{f} \left( \mathbf{W}^{\text{in}} \mathbf{u}(n+1) + \mathbf{W} \mathbf{x}(n) + \mathbf{W}^{\text{fb}} \mathbf{y}(n) \right)\\
+	\mathbf{y}(n+1) &= \mathbf{f}^{\text{out}} \left( \mathbf{W}^{\text{out}} \left(\mathbf{x}(n+1), \mathbf{u}(n+1), \mathbf{y}(n)\right) \right)
+	\label{rc_dynamics}
+\end{align}
+
+Different elements need to be defined: 
+
+\begin{itemize}
+	\item $n \in \{1, \dots, T\}$ is the discrete time variable
+	\item $\mathbf{u} \in \mathbb{R}^k$ is the input vector which enters the reservoir through the input neurons
+	\item $\mathbf{W}^{\text{in}} \in \mathbb{R}^{N \times k}$ is the input matrix. It indicates how the $k$ input neurons are connected to the neurons of the reservoir
+	\item $\mathbf{x} \in \mathcal{S} \subseteq \mathbb{R}^{N}$ is the state vector, as said previously
+	\item $\mathbf{W} \in \mathbb{R}^{N \times N}$ is the synaptic matrix, or the connection matrix which has already been introduced
+	\item $\mathbf{y} \in \mathbb{R}^{m}$ is the output vector of the reservoir whose value can be read out on the output neurons
+	\item $\mathbf{W}^{\text{fb}} \in \mathbb{R}^{N \times m}$ is the feedback matrix. It couples the output back into the reservoir
+	\item $\mathbf{f}: \mathbb{R}^N \mapsto \mathcal{S}$ is the nonlinear function mapping the linear combination it receives as argument to a valid state vector
+	\item $\left(\mathbf{x}(n+1), \mathbf{u}(n+1), \mathbf{y}(n)\right)$ is the concatenation those three vectors
+	\item $\mathbf{W}^{\text{out}} \in \mathbb{R}^{m \times (N+k+m)}$ is the output matrix of the reservoir. It is optimised through \gls{ml}
+	\item $\mathbf{f}^{\text{out}} : \mathbb{R}^{m} \mapsto \mathbb{R}^{m}$ is the output function of the reservoir
+\end{itemize}
+
+In what follows, the input and the output of the reservoir are just scalar values, which simplifies the previous equations. Thus, $\win$ becomes a simple vector of length $N$ which is called the \textit{input mask} $\mathbf{m}$ in the literature. The input mask can be chosen in different ways: in \cite{Duport2016}, they use a sinusoidal input mask whereas in \cite{Antonik2017, Vinckier2015, Paquot2012} the input masks are randomly chosen. Once this vector is fixed, it should be multiplied by a constant to optimise the performance of the \gls{rcer}. Very few constraints apply to the creation of the connection matrix $\w$. It can be randomly generated and sparse. However, to make the occurence of the echo state more likely to happen, one wants to work with a spectral radius $\rho \left( \w \right)<1$. If this condition is not verified, as well as degrading the performance of the reservoir, this can also lead to instabilities \cite{Lukoeviius2009}. Therefore, once again, once the matrix $\w$ is fixed, one can multiply it by another constant for the same reason mentioned before. Thus, by defining $\alpha$ and $\beta$,  the feedback\footnote{This is a misnomer at this point since it has nothing to do with $\wfb$, but the rationale of why it is called like this will appear more clearly in the next chapter.} and input gains, respectively:
+
+\begin{equation}
+	\w \longrightarrow \alpha \mathbf{A}, \quad \win \longrightarrow \beta \mathbf{m}
+\end{equation}
+
+This is an example of what was introduced in the previous section. Indeed, the difficulty of tweaking each and every coefficients in order to improve the reservoir is transferred to just a few global variables. This is of great practical importance for physical implementations of \gls{rcer}. Indeed, the experimentalist can alter the behaviour of its \gls{rcer} by only modifying a few global experimental variables.\\
+
+In practice, the feedback of the reservoir output is neglected, especially for physical implementations, so $\wfb$ should be null. Also, the concatenation is not observed. Indeed, in general, when computing the output, only state vectors are considered. Speaking of them, they belong to $\mathcal{S}$ because the fact that the functions $\mathbf{f}$ used in practice are bounded, so the vectors $\mathbf{x}$ span a space \textit{smaller} than $\mathbb{R}^N$. A typical function used in \gls{rc} is tanh, that goes from -1 to +1.
+
+
+\subsection{Training a \acrshort{rcer}}
+
+
+
+
+
+\section{Simulations}
+
 
