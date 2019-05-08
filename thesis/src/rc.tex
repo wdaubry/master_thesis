@@ -57,8 +57,7 @@ Regardless of the learning scheme used to train a \gls{nn}, the basic idea is al
 	\caption{\acrlong{ml} for different kinds of \acrlongpl{nn}}
 \end{figure}
 
-% connection matrix - physical implementations
-In order to reach the echo state regime, the constraints on the coupling between the neurons of the reservoir are actually quite loose. What is required is to introduce randomness and to break symmetries in the synaptic matrix. Once this condition is verified, the performance of the reservoir can be modified by tweaking only a small set of variables applying to the whole \gls{rcer}. In other words, as soon as the basic structure of the reservoir is set, there is no need to individually change the value of each connection to improve it, only modifying globally the reservoir is enough, for example by multiplying all the connection weights by the same constant. This property is a key element of the \gls{rcer} paradigm that allows it to be implemented in physical systems other than classical, silica-based computers. This has already been done several times in photonic experiments, leading to the novel concept of \gls{prc}. Different implementations have been proposed: fully integrated photonic chips \cite{Vandoorne2014}, fibre-based systems with time-multiplexed neurons coupled through a delay line with nonlinearities introduced by a Mach-Zehnder intensity modulator \cite{Paquot2012, Antonik2017, Duport2016}, by saturation of absorption \cite{Dejonckheere2014, Vandoorne2008} and by the readout photodiodes \cite{Vinckier2015}. This latter configuration even reached state of the art performances in different benchmark tasks, such as Memory Capacity Evaluation, NARMA10 (Nonlinear Auto-Regressive Moving Average of order 10), nonlinear channel equalisation, and isolated spoken digit recognition. In \cite{Fernando2003}, the researchers even manage to perform speech recognition and the XOR task\footnote{The XOR task consists in reproducing the behaviour of a logical XOR gate, which is a task of historical importance for \gls{nn} \cite{minsky1969perceptrons}.} in a bucket of water. 
+In order to reach the echo state regime, the constraints on the coupling between the neurons of the reservoir are actually quite loose. What is required is to introduce randomness and to break symmetries in the synaptic matrix. Once this condition is verified, the performance of the reservoir can be modified by tweaking only a small set of variables applying to the whole \gls{rcer}. In other words, as soon as the basic structure of the reservoir is set, there is no need to individually change the value of each connection to improve it, only modifying globally the reservoir is enough, for example by multiplying all the connection weights by the same constant. This property is a key element of the \gls{rcer} paradigm that allows it to be implemented in physical systems other than classical, silica-based computers. This has already been done several times in photonic experiments, leading to the novel concept of \gls{prc}. Different implementations have been proposed: fully integrated photonic chips \cite{Vandoorne2014}, fibre-based systems with time-multiplexed neurons coupled through a delay line with nonlinearities introduced by a Mach-Zehnder intensity modulator \cite{Paquot2012, Antonik2017, Duport2016}, by saturation of absorption \cite{Dejonckheere2014, Vandoorne2008} and by the readout photodiodes \cite{Vinckier2015}. This latter configuration even reached state of the art performances in different benchmark tasks, such as Memory Capacity Evaluation, \acrshort{narma}10 (\acrlong{narma} of order 10), nonlinear channel equalisation, and isolated spoken digit recognition. In \cite{Fernando2003}, the researchers even manage to perform speech recognition and the XOR task\footnote{The XOR task consists in reproducing the behaviour of a logical XOR gate, which is a task of historical importance for \gls{nn} \cite{minsky1969perceptrons}.} in a bucket of water. 
 
 \section{Mathematical Model}
 
@@ -79,28 +78,29 @@ In this section, an overview of the mathematical framework linked to \gls{rc} is
 The dynamics governing the state vector and the output of the reservoir proposed in \cite{JaegerH.2001Tesa} are presented below. In practice, it is too general for the implementations studied in this work. However, the equations are introduced without loss of generality, and simplifying assumptions will be specified later.
 
 \begin{align}
-	\mathbf{x}(n+1) &= \mathbf{f} \left( \mathbf{W}^{\text{in}} \mathbf{u}(n+1) + \mathbf{W} \mathbf{x}(n) + \mathbf{W}^{\text{fb}} \mathbf{y}(n) \right)\\
-	\mathbf{y}(n+1) &= \mathbf{f}^{\text{out}} \left( \mathbf{W}^{\text{out}} \left(\mathbf{x}(n+1), \mathbf{u}(n+1), \mathbf{y}(n)\right) \right)
-	\label{rc_dynamics}
+	\mathbf{x}(n+1) &= \mathbf{f} \left( \mathbf{W}^{\text{in}} \mathbf{u}(n+1) + \mathbf{W} \mathbf{x}(n) + \mathbf{W}^{\text{fb}} \mathbf{y}(n) \right) \label{rc_dynamics}\\
+	\mathbf{y}(n+1) &= \mathbf{f}^{\text{out}} \left( \mathbf{W}^{\text{out}} \left(\mathbf{x}(n+1), \mathbf{u}(n+1), \mathbf{y}(n)\right) \right) \label{rc_output}
 \end{align}
 
 Different elements need to be defined: 
 
 \begin{itemize}
 	\item $n \in \{1, \dots, T\}$ is the discrete time variable
-	\item $\mathbf{u} \in \mathbb{R}^k$ is the input vector which enters the reservoir through the input neurons
-	\item $\mathbf{W}^{\text{in}} \in \mathbb{R}^{N \times k}$ is the input matrix. It indicates how the $k$ input neurons are connected to the neurons of the reservoir
-	\item $\mathbf{x} \in \mathcal{S} \subseteq \mathbb{R}^{N}$ is the state vector, as said previously
-	\item $\mathbf{W} \in \mathbb{R}^{N \times N}$ is the synaptic matrix, or the connection matrix which has already been introduced
-	\item $\mathbf{y} \in \mathbb{R}^{m}$ is the output vector of the reservoir whose value can be read out on the output neurons
-	\item $\mathbf{W}^{\text{fb}} \in \mathbb{R}^{N \times m}$ is the feedback matrix. It couples the output back into the reservoir
-	\item $\mathbf{f}: \mathbb{R}^N \mapsto \mathcal{S}$ is the nonlinear function mapping the linear combination it receives as argument to a valid state vector
+	\item $\mathbf{u} \in \mathbb{C}^k$ is the input vector which enters the reservoir through the input neurons
+	\item $\mathbf{W}^{\text{in}} \in \mathbb{C}^{N \times k}$ is the input matrix. It indicates how the $k$ input neurons are connected to the neurons of the reservoir
+	\item $\mathbf{x} \in \mathcal{S} \subseteq \mathbb{C}^{N}$ is the state vector, as said previously
+	\item $\mathbf{W} \in \mathbb{C}^{N \times N}$ is the synaptic matrix, or the connection matrix which has already been introduced
+	\item $\mathbf{y} \in \mathbb{C}^{m}$ is the output vector of the reservoir whose value can be read out on the output neurons
+	\item $\mathbf{W}^{\text{fb}} \in \mathbb{C}^{N \times m}$ is the feedback matrix. It couples the output back into the reservoir
+	\item $\mathbf{f}: \mathbb{C}^N \mapsto \mathcal{S}$ is the nonlinear function mapping the linear combination it receives as argument to a valid state vector
 	\item $\left(\mathbf{x}(n+1), \mathbf{u}(n+1), \mathbf{y}(n)\right)$ is the concatenation those three vectors
-	\item $\mathbf{W}^{\text{out}} \in \mathbb{R}^{m \times (N+k+m)}$ is the output matrix of the reservoir. It is optimised through \gls{ml}
-	\item $\mathbf{f}^{\text{out}} : \mathbb{R}^{m} \mapsto \mathbb{R}^{m}$ is the output function of the reservoir
+	\item $\mathbf{W}^{\text{out}} \in \mathbb{C}^{m \times (N+k+m)}$ is the output matrix of the reservoir. It is optimised through \gls{ml}
+	\item $\mathbf{f}^{\text{out}} : \mathbb{C}^{m} \mapsto \mathbb{C}^{m}$ is the output function of the reservoir
 \end{itemize}
 
-In what follows, the input and the output of the reservoir are just scalar values, which simplifies the previous equations. Thus, $\win$ becomes a simple vector of length $N$ which is called the \textit{input mask} $\mathbf{m}$ in the literature. The input mask can be chosen in different ways: in \cite{Duport2016}, they use a sinusoidal input mask whereas in \cite{Antonik2017, Vinckier2015, Paquot2012} the input masks are randomly chosen. Once this vector is fixed, it should be multiplied by a constant to optimise the performance of the \gls{rcer}. Very few constraints apply to the creation of the connection matrix $\w$. It can be randomly generated and sparse. However, to make the occurence of the echo state more likely to happen, one wants to work with a spectral radius $\rho \left( \w \right)<1$. If this condition is not verified, as well as degrading the performance of the reservoir, this can also lead to instabilities \cite{Lukoeviius2009}. Therefore, once again, once the matrix $\w$ is fixed, one can multiply it by another constant for the same reason mentioned before. Thus, by defining $\alpha$ and $\beta$,  the feedback\footnote{This is a misnomer at this point since it has nothing to do with $\wfb$, but the rationale of why it is called like this will appear more clearly in the next chapter.} and input gains, respectively:
+\subsection{Simplifying assumptions for Optical \acrshort{rcer}}
+
+In what follows, the input and the output of the reservoir are just scalar values, which simplifies the previous equations. Thus, $\win$ becomes a simple real vector of length $N$ which is called the \textit{input mask} $\mathbf{m}$ in the literature. The input mask can be chosen in different ways: in \cite{Duport2016}, they use a sinusoidal input mask whereas in \cite{Antonik2017, Vinckier2015, Paquot2012} the input masks are randomly chosen. Once this vector is fixed, it should be multiplied by a constant to optimise the performance of the \gls{rcer}. Very few constraints apply to the creation of the connection matrix $\w$. It can be randomly generated and sparse. However, to make the occurence of the echo state more likely to happen, one wants to work with a spectral radius $\rho \left( \w \right)<1$. If this condition is not verified, as well as degrading the performance of the reservoir, this can also lead to instabilities \cite{Lukoeviius2009}. Therefore, once again, once the matrix $\w$ is fixed, one can multiply it by another constant for the same reason mentioned before. Thus, by defining $\alpha$ and $\beta$,  the feedback\footnote{This may seem like a misnomer at this point since it has nothing to do with $\wfb$, but this name is used because $\alpha$ acts as a gain for the activation level of the neurons being fed back into the reservoir.} and input gains, respectively:
 
 \begin{equation}
 	\w \longrightarrow \alpha \mathbf{A}, \quad \win \longrightarrow \beta \mathbf{m}
@@ -108,15 +108,51 @@ In what follows, the input and the output of the reservoir are just scalar value
 
 This is an example of what was introduced in the previous section. Indeed, the difficulty of tweaking each and every coefficients in order to improve the reservoir is transferred to just a few global variables. This is of great practical importance for physical implementations of \gls{rcer}. Indeed, the experimentalist can alter the behaviour of its \gls{rcer} by only modifying a few global experimental variables.\\
 
-In practice, the feedback of the reservoir output is neglected, especially for physical implementations, so $\wfb$ should be null. Also, the concatenation is not observed. Indeed, in general, when computing the output, only state vectors are considered. Speaking of them, they belong to $\mathcal{S}$ because the fact that the functions $\mathbf{f}$ used in practice are bounded, so the vectors $\mathbf{x}$ span a space \textit{smaller} than $\mathbb{R}^N$. A typical function used in \gls{rc} is tanh, that goes from -1 to +1.
+In practice, the feedback of the reservoir output is neglected, especially for physical implementations, so $\wfb$ should be null. Also, the concatenation is not observed. Indeed, in general, when computing the output, only state vectors are considered. Speaking of them, they belong to $\mathcal{S}$ because the fact that the functions $\mathbf{f}$ used in practice are bounded, so the vectors $\mathbf{x}$ span a space \textit{smaller} than $\mathbb{C}^N$. The simplified version of the previous equations reads:
 
+\begin{align}
+	\mathbf{x}(n+1) &= \mathbf{f} \left( \alpha \mathbf{A} \mathbf{x}(n) + \beta \mathbf{m} u(n+1) \right)\\
+	y(n+1) &= f^{\text{out}} \left( \mathbf{W}^{\text{out}} \mathbf{x}(n+1) \right)
+\end{align}
 
-\subsection{Training a \acrshort{rcer}}
+As far as \gls{prc} are concerned, two approaches to determine the functions $\mathbf{f}$ and $f^{\text{out}}$ are followed in the literature. The first kind of \gls{prc} are those using optical components exhibiting nonlinear behaviour, such as Mach-Zehnder intensity modulators \cite{Duport2016, Paquot2012, Antonik2017}, semiconductor optical amplifiers \cite{Vandoorne2008} or semiconductor saturable absorber mirror \cite{Dejonckheere2014} to couple the neurons. In an actual optical experiment, the measurements have to be done with photodiodes. These devices can only inform about the intensity of the light, which is the squared modulus of the phaser representation of the electric field, and not about the actual electric field. However, in the scheme presented above, the input and the activation level of the neurons are real objects appropriately encoded in the intensity of the light, and can therefore be directly read out by a photodiode, hence this simple expression for the output of the reservoir:
 
+\begin{equation}
+	y(n+1) = \sum_{i=1}^{N} W^{\text{out}}_i x_i (n+1)
+	\label{lin_output_rc}
+\end{equation}
 
+On the other hand, in \cite{Vinckier2015}, the neurons are encoded in the complex phaser representation of the electric field and are linearly coupled using a delay line. This scheme is a linear reservoir:
 
+\begin{equation}
+	\mathbf{x}(n+1) = \alpha \mathbf{A} \mathbf{x}(n) + \beta \mathbf{m} u(n+1)
+	\label{rc_lin_dynamics}
+\end{equation}
 
+Therefore, it appears more clearly why the condition mentioned previously regarding $\rho \left( \alpha \mathbf{A} \right)$ is relevant. Indeed, if $\mathbf{x}_j$ is an eigenvector of $\alpha \mathbf{A}$ with eigenvalue $\lambda_j>1$, the above equation will lead to an exponential divergence $\mathbf{x}_j(n) \sim \lambda_j^n \mathbf{x}_j(0)$. On the other hand, if $\lambda_j$ is too small, the state $\mathbf{x}_j$ will be damped too quickly, deteriorating the memory capabilities of the reservoir and preventing it from reaching the echo state. In the linear reservoir, since the neurons and the input are inscribed in the complex electric field, the nonlinearity is introduced by the read out photodiodes. The output is therefore given by:
+
+\begin{equation}
+	y(n+1) = \sum_{i=1}^{N} W^{\text{out}}_i |x_i (n+1)|^2
+	\label{quad_output_rc}
+\end{equation}
+
+The latter scheme is of particular interest for the remaining of this work, because the novel proposed implementation relies on the sme principle. It is also interesting to notice that is quite similar to the first \gls{nn} paradigm, the \emph{perceptron}, introduced by F. Rosenblatt in 1958 \cite{Rosenblatt58theperceptron}. Equations \eqref{lin_output_rc} and \eqref{quad_output_rc} give an interesting intuition on the meaning of the \gls{esn}. Indeed, as said previously, when a \rc reaches the echo state, each of the neurons tends to systematically reproduce a modified version of the input, the actual modification being an individual characteristic of each neuron \cite{Jaeger2004}. One can see this feature in the perspective of linear algebra. When the \rcer is fed with an input, it creates a set of time varying functions that can intuitively be seen as a basis in which one can try to express the output of the reservoir, which is nothing but a vector in the vectorial space of functions. This is why it is often said in the literature that a \rcer maps an input to a higher dimensional space. Therefore, one can in theory approach any target function with an arbitrary precision, depending on the number of neurons in the reservoir \cite{Jaeger2004}. The higher the number of neurons, the closer to a genuine series development one gets. Still in the same perspective, the $W^{\text{out}}_i$ can be seen as the Fourier coefficients of the output function.\\
+
+To determine the output matrix $\mathbf{W}^{\text{out}}$, as said in the previous section, there exists several techniques, but the underlying intuitive idea is always the same. One wants to minimise the deviation between the actual output and the target. Different metrics can be used to encapsulate the distance between those values. In the literature, one of the most frequent is the NMSE, for Normalised Mean Square Error:
+
+\begin{equation}
+	\text{NMSE} = \frac{\langle \| \hat{\mathbf{y}}(n) - \mathbf{y}(n)\|^2 \rangle _n}{\langle \| \hat{\mathbf{y}}(n) - \langle \hat{\mathbf{y}}(n) \rangle _n \|^2 \rangle _n}
+\end{equation}
+
+With $\hat{\mathbf{y}}(n)$ the target vector, $\langle \dots \rangle _n$ the average with respect to $n$, and $\| \dots \|$ the euclidean norm \cite{Duport2016}. Different optimisation algorithms can be used for the optimisation in practice, but their description is out of the scope of this work, see \cite{Lukoeviius2009} for more details.
 
 \section{Simulations}
+
+\subsection{\gls{narma}10}
+
+\acrlong{narma} of order 10 is a model often because its behaviour is similar to that of a time series \cite{Paquot2012}.
+
+\subsection{Nonlinear channel equalisation}
+
 
 
