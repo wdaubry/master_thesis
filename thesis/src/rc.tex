@@ -148,11 +148,53 @@ With $\hat{\mathbf{y}}(n)$ the target vector, $\langle \dots \rangle _n$ the ave
 
 \section{Simulations}
 
+In this section, two different benchmark tasks on which \rcer are evaluated are briefly introduced, and then the results obtained in numerical simulations are shown. Both of them are implementations of the discrete model described in \cite{Vinckier2015}, which is the linear reservoir with the quadratic output for which an overview was given in the previous section:
+
+\begin{equation}
+	x_i(n+1) = 
+	\begin{cases}
+		\alpha e^{j\phi} x_{i-k}(n)+\beta \left(m_i u(n) +A_0 \right) & \text{if } k \leq i \leq N\\
+		\alpha e^{j\phi} x_{N+i-k}(n-1)+\beta \left(m_i u(n) +A_0 \right) & \text{if } 0 \leq i \leq k			
+	\end{cases}
+\end{equation}
+
+Here, the $\text{i}^{th}$ neuron is sent to another one at each update of the state vector, with $k$ being the detuning parameter determining to which one it is mapped. $e^{j\phi}$ is the phase acquired by the complex electric field when it propagates in the delay line. $A_0$ is the input bias.
+
 \subsection{\gls{narma}10}
 
-\acrlong{narma} of order 10 is a model often because its behaviour is similar to that of a time series \cite{Paquot2012}.
+\acrlong{narma} of order 10 is a model often used because it exhibits a similar behaviour to that of a time series \cite{Paquot2012}. If $u(n)$ is a random variable uniformly distributed along the interval $[-0.5, 0.5]$, the recurrent equation for \gls{narma}10 reads:
+
+\begin{equation}
+	\hat{y}(n+1) = 0.3\hat{y}(n)+0.05y(n)\left(\sum_{i=0}^9 y(n-i) \right)+1.5u(n-9)u(n)+0.1
+\end{equation}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{narma10.png}
+	\caption{\gls{narma}10 task with NMSE equal to 0.1541. This reservoir is made of 50 neurons. $\alpha=0.5$, $k=7$, $\phi=0$ rad, $\beta=1$, $A_0=1$, $\mathbf{m}$ is a random vector distributed between 0 and 1. The first 300 time steps were discarded in order to let enough time to the reservoir to enter the echo state (washout). Then the reservoir was trained for 3000 time steps and tested over 6000 time steps. This reservoir is particularly well suited for  \gls{narma}10 since the nonlinearities in the signal are mostly quadratic \cite{Vinckier2015}.}
+	\label{narma10}
+\end{figure}
 
 \subsection{Nonlinear channel equalisation}
+
+This task consists in the reconstruction of a signal after it has travelled through a nonlinear channel. The emitted signal $\hat{y}$ is randomly drawn from the symbol set $\{-3,-1,1,3\}$. It is first superposed with following and preceding symbols as can be seen in \eqref{signal_mixing}. After that, a nonlinear transformation is applied to the mixed signals, and a Gaussian noise, whose intensity can be set in order to adjust the signal to noise ratio, is added in \eqref{nonlinear_ch}. 
+
+\begin{align}
+	q(n) &= 0.08\hat{y}(n+2)-0.12\hat{y}(n+1)+\hat{y}(n)+0.18\hat{y}(n-1) \nonumber\\
+	&-0.1\hat{y}(n-2)+0.091\hat{y}(n-3)-0.05\hat{y}(n-4) \nonumber\\
+	&+0.04\hat{y}(n-5)+0.03\hat{y}(n-6)+0.01\hat{y}(n-7) \label{signal_mixing}
+\end{align}
+
+\begin{equation}
+	u(n)=q(n)+0.036q(n)^2-0.011q(n)^3+\nu(n)
+	\label{nonlinear_ch}
+\end{equation}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{nonlinear_ch_eq}
+	\caption{Nonlinear channel equalisation task with a signal error rate of $5~10^{-4}$, with signal to noise ratio equal to 32 dB. This reservoir is the same as the one in Figure \ref{narma10}, as well as the number of time steps for the washout, training and testing phases. The symbols predicted by the \rcer are found by changing the continuous valued output by the closest symbol.}
+\end{figure}
 
 
 
