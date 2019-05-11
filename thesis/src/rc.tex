@@ -93,7 +93,7 @@ Different elements need to be defined:
 	\item $\mathbf{y} \in \mathbb{C}^{m}$ is the output vector of the reservoir whose value can be read out on the output neurons
 	\item $\mathbf{W}^{\text{fb}} \in \mathbb{C}^{N \times m}$ is the feedback matrix. It couples the output back into the reservoir
 	\item $\mathbf{f}: \mathbb{C}^N \mapsto \mathcal{S}$ is the nonlinear function mapping the linear combination it receives as argument to a valid state vector
-	\item $\left(\mathbf{x}(n+1), \mathbf{u}(n+1), \mathbf{y}(n)\right)$ is the concatenation those three vectors
+	\item $\left(\mathbf{x}(n+1), \mathbf{u}(n+1), \mathbf{y}(n)\right)$ is the concatenation of those three vectors
 	\item $\mathbf{W}^{\text{out}} \in \mathbb{C}^{m \times (N+k+m)}$ is the output matrix of the reservoir. It is optimised through \gls{ml}
 	\item $\mathbf{f}^{\text{out}} : \mathbb{C}^{m} \mapsto \mathbb{C}^{m}$ is the output function of the reservoir
 \end{itemize}
@@ -108,7 +108,7 @@ In what follows, the input and the output of the reservoir are just scalar value
 
 This is an example of what was introduced in the previous section. Indeed, the difficulty of tweaking each and every coefficients in order to improve the reservoir is transferred to just a few global variables. This is of great practical importance for physical implementations of \gls{rcer}. Indeed, the experimentalist can alter the behaviour of its \gls{rcer} by only modifying a few global experimental variables.\\
 
-In practice, the feedback of the reservoir output is neglected, especially for physical implementations, so $\wfb$ should be null. Also, the concatenation is not observed. Indeed, in general, when computing the output, only state vectors are considered. Speaking of them, they belong to $\mathcal{S}$ because the fact that the functions $\mathbf{f}$ used in practice are bounded, so the vectors $\mathbf{x}$ span a space \textit{smaller} than $\mathbb{C}^N$. The simplified version of the previous equations reads:
+In practice, the feedback of the reservoir output is neglected, especially for physical implementations, so $\wfb$ should be null. Also, the concatenation is not observed. Indeed, when computing the output, only state vectors are considered. Speaking of them, they belong to $\mathcal{S}$ because the fact that the functions $\mathbf{f}$ used in practice are bounded, so the vectors $\mathbf{x}$ span a space \textit{smaller} than $\mathbb{C}^N$. The simplified version of the previous equations reads:
 
 \begin{align}
 	\mathbf{x}(n+1) &= \mathbf{f} \left( \alpha \mathbf{A} \mathbf{x}(n) + \beta \mathbf{m} u(n+1) \right)\\
@@ -136,7 +136,7 @@ Therefore, it appears more clearly why the condition mentioned previously regard
 	\label{quad_output_rc}
 \end{equation}
 
-The latter scheme is of particular interest for the remaining of this work, because the novel proposed implementation relies on the sme principle. It is also interesting to notice that is quite similar to the first \gls{nn} paradigm, the \emph{perceptron}, introduced by F. Rosenblatt in 1958 \cite{Rosenblatt58theperceptron}. Equations \eqref{lin_output_rc} and \eqref{quad_output_rc} give an interesting intuition on the meaning of the \gls{esn}. Indeed, as said previously, when a \rc reaches the echo state, each of the neurons tends to systematically reproduce a modified version of the input, the actual modification being an individual characteristic of each neuron \cite{Jaeger2004}. One can see this feature in the perspective of linear algebra. When the \rcer is fed with an input, it creates a set of time varying functions that can intuitively be seen as a basis in which one can try to express the output of the reservoir, which is nothing but a vector in the vectorial space of functions. This is why it is often said in the literature that a \rcer maps an input to a higher dimensional space. Therefore, one can in theory approach any target function with an arbitrary precision, depending on the number of neurons in the reservoir \cite{Jaeger2004}. The higher the number of neurons, the closer to a genuine series development one gets. Still in the same perspective, the $W^{\text{out}}_i$ can be seen as the Fourier coefficients of the output function.\\
+The latter scheme is of particular interest for the remaining of this work, because the novel proposed implementation relies on the same principle. It is also interesting to notice that is quite similar to the first \gls{nn} paradigm, the \emph{perceptron}, introduced by F. Rosenblatt in 1958 \cite{Rosenblatt58theperceptron}. Equations \eqref{lin_output_rc} and \eqref{quad_output_rc} give an interesting intuition on the meaning of the \gls{esn}. Indeed, as said previously, when a \rc reaches the echo state, each of the neurons tends to systematically reproduce a modified version of the input, the actual modification being an individual characteristic of each neuron \cite{Jaeger2004}. One can see this feature in the perspective of linear algebra. When the \rcer is fed with an input, it creates a set of time varying functions that can intuitively be seen as a basis in which one can try to express the output of the reservoir, which is nothing but a vector in the vectorial space of functions. This is why it is often said in the literature that a \rcer maps an input to a higher dimensional space. Therefore, one can in theory approach any target function with an arbitrary precision, depending on the number of neurons in the reservoir \cite{Jaeger2004}. The higher the number of neurons, the closer to a genuine series development one gets. Still in the same perspective, the $W^{\text{out}}_i$ can be seen as the Fourier coefficients of the output function.\\
 
 To determine the output matrix $\mathbf{W}^{\text{out}}$, as said in the previous section, there exists several techniques, but the underlying intuitive idea is always the same. One wants to minimise the deviation between the actual output and the target. Different metrics can be used to encapsulate the distance between those values. In the literature, one of the most frequent is the NMSE, for Normalised Mean Square Error:
 
@@ -158,14 +158,14 @@ In this section, two different benchmark tasks on which \rcer are evaluated are 
 	\end{cases}
 \end{equation}
 
-Here, the $\text{i}^{th}$ neuron is sent to another one at each update of the state vector, with $k$ being the detuning parameter determining to which one it is mapped. $e^{j\phi}$ is the phase acquired by the complex electric field when it propagates in the delay line. $A_0$ is the input bias.
+Here, the $i^{th}$ neuron is sent to another one at each update of the state vector, with $k$ being the detuning parameter determining to which one it is mapped. $e^{j\phi}$ is the phase acquired by the complex electric field when it propagates in the delay line. $A_0$ is the input bias.
 
 \subsection{\gls{narma}10}
 
 \acrlong{narma} of order 10 is a model often used because it exhibits a similar behaviour to that of a time series \cite{Paquot2012}. If $u(n)$ is a random variable uniformly distributed along the interval $[-0.5, 0.5]$, the recurrent equation for \gls{narma}10 reads:
 
 \begin{equation}
-	\hat{y}(n+1) = 0.3\hat{y}(n)+0.05y(n)\left(\sum_{i=0}^9 y(n-i) \right)+1.5u(n-9)u(n)+0.1
+	\hat{y}(n+1) = 0.3\hat{y}(n)+0.05\hat{y}(n)\left(\sum_{i=0}^9 \hat{y}(n-i) \right)+1.5u(n-9)u(n)+0.1
 \end{equation}
 
 \begin{figure}[h]
