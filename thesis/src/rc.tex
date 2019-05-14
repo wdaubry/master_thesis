@@ -9,53 +9,44 @@
 
 \subsection{Artificial \acrlong{nn}}
 
-A \gls{rcer} is specific kind of \gls{nn}, which is a computation paradigm mimicking the behaviour of a biological brain. The artificial neurons are simply interconnected entities carrying an activation level. The activation level of a neuron is updated according to the connection weights of the network, also known as the synaptic matrix, and with a nonlinear function, called the \textit{activation function} \cite[p.225]{bishop2006pattern}\cite[p.727]{russell2010artificial}. On Figure \ref{nn}, a feedforward \gls{nn} is depicted. It is called feedforward because the computation goes from left (input neurons in red) to right (output neurons in green). The gray neurons in the middle belong to the hidden layers, which are layers that are used to improve the computing power of such networks. On this Figure, the connection weights of the synaptic matrix are represented by the arrows joining the different neurons. The results of a computation can be read on the activation level of the output neurons.\\
+A \gls{rcer} is specific kind of \gls{nn}, which is a computation paradigm mimicking the behaviour of a biological brain. The artificial neurons are simply interconnected entities carrying an activation level. The way the activation level is updated depends on the scheme, but the basic idea is common for all of them: a neuron receives a linear combination of the activation level of the neurons to which it is connected, and then computes a nonlinear transformation of this value. This gives the new activation level. On Figure \ref{nn}, a feedforward \gls{nn} is depicted. It is called feedforward because the computation goes from left (input neurons in red) to right (output neurons in green). Feedforward \gls{nn} are organised in layers, and a neuron from one layer can only be influenced by neurons in the adjacent layers. This is shown on the Figure by the arrows representing the connections. The gray neurons in the middle belong to the hidden layers, which are used to improve the computing power of such networks. The results of a computation can be read on the activation level of the output neurons \cite[p.727]{russell2010artificial}\cite[p.225]{bishop2006pattern}.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=.6\textwidth]{nn}
+	\includegraphics[width=.55\textwidth]{nn}
 	\caption{Schematic representation of a feedforward \gls{nn}}
 	\label{nn}
 \end{figure}
 
 \subsection{\acrlong{rc}}
 
-\gls{rcer} are a different kind of \gls{nn}. 
+\rcer have been designed to process time dependent inputs, so their structure is inherently different from that of a feedforward \gls{nn}, because they need to exhibit other properties. In this scheme, all the neurons are interconnected and form what is called the reservoir. A reservoir is fed with an input signal which it should process. When the reservoir is properly set up, the activation level of each of the neurons becomes a systematic transformed version of the input signal \cite{Jaeger2004}. This operating point is called the echo state and allows \rcer to reach their best performances \cite{Goudarzi2014ACS, JaegerH.2001Tesa}. In this regime, \rcer exhibit a short-term memory of the previous inputs, which could explain why they perform so well in time dependent situations \cite{Jaeger2004}. There are many physical implementations of \rcer proposed in the literature. Since many of them are based on optical setups \cite{VanderSande2017}, the Section \ref{prc} is devoted to explaining the underlying ideas of this kind of physical reservoir. To give a better idea on how flexible the \rc sheme is, in \cite{Fernando2003}, the researchers even managed to perform speech recognition and to resolve the XOR problem\footnote{The XOR task consists in reproducing the behaviour of a logical XOR gate, which is a task of historical importance for \gls{nn} \cite{minsky1969perceptrons}.} in a bucket of water. \\
 
-
-The activation level of the neurons making up the reservoir characterise its state, which is a time-dependent object. The neurons are interconnected in such a way that they influence the dynamic of each other, leading to a complicated evolution of the state. What at first glance may seem to be a mathematical nightmare turns out to be the main advantage of \gls{rc}. Indeed, when the reservoir is properly set up, the activation level of each of the neurons becomes a systematic transformed version of the input signal \cite{Jaeger2004}. This is called the echo state and this is the regime where \gls{rcer} reach their best performance \cite{Goudarzi2014ACS, JaegerH.2001Tesa}. The output of a \gls{rcer} is obtained by adequately combining the activation state of each neurons. The ideas developed in this paragraph are illustrated on Figure \ref{rc_principle}.\\
+On Figure \ref{rc_principle}, a \rcer is shown. The neurons of the reservoir are represented in orange. They characterise what is called the state of the reservoir, which is encoded by $\mathbf{x}(t)$. They are coupled by the connection matrix $\mathbf{W}$. The input signal $u(t)$ is fed into the input neuron (blue) and is coupled to the reservoir by the input matrix $\mathbf{W}^{\text{in}}$. The output $y(t)$ is read on the output neuron (red) and is obtained via the output matrix $\mathbf{W}^{\text{out}}$. This matrix is the only one that needs to be updated when the reservoir is learning. The next paragraph, which is about \gls{ml},  is devoted to the task of computing the right output matrix. For some applications, it can be useful to have a feedback of the output sent back into the reservoir, which can be achieved by the feedback matrix $\mathbf{W}^{\text{fb}}$. The mathematical objects mentioned in this paragraph are detailed in Section \ref{rc-mathematical-model}.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=.6\textwidth]{rc_principle.png}
-	\caption{Principle scheme of a \acrlong{rcer} \cite{financialTimeSeries}}
+	\caption{Schematic representation of a \acrlong{rcer} \cite{financialTimeSeries}}
 	\label{rc_principle}
 \end{figure}
 
 \subsection{\acrlong{ml}}
 
-Regardless of the learning scheme used to train a \gls{nn}, the basic idea is always to minimise the difference between the desired and the actual outputs. In practice, this is achieved by updating the coefficients in the synaptic matrix of the \gls{nn} \cite[p.233]{bishop2006pattern}\cite[p.733]{russell2010artificial}. In Figure \ref{nn-ml}, the learning procedure for a small portion of a feed-forward \gls{nn}, for instance the one from Figure \ref{nn}, is shown. The \gls{nn} is fed with data from the left, as can be seen with the blue arrows. The red arrows represent the error on the output being \emph{backpropagated}, which means that the learning algorithm evaluates how each connection weight of the synaptic matrix should be updated in order to decrease the output error \cite[p.241]{bishop2006pattern}. This procedure often turns out to be a really complicated task, which explains why the development of efficient \gls{ml} algorithms is such a hot topic nowadays. On the other hand, as can be seen on Figure \ref{rc-ml}, \gls{rcer} only need their output weights to be adjusted when being trained, which makes them computationally lighter\cite{Jaeger2004}. This is due to the fact the connections of the reservoir should not contain any information about the task, but should only be used to reach the \gls{esn} regime, as previously mentioned. There are two main families of training methods for \gls{rcer} \cite{Jaeger2002}. On the one hand, there is the \textit{batch learning}, which comprises the methods requiring to first store a bunch of data regarding the task being taught before being able to actually compute the output weights. Once enough data is gathered, this kind of algorithms returns the optimal weights all at once. They present the advantage of involving only one training phase, after which the \gls{rcer} are ready to perform. However, the need for vast amount of data and the inability for the \gls{rcer} to adapt to an input evolving out of the range for which it has been trained are two drawbacks. On the other hand, \textit{online learning} methods allow to iteratively improve the output weights. Therefore, starting from a first guess, these algorithms will converge to workable output weights. They are much more adaptable than the batch learning ones, however, their convergence is not guaranteed and can be slow \cite{JaegerTraining, schrauwen}.
+Regardless of the learning scheme used to train a \gls{nn}, the basic idea is always to minimise the difference between the desired and the actual outputs. In practice, this is achieved by updating the different connection coefficients of the \gls{nn} \cite[p.233]{bishop2006pattern}\cite[p.733]{russell2010artificial}. This procedure often turns out to be a really complicated task for feedforward \gls{nn}, which explains why the development of efficient \gls{ml} algorithms is such a hot topic nowadays. In contrast, as can be seen on Figure \ref{rc-ml}, \gls{rcer} only need their output weights to be adjusted when being trained, which makes them computationally lighter \cite{Jaeger2004}. This is due to the fact the connections of the reservoir should not contain any information about the task, but should only be used to reach the \gls{esn} regime, as previously mentioned. There are two main families of training methods for \gls{rcer} \cite{Jaeger2002}. On the one hand, there is the \textit{batch learning}, which comprises the methods requiring to first store a bunch of data regarding the task being taught before being able to actually compute the output weights. Once enough data is gathered, this kind of algorithms returns the optimal weights all at once. They present the advantage of involving only one training phase, after which the \gls{rcer} are ready to perform. However, the need for vast amount of data and the inability for the \gls{rcer} to adapt to an input evolving out of the range for which it has been trained are two drawbacks. On the other hand, \textit{online learning} methods allow to iteratively improve the output weights. Therefore, starting from a first guess, these algorithms will converge to workable output weights. They are much more adaptable than the batch learning ones, however, their convergence is not guaranteed and can be slow \cite{JaegerTraining, schrauwen}.
 
 \begin{figure}[h]
 	\centering
-	\begin{subfigure}{.5\textwidth}
-		\centering
-		\includegraphics[height=3.5cm]{nn-ml.png}
-		\caption{\acrlong{nn} \cite[p.244]{bishop2006pattern}}
-		\label{nn-ml}
-	\end{subfigure}%
-	\begin{subfigure}{.5\textwidth}
-		\centering
-		\includegraphics[height=3.5cm]{rc-ml.png}
-		\caption{\acrlong{rcer} \cite{Goudarzi2014ACS}}
-		\label{rc-ml}
-	\end{subfigure}
-	\caption{\acrlong{ml} for different kinds of \acrlongpl{nn}}
+	\includegraphics[width=.7\textwidth]{rc-ml.png}
+	\caption{Learning procedure for \acrlong{rcer} \cite{Goudarzi2014ACS}}
+	\label{rc-ml}
 \end{figure}
 
-In order to reach the echo state regime, the constraints on the coupling between the neurons of the reservoir are actually quite loose. What is required is to introduce randomness and to break symmetries in the synaptic matrix. Once this condition is verified, the performance of the reservoir can be modified by tweaking only a small set of variables applying to the whole \gls{rcer}. In other words, as soon as the basic structure of the reservoir is set, there is no need to individually change the value of each connection to improve it, only modifying globally the reservoir is enough, for example by multiplying all the connection weights by the same constant. This property is a key element of the \gls{rcer} paradigm that allows it to be implemented in physical systems other than classical, silica-based computers. This has already been done several times in photonic experiments, leading to the novel concept of \gls{prc}. Different implementations have been proposed: fully integrated photonic chips \cite{Vandoorne2014}, fibre-based systems with time-multiplexed neurons coupled through a delay line with nonlinearities introduced by a Mach-Zehnder intensity modulator \cite{Paquot2012, Antonik2017, Duport2016}, by saturation of absorption \cite{Dejonckheere2014, Vandoorne2008} and by the readout photodiodes \cite{Vinckier2015}. This latter configuration even reached state of the art performances in different benchmark tasks, such as Memory Capacity Evaluation, \acrshort{narma}10 (\acrlong{narma} of order 10), nonlinear channel equalisation, and isolated spoken digit recognition. In \cite{Fernando2003}, the researchers even manage to perform speech recognition and the XOR task\footnote{The XOR task consists in reproducing the behaviour of a logical XOR gate, which is a task of historical importance for \gls{nn} \cite{minsky1969perceptrons}.} in a bucket of water. 
+ This has already been done several times in photonic experiments, leading to the novel concept of \gls{prc}. Different implementations have been proposed: fully integrated photonic chips \cite{Vandoorne2014}, fibre-based systems with time-multiplexed neurons coupled through a delay line with nonlinearities introduced by a Mach-Zehnder intensity modulator \cite{Paquot2012, Antonik2017, Duport2016}, by saturation of absorption \cite{Dejonckheere2014, Vandoorne2008} and by the readout photodiodes \cite{Vinckier2015}. This latter configuration even reached state of the art performances in different benchmark tasks, such as Memory Capacity Evaluation, \acrshort{narma}10 (\acrlong{narma} of order 10), nonlinear channel equalisation, and isolated spoken digit recognition.  
 
 \section{Mathematical Model}
+
+\label{rc-mathematical-model}
 
 In this section, an overview of the mathematical framework is given. First, let us define the \textit{state} of the reservoir. As said previously, the \gls{rc} can be fully described by the activation level of each of its neurons. The state is therefore defined as a vector whose components are the activation levels of the neurons. If the number of neurons making up the reservoir is $N$, and if $x_i$ is the activation level of the $i^{\text{th}}$ neuron, then the state vector reads as follows:
 
@@ -69,7 +60,7 @@ In this section, an overview of the mathematical framework is given. First, let 
 	\end{bmatrix}
 \end{equation}
 
-The dynamics governing the state vector and the output of the reservoir proposed in \cite{JaegerH.2001Tesa} are presented below. In practice, it is too general for the implementations studied in this work. However, the equations are introduced without loss of generality, and simplifying assumptions will be specified later.
+The dynamics governing the state vector and the output of the reservoir proposed in \cite{JaegerH.2001Tesa} are presented below. In practice, it is too general for the implementations studied in this work. However, the equations are introduced without loss of generality, and simplifying assumptions applying the photonic implementations of \rcer will be specified in the section devoted to them.
 
 \begin{align}
 	\mathbf{x}(n+1) &= \mathbf{f} \left( \mathbf{W}^{\text{in}} \mathbf{u}(n+1) + \mathbf{W} \mathbf{x}(n) + \mathbf{W}^{\text{fb}} \mathbf{y}(n) \right) \label{rc_dynamics}\\
@@ -192,6 +183,8 @@ This task consists in the reconstruction of a signal after it has travelled thro
 
 
 \section{Introduction to \acrlong{prc}}
+
+\label{prc}
 
 \subsection{\acrlong{tdm} neurons}
 
