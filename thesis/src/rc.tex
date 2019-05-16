@@ -100,7 +100,7 @@ Different elements need to be defined:
 
 \subsection{Computation of the output weights}
 
-To determine the output matrix $\mathbf{W}^{\text{out}}$, one needs to perform a ridge (or Tikhonov) regression \cite{NIPS2010_4056}, which is an improved version of multivariate linear regression that improves the numerical stability of the scheme. By restricting the desired output to a scalar function $\hat{y}(n)$ and by taking a learning period of $T$ time steps, one defines the matrices $\mathbf{X}$ and $\hat{\mathbf{Y}}$ and solves the following equation to find the output weights vector $\mathbf{W}^{\text{out}}$:
+To determine the output matrix $\mathbf{W}^{\text{out}}$ in the batch learning approach, one needs to perform a ridge (or Tikhonov) regression \cite{NIPS2010_4056}, which is an improved version of multivariate linear regression that improves the numerical stability of the scheme. By restricting the desired output to a scalar function $\hat{y}(n)$ and by taking a learning period of $T$ time steps, one defines the matrices $\mathbf{X}$ and $\hat{\mathbf{Y}}$ and solves the following equation to find the output weights vector $\mathbf{W}^{\text{out}}$:
 
 \begin{equation}
 	\mathbf{X} = \begin{bmatrix}
@@ -138,15 +138,15 @@ As already mentioned, different implementations of \gls{prc} have been proposed 
 
 In this section, the assumptions applying to reservoir with \gls{tdm} of the neurons are first presented. Indeed, the equations introduced in the previous section can be substantially simplified when one is working with this kind of reservoir. After that, setups where neurons are encoded in the intensity of the light are considered. Finally, experiments in which the neurons are represented in the phaser of the electric field are presented. Recalling that the light intensity is proportional to the squared modulus of the phaser of the electric field, it is shown that the outputs of these two kinds of reservoir are different, but analogous, and that they rely on the same mathematical interpretation. The latter scheme is studied with greater length since it reaches state of the art performances in classical benchmark tasks and since the novel implementation which is the main topic of this work shares some features with it. As a last remark, and to give a better understanding on the flexibility of \rcer, in \cite{Fernando2003} the researchers managed to perform speech recognition and to resolve the XOR problem\footnote{The XOR task consists in reproducing the behaviour of a logical XOR gate, which is a task of historical importance for \gls{nn} \cite{minsky1969perceptrons}.} in a bucket of water.\\
 
-%%% TDM of the neurons %%%
+%%% TDM OF THE NEURONS %%%
 
 \subsection{\acrlong{tdm} of the neurons}
 
- Many implementations of \rcer based on \gls{tdm} of the neurons have been proposed in the literature \cite{Paquot2012, Antonik2017, Duport2016, Dejonckheere2014, Vandoorne2008, Vinckier2015}. These setups are practically implemented by the use of a delay line.
- 
- 
- fully integrated photonic chips \cite{Vandoorne2014}, fibre-based systems with time-multiplexed neurons coupled through a delay line with nonlinearities introduced by a Mach-Zehnder intensity modulator \cite{Paquot2012, Antonik2017, Duport2016}, by saturation of absorption \cite{Dejonckheere2014, Vandoorne2008} and by the readout photodiodes \cite{Vinckier2015}. This latter configuration even reached state of the art performances in different benchmark tasks, such as Memory Capacity Evaluation, \acrshort{narma}10 (\acrlong{narma} of order 10), nonlinear channel equalisation, and isolated spoken digit recognition. \\
+ Many implementations of \rcer based on \gls{tdm} of the neurons have been proposed in the literature \cite{Paquot2012, Antonik2017, Duport2016, Dejonckheere2014, Vandoorne2008, Vinckier2015}.
 
+%% SIMPLIFYING ASSUMPTIONS %%%
+
+\subsubsection{Simplifying assumptions}
 
 In what follows, the input and the output of the reservoir are just scalar values, which simplifies the previous equations. Thus, $\win$ becomes a simple real vector of length $N$ which is called the \textit{input mask} $\mathbf{m}$ in the literature. The input mask can be chosen in different ways: in \cite{Duport2016}, they use a sinusoidal input mask whereas in \cite{Antonik2017, Vinckier2015, Paquot2012} the input masks are randomly chosen. Once this vector is fixed, it should be multiplied by a constant to optimise the performance of the \gls{rcer}. Very few constraints apply to the creation of the connection matrix $\w$. It can be randomly generated and sparse. However, to make the occurence of the echo state more likely to happen, one wants to work with a spectral radius $\rho \left( \w \right)<1$. If this condition is not verified, as well as degrading the performance of the reservoir, this can also lead to instabilities \cite{Lukoeviius2009}. Therefore, once again, once the matrix $\w$ is fixed, one can multiply it by another constant for the same reason mentioned before. Thus, by defining $\alpha$ and $\beta$,  the feedback\footnote{This may seem like a misnomer at this point since it has nothing to do with $\wfb$, but this name is used because $\alpha$ acts as a gain for the activation level of the neurons being fed back into the reservoir.} and input gains, respectively:
 
@@ -190,9 +190,13 @@ The latter scheme is of particular interest for the remaining of this work, beca
 
 \subsubsection{Neurons encoded in light intensity}
 
+Mach-Zehnder intensity modulator \cite{Paquot2012, Antonik2017, Duport2016}, by saturation of absorption \cite{Dejonckheere2014, Vandoorne2008}
+
 % NEURONS ENCODED IN COMPLEX ELECTRIC FIELD %
 
 \subsubsection{Neurons encoded in phaser representation of the electric field}
+
+readout photodiodes \cite{Vinckier2015}
 
 \section{Simulations}
 
