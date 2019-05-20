@@ -1,12 +1,11 @@
 \chapter{\acrlong{rc}}
 \label{rc}
 
-%%%%%%%%%% INTRODUCTION %%%%%%%%%%%%
-
-\section{Introduction}
-
-% What is a rc
 \gls{rc} is a bio-inspired artificial \gls{rnn} which is based on the \gls{esn} introduced by Herbert Jaeger in \cite{Jaeger2004}. This computation scheme is well suited for real-time data processing and for chaotic time series prediction\cite{Jaeger2004, JaegerH.2001Tesa, Lukoeviius2012}, and achieves state of the art performances in those domains, as well as in speech recognition\cite{Verstraeten2006, NIPS2010_4056, Jaeger2007}, nonlinear channel equalisation\cite{Jaeger2004} and financial forecasting \cite{financialTimeSeries}.\\
+
+The first section of this chapter introduces the different concepts linked with \rc. It starts by giving a brief overview on the \gls{nn} computation paradigm from which \rc has been derived. After that, the structure, operating principles and features of \rcer are presented. Then, a few elements of \gls{ml} are mentioned in order to have a first glimpse of the training procedure for \rcer. The second section is devoted to the mathematical model governing a \rcer. The last section is about Photonic Reservoir Computers. During the last decade, several physical implementations of \rcer have been proposed, some of which being optical setups. This kind of \rcer is presented, and most specifically reservoir involving \gls{tdm}. Finally, a \rcer is used to resolve two different benchmark tasks and the results on the computations are shown.
+
+\section{\acrlong{rc} framework}
 
 %%% ARTIFICIAL NEURAL NETWORK %%%
 
@@ -134,7 +133,7 @@ Different metrics can be used to capture the distance between the actual and the
 
 \label{prc}
 
-As already mentioned, different implementations of \gls{prc} have been proposed \cite{VanderSande2017}. In this section, systems in which neurons are multiplexed in time are studied because they constitute a good first approach to \gls{prc} and because they bring insights that are interesting for the scheme explored in this thesis. However, it is worth mentioning that one can find among others spatially distributed \rcer based on fully integrated silicon-chip with nonlinearities stemming from \acrlongpl{soa} \cite{Vandoorne2014}, and on diffractively coupled \acrlongpl{vcsel} \cite{Brunner2015}. \\
+As already mentioned, different implementations of \gls{prc} have been proposed \cite{VanderSande2017}. In this section, systems in which neurons are multiplexed in time are studied because they constitute a good first approach to \gls{prc} and because they bring insights that are interesting for the scheme explored in this thesis. However, it is worth mentioning that one can find among others spatially distributed \rcer based on fully integrated silicon-chip with nonlinearities stemming from \acrlongpl{soa} \cite{Vandoorne2014}, and on diffractively coupled Vertical-Cavity Surface-Emitting Lasers \cite{Brunner2015}. \\
 
 In this section, the assumptions applying to reservoir with \gls{tdm} of the neurons are first presented. Indeed, the equations introduced in the previous section can be substantially simplified when one is working with this kind of reservoir. After that, setups where neurons are encoded in the intensity of the light are considered. Finally, experiments in which the neurons are represented in the phaser of the electric field are presented. Recalling that the light intensity is proportional to the squared modulus of the phaser of the electric field, it is shown that the outputs of these two kinds of reservoir are different, but analogous, and that they rely on the same mathematical interpretation. The latter scheme is studied with greater length since it reaches state of the art performances in classical benchmark tasks and since the novel implementation which is the main topic of this work shares some features with it. As a last remark, and to give a better understanding on the flexibility of \rcer, in \cite{Fernando2003} the researchers managed to perform speech recognition and to resolve the XOR problem\footnote{The XOR task consists in reproducing the behaviour of a logical XOR gate, which is a task of historical importance for \gls{nn} \cite{minsky1969perceptrons}.} in a bucket of water.\\
 
@@ -142,7 +141,9 @@ In this section, the assumptions applying to reservoir with \gls{tdm} of the neu
 
 \subsection{\acrlong{tdm} of the neurons}
 
- Many implementations of \rcer based on \gls{tdm} of the neurons have been proposed in the literature \cite{Paquot2012, Antonik2017, Duport2016, Dejonckheere2014, Vandoorne2008, Vinckier2015}. On Figure \ref{tdm-neurons-principle}, one can observe how the neurons can be multiplexed in time. Here, $T$ is the time scale of the input signal, and there are 5 neurons in the reservoir. Therefore, one can see that the allocated window for each of the neurons lasts $\theta = T/N$. Since $\theta$ cannot be arbitrarily small in practice\footnote{If $\theta$ gets too short, it exceeds the bandwidth of measurement devices, so it becomes impossible to measure the neurons.}, this implies that the greater the number of neurons, the greater $T$ and thus the slower the time scale of the input data. This suggests that one should look for a tradeoff between accuracy and speed in data processing for this kind of \rcer.
+\label{tdm-neurons}
+
+ Many implementations of \rcer based on \gls{tdm} of the neurons have been proposed in the literature \cite{Paquot2012, Antonik2017, Duport2016, Dejonckheere2014, Vandoorne2008, Vinckier2015}. Let $T$ be the time scale of the input signal. It should be close to the \gls{rtt} of the delay line, but not  exactly the same in order to be able to couple the neurons. The detuning between the \gls{rtt} and $T$ is controlled by the integer parameter $k$. On Figure \ref{tdm-neurons-principle}, one can observe how the neurons can be multiplexed in time. One can see that the allocated window for each of the neurons lasts $\theta = T/N$. Since $\theta$ cannot be arbitrarily small in practice\footnote{If $\theta$ gets too short, it exceeds the bandwidth of measurement devices, so it becomes impossible to measure the neurons.}, this implies that the greater the number of neurons, the greater $T$ and thus the slower the time scale of the input data. This suggests that one should look for a tradeoff between accuracy and speed in data processing for this kind of \rcer. For example, in \cite{Vinckier2015}, the refresh rate of the input is around 0.9 GHz.
  
  \begin{figure}[h]
  	\centering
@@ -152,7 +153,7 @@ In this section, the assumptions applying to reservoir with \gls{tdm} of the neu
  \end{figure}
  
 
-%% SIMPLIFYING ASSUMPTIONS %%%
+%%% SIMPLIFYING ASSUMPTIONS %%%
 
 \subsection{Simplifying assumptions}
 
@@ -196,7 +197,9 @@ There are two major families of \gls{tdm} \gls{prc}. The first kind of \gls{prc}
 
 \subsection{Neurons encoded in phaser representation of the electric field}
 
-On the other hand, in \cite{Vinckier2015}, the neurons are encoded in the complex phaser representation of the electric field and are linearly coupled using a delay line. In this scheme, the reservoir is linear, as can be seen on equation \eqref{rc_lin_dynamics}. This kind of \rcer is described with greater length because the new approach studied in this thesis relies on on a linear reservoir as well. In this equation, $\alpha$ and $\beta$ are the feedback and input gains, respectively $A_0$ is the input bias and $\phi$ is the phase acquired by the electric field during by going through the delay line.
+\label{rc-lin-complex}
+
+On the other hand, in \cite{Vinckier2015}, coherent light is used and the neurons are encoded in the complex phaser representation of the electric field and are linearly coupled using a delay line. In this scheme, the reservoir is linear, as can be seen on equation \eqref{rc_lin_dynamics}. This kind of \rcer is described with greater length because the new approach studied in this thesis relies on on a linear reservoir as well. In this equation, $\alpha$ and $\beta$ are the feedback and input gains, respectively, $A_0$ is the input bias, $\phi$ is the phase acquired by the electric field during by going through the delay line, and $k$ is the detuning parameter.
 
 \begin{equation}
 	x_i(n+1) = 
@@ -210,7 +213,7 @@ On the other hand, in \cite{Vinckier2015}, the neurons are encoded in the comple
 The equation can be rewritten in a compact way:
 
 \begin{equation}
-	\mathbf{x}(n+1) = \alpha \mathbf{A} \mathbf{x}(n) + \beta \mathbf{m} u(n+1)
+	\mathbf{x}(n+1) = \alpha \mathbf{A} \mathbf{x}(n) + \beta (\mathbf{m} u(n+1)+ \mathbf{A_0})
 	\label{rc_lin_dynamics}
 \end{equation}
 
@@ -251,8 +254,6 @@ In this section, the performance of the linear reservoir with quadratic output f
 \end{figure}
 
 % NONLINEAR CHANNEL EQUALISATION %
-
-\newpage
 
 \subsubsection{Nonlinear channel equalisation}
 

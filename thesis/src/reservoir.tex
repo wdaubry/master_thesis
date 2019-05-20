@@ -1,11 +1,37 @@
-\chapter{\acrlong{wdm} neurons \acrlong{rcer}}
+\chapter{Photonic Reservoir Computer with Wavelength Division Multiplexed neurons}
 
-\section{Introduction}
+\label{ch-wdm-rc}
 
-\section{Mathematical model}
+In this chapter, a novel approach of \gls{prc} is proposed, in which the neurons are no longer multiplexed in time, but in wavelength (or frequency) instead. This scheme was introduced in \cite{AkroutAkram2016Pprc} and its end goal is to overcome the speed limitations imposed by the \gls{tdm} of the neurons, as exposed in section \ref{tdm-neurons-principle}. Indeed, by multiplexing the neurons in the frequency domain, the input signal can reach them all in the same time, there is no need to slow down its pace to let it alter the neurons sequentially. As an illustration, in \cite{Vandoorne2014}, they proposed the first \gls{prc} with parallelisation of the neurons. In the experiment described in the paper, the neurons were spatially multiplexed. Doing so, the authors were able to reach data processing rates up to 12.5 GHz on tasks such as header recognition or boolean logic, which is an increase of one order of magnitude compared to those reported in \cite{Vinckier2015}. This is encouraging for research in parallel \gls{prc} and motivates the novel scheme explored in this thesis.\\
 
-\subsection{Effect of a \acrlong{pm}}
+First, in section \ref{sec-scheme-wdm}, a description of the working principle is given. It starts with a high-level overview of the scheme in which different features and components are presented. After that, attention is brought to the frequency coupling mechanism used to let the neurons interact between one another. It is shown that this can be achieved using a optoelectronic \gls{pm}, even though this device has some practical drawbacks. Finally, the scheme is described with more details. In section \ref{sec-challenges-wdm}, the stabilisation issue, which is main topic of this thesis, is introduced.
 
-\subsection{Mathematical model}
+%%%%%%%%%% DESCRIPTION OF THE SCHEME %%%%%%%%%%
+
+\section{Description of the scheme}
+
+\label{sec-scheme-wdm}
+
+In this section, an intuitive idea of the working principle of \gls{wdm} \gls{prc} is first given. This scheme takes advantage of the wave character of light and uses different wavelength to encode the neurons. It is fibre-based and relies on an optical cavity made of a fibre loop around 20 m long. Inside the resonator, the different neurons need to be able to interact, therefore one has to provide some coupling mechanism for the different frequencies. This issue is tackled in section \ref{subsec-freq-coupling} and provides interesting mathematical insights that are eventually used to derive a suitable model for this other kind of linear \rcer.
+
+%%% BASIC PRINCIPLE %%%
+
+\subsection{Basic principle}
+
+As stated in the introductory paragraphes, in the proposed scheme the neurons are multiplexed in frequency, which means that each of the neurons is encoded in a different wavelength (or frequency) of a coherent electric field. Loosely speaking, the neuron $x_j$ has a corresponding frequency $\omega_j$. The neurons evolve in an optical cavity made of a fibre loop. The light source exciting the different neurons is a coherent, continuous laser wave. It can either be monochromatic, or emit a frequency comb. It does not matter since a coupling between the frequencies is ensured by the presence of an optoelectronic \gls{pm} inside the cavity anyway. When this kind of device is fed with a monochromatic electric field, it outputs a uniformly spaced frequency comb centred on the input frequency, which is a similar behaviour to that of a laser functioning in the same regime. In what follows, only monochromatic laser sources are considered since it is what has been implemented experimentally.
+
+%%% FREQUENCY COUPLING OF THE NEURONS %%%
+
+\subsection{Frequency coupling of the neurons}
+
+\label{subsec-freq-coupling}
+
+%%% WORKING PRINCIPLE %%%
+
+\subsection{Working principle}
+
+%%%%%%%%%% CHALLENGES %%%%%%%%%%
 
 \section{Challenges}
+
+\label{sec-challenges-wdm}
