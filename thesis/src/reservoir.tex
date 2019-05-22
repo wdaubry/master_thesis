@@ -18,7 +18,7 @@ In this section, the working principle of \gls{wdm} \gls{prc} is first given. Th
 
 \subsection{Working principle}
 
-The working principle of the new reservoir is schematised on Figure \ref{wdm_rc_principle}. The whole setup is fibre-based, and the fibre used is a polarisation maintaining, single mode fibre. 
+The working principle of the new reservoir is schematised on figure \ref{wdm_rc_principle}. The whole setup is fibre-based, and the fibre used is a polarisation maintaining, single mode fibre. 
 
 \paragraph{Input}
 
@@ -26,7 +26,7 @@ The input time series $u(n)$ is converted into a continuous signal $\tilde{u}(t)
 
 \paragraph{Cavity}
 
-The modulated data is then coupled to an optical cavity around 20 metres long\footnote{The length of the cavity can be derived from its \gls{fsr}, which is studied in the next chapter}. Inside this cavity, a \gls{pm} mixes the different optical frequencies. It is driven by a RF signal at frequency $\Omega$. More information about the \gls{pm} can be found in section \ref{subsec-freq-coupling}. Losses are introduced inside the cavity by two main sources, the intrinsic losses of the fibre and the insertion losses of the \gls{pm}, hence the presence of an intra-cavity amplifier used to compensate for them. The neurons are encoded in the electric field evolving inside this cavity, which is schematised on the figure by the three different colours for the fibre loops. Therefore, from now on, the cavity is referred to as the \textit{reservoir}. The holding time $\tau$ introduced earlier should be equal to the \gls{rtt} of the reservoir. This is done in order to update the discrete dynamics of the \rcer each time the light completes a trip around the cavity. Doing so, one ensures that the value of the neuron $x_j$ at discrete time $n+1$ depends on the values of the neurons $x_i$, with $i \in \{1,\dots, N\}$, at precisely time $n$. 
+The modulated data is then coupled to an optical cavity around 20 metres long\footnote{The length of the cavity can be derived from its \gls{fsr}, which is studied in the next chapter}. Inside this cavity, a \gls{pm} mixes the different optical frequencies. More information about the \gls{pm} can be found in section \ref{subsec-freq-coupling}. Losses are introduced inside the cavity by two main sources, the intrinsic losses of the fibre and the insertion losses of the \gls{pm}, hence the presence of an intra-cavity amplifier used to compensate for them. The neurons are encoded in the electric field evolving inside this cavity, which is schematised on the figure by the three different colours for the fibre loops. Therefore, from now on, the cavity is referred to as the \textit{reservoir}. The holding time $\tau$ introduced earlier should be equal to the \gls{rtt} of the reservoir. This is done in order to update the discrete dynamics of the \rcer each time the light completes a trip around the cavity. Doing so, one ensures that the value of the neuron $x_j$ at discrete time $n+1$ depends on the values of the neurons $x_i$, with $i \in \{1,\dots, N\}$, at precisely time $n$. 
 
 \paragraph{Readout}
 
@@ -45,7 +45,7 @@ The electric field encoding the neurons exits the cavity through another coupler
 
 \paragraph{Training and testing}
 
-The training scheme used for this setup is the batch learning. Thus, to compute the output weights $\mathbf{W}^{\text{out}}$, one can use the ridge regression technique introduced in section \ref{subsec-rc-training}. To do so, one needs to discard the first state vectors $\mathbf{x}$ because they correspond to the transient of the reservoir, and then to store them\footnote{Since the output $y$ is constructed using the squared modulus of the activation of the neurons, the matrix $\mathbf{X}$ is filled with $|x_i(n)|^2$ instead of what is said in section \ref{subsec-rc-training}, namely $x_i(n)$} as well as the desired outputs $\hat{y}$ during the whole learning period to create the matrices $\mathbf{X}$ and $\hat{\mathbf{Y}}$. After that, it is straightforward to solve equation \eqref{ridge-regression} and to find the output weights. Once the \rcer is trained, it can move on to the testing phase, during which the outputs $y(n)$ are compared to the desired outputs. From that, one can quantify the performance of the \rcer using the appropriate metric, such as the \gls{nmse} for example.
+The training scheme used for this setup is the batch learning. Thus, to compute the output weights $\wout$, one can use the ridge regression technique introduced in section \ref{subsec-rc-training}. To do so, one needs to discard the first state vectors $\mathbf{x}$ because they correspond to the transient of the reservoir, and then to store them\footnote{Since the output $y$ is constructed using the squared modulus of the activation of the neurons, the matrix $\mathbf{X}$ is filled with $|x_i(n)|^2$ instead of what is indicated in section \ref{subsec-rc-training}, namely $x_i(n)$} as well as the desired outputs $\hat{y}$ during the whole learning period to create the matrices $\mathbf{X}$ and $\hat{\mathbf{Y}}$. After that, it is straightforward to solve equation \eqref{ridge-regression} and to find the output weights. Once the \rcer is trained, it can move on to the testing phase, during which the outputs $y(n)$ are compared to the desired outputs. From that, one can quantify the performance of the \rcer using the appropriate metric, such as the \gls{nmse} for example.
 
 %%% FREQUENCY COUPLING OF THE NEURONS %%%
 
@@ -53,22 +53,36 @@ The training scheme used for this setup is the batch learning. Thus, to compute 
 
 \label{subsec-freq-coupling}
 
+To mix the different frequencies present inside the reservoir a \gls{pm} is used. This kind of device is well known for creating equidistant sidebands. Let $Ee^{i\omega t}$ be the input electric field entering the \gls{pm}. Since a \gls{pm} is an optoelectronic device, it needs to be externally driven by a voltage generator with a RF modulation signal $V_{\text{RF}}(t) = A \sin{(\Omega t)}$, with $\Omega \ll \omega$. Using the \textit{Anger-Jacobi} expansion that allows to express the exponential of a trigonometric function in the basis of its harmonics, one can express the effect of a \gls{pm}:
 
+\begin{align}
+	&Ee^{i\omega t} \overset{\Omega}{\longrightarrow} Ee^{i\omega t}e^{im\sin{(\Omega t)}} \nonumber \\
+	& = E \sum_{n=-\infty}^{\infty} J_n(m) e^{i(\omega+n\Omega)t} \label{tf-pm}
+\end{align}
 
-\begin{equation}
-	Ee^{i\omega t} \underset{\Omega}{\longrightarrow} Ee^{i\omega t}e^{im\sin{(\Omega t)}} = E \sum_{n=-\infty}^{\infty} J_n(m) e^{i(\omega+n\Omega)t}
-\end{equation}
+This formula indicates that the resulting wave is a discrete superposition of planar waves whose frequencies are evenly spaced ($\pulsefreq{\Omega}$ between each frequency component) and centred on the input electric field frequency $\pulsefreq{\omega}$. The coefficient $J_n(m)$ weighting the superposition is the $n^{\text{th}}$ order Bessel function and $m$ is the modulation depth. The latter is related to the modulation amplitude $A$, but the link between them is not straightforward and is experimentally investigated in the next chapter. 
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=.7\textwidth]{bessel}
+	\includegraphics[width=.6\textwidth]{bessel}
+	\caption{Bessel function of order $n \in \{0,\dots,6\}$}
+	\label{bessel}
 \end{figure}
+
+However, what can already be said about $m$ is that it cannot exceed 2 in practice. This is due to the fact that when one increases the modulation frequency $\pulsefreq{\Omega}$, the modulation amplitude $A$ cannot be brought to arbitrarily large values. As a first approximation regarding the RF generator, one could say that the product $\Omega A$ is upper bounded. On figure \ref{bessel}, one can observe the behaviour the Bessel functions $J_n(m)$ with $n \in \{0,\dots, 6\}$. For $m \in [0,2]$, $J_n(m)$ becomes less significant for increasing order $n$. This provides an insight on an intrinsic limitation of this kind of \rcer, which is the limited number of neurons. A possible solution to improve the scheme would be to use a longitudinal multimode laser\footnote{A longitudinal multimode laser emits light at different frequencies} to inject energy in a wider range of neurons. Yet, the coupling between distant neurons would still be very faint.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=.7\textwidth]{power-in-neurons}
-	\caption{\cite{AkroutAkram2016Pprc}}
+	\caption{Experimental spectral density inside the reservoir \cite{AkroutAkram2016Pprc}}
+	\label{power-in-neurons}
 \end{figure}
+
+On figure \ref{power-in-neurons}, the elements regarding the fast decrease of the intensity of the sidebands brought to light in the previous paragraph are confirmed experimentally. On this graph, one can see that only 13 neurons are usable in practice. One also notices that the spectrum is symmetric with respect to the central neuron. This can be explained by the fact that the height of the $n^{\text{th}}$ peak is $\propto |J_n(m)|^2$, and by using a property of the Bessel functions that says that for $n \in \mathbb{Z}$, $J_{-n}(m)=(-1)^n J_n(m)$:
+
+\begin{equation}
+	|J_{-n}(m)|^2 = |(-1)^n J_n(m)|^2 = |J_n(m)|^2
+\end{equation}
 
 %%% MATHEMATICAL MODEL %%%
 
