@@ -1,15 +1,15 @@
-\chapter{\acrlong{rc}}
+\chapter{Reservoir Computing}
 \label{rc}
 
 \gls{rc} is a bio-inspired artificial \gls{rnn} which is based on the \gls{esn} introduced by Herbert Jaeger in \cite{Jaeger2004}. This computation scheme is well suited for real-time data processing and for chaotic time series prediction\cite{Jaeger2004, JaegerH.2001Tesa, Lukoeviius2012}, and achieves state of the art performances in those domains, as well as in speech recognition\cite{Verstraeten2006, NIPS2010_4056, Jaeger2007}, nonlinear channel equalisation\cite{Jaeger2004} and financial forecasting \cite{financialTimeSeries}.\\
 
 The first section of this chapter introduces the different concepts linked with \rc. It starts by giving a brief overview on the \gls{nn} computation paradigm from which \rc has been derived. After that, the structure, operating principles and features of \rcer are presented. Then, a few elements of \gls{ml} are mentioned in order to have a first glimpse of the training procedure for \rcer. The second section is devoted to the mathematical model governing a \rcer. The last section is about Photonic Reservoir Computers. During the last decade, several physical implementations of \rcer have been proposed, some of which being optical setups. This kind of \rcer is presented, and most specifically reservoir involving \gls{tdm}. Finally, a \rcer is used to resolve two different benchmark tasks and the results on the computations are shown.
 
-\section{\acrlong{rc} framework}
+\section{Reservoir Computing framework}
 
 %%% ARTIFICIAL NEURAL NETWORK %%%
 
-\subsection{Artificial \acrlong{nn}}
+\subsection{Artificial Neural Network}
 
 A \gls{rcer} is specific kind of \gls{nn}, which is a computation paradigm mimicking the behaviour of a biological brain. The artificial neurons are simply interconnected entities carrying an activation level. The way the activation level is updated depends on the scheme, but the basic idea is common for all of them: a neuron receives a linear combination of the activation level of the neurons to which it is connected, and then computes a nonlinear transformation of this value. This gives the new activation level. On figure \ref{nn}, a feedforward \gls{nn} is depicted. It is called feedforward because the computation goes from left (input neurons in red) to right (output neurons in green). Feedforward \gls{nn} are organised in layers, and a neuron from one layer can only be influenced by neurons in the adjacent layers. This is shown on the Figure by the arrows representing the connections. The gray neurons in the middle belong to the hidden layers, which are used to improve the computing power of such networks. The results of a computation can be read on the activation level of the output neurons \cite[p.727]{russell2010artificial}\cite[p.225]{bishop2006pattern}.
 
@@ -22,7 +22,7 @@ A \gls{rcer} is specific kind of \gls{nn}, which is a computation paradigm mimic
 
 %%% RESERVOIR COMPUTING %%%
 
-\subsection{\acrlong{rc}}
+\subsection{Reservoir Computing}
 
 \rcer have been designed to process time dependent inputs, so their structure is inherently different from that of a feedforward \gls{nn}, because they need to exhibit other properties. In this scheme, all the neurons are interconnected and form what is called a reservoir. The reservoir is fed with the time dependent input signal it should process. When the reservoir is properly set up, the activation level of each of the neurons becomes a systematic transformed version of the input signal \cite{Jaeger2004}. This operating point is called the echo state and allows \rcer to reach their best performances \cite{Goudarzi2014ACS, JaegerH.2001Tesa}. In this regime, \rcer exhibit a short-term memory of the previous inputs \cite{Jaeger2004}, which could explain why they perform so well in time dependent situations. There are many physical implementations of \rcer proposed in the literature, many of which are based on optical setups \cite{VanderSande2017}, that is why section \ref{prc} is devoted to them.\\
 
@@ -37,7 +37,7 @@ On figure \ref{rc_principle}, a \rcer is shown. The neurons of the reservoir are
 
 %%% MACHINE LEARNING %%%
 
-\subsection{\acrlong{ml}}
+\subsection{Machine Learning}
 
 Regardless of the learning scheme used to train a \gls{nn}, the basic idea is always to minimise the difference between the desired and the actual outputs. In practice, this is achieved by updating the different connection coefficients of the \gls{nn} \cite[p.233]{bishop2006pattern}\cite[p.733]{russell2010artificial}. This procedure often turns out to be a really complicated task for feedforward \gls{nn}, which explains why the development of efficient \gls{ml} algorithms is such a hot topic nowadays. In contrast, as can be seen on figure \ref{rc-ml}, \gls{rcer} only need their output weights to be adjusted when being trained, which makes them computationally lighter \cite{Jaeger2004}. This is due to the fact that the connections of the reservoir should not contain any information about the task, but should only be used to reach the \gls{esn} regime, as mentioned in the previous paragraph. There are two main families of training methods for \gls{rcer} \cite{Jaeger2002}. On the one hand, there is the \textit{batch learning}, which comprises the methods requiring to first store a wealth of data regarding the task being taught before being able to actually compute the output weights. Once enough data is gathered, this kind of algorithms returns the optimal weights all at once. They present the advantage of involving only one training phase, after which the \gls{rcer} are ready to perform. However, the need for vast amount of data and the inability for the \gls{rcer} to adapt to an input evolving out of the range for which it has been trained are two drawbacks. On the other hand, \textit{online learning} methods allow to iteratively improve the output weights. Therefore, starting from a first guess, these algorithms can converge to suitable output weights. They are much more adaptable than the batch learning ones. However, their convergence is not guaranteed and can be slow \cite{JaegerTraining, schrauwen}.
 
@@ -132,7 +132,7 @@ Different metrics can be used to capture the distance between the actual and the
 
 %%%%%%%%%% INTRODUCTION TO PHOTONIC RESERVOIR COMPUTING %%%%%%%%%%
 
-\section{Introduction to \acrlong{prc}}
+\section{Introduction to Photonic Reservoir Computing}
 
 \label{prc}
 
@@ -142,7 +142,7 @@ In this section, the assumptions applying to reservoir with \gls{tdm} of the neu
 
 %%% TDM OF THE NEURONS %%%
 
-\subsection{\acrlong{tdm} of the neurons}
+\subsection{Time Division Multiplexing of the neurons}
 
 \label{tdm-neurons}
 

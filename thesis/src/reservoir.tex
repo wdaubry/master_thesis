@@ -88,6 +88,56 @@ On figure \ref{power-in-neurons}, the elements regarding the fast decrease of th
 
 \subsection{Mathematical model}
 
+This section tackles the derivation of the discrete equation governing the dynamics of the reservoir. This calculation relies on the result stemming from the previous section regarding the effect of a \gls{pm} on an incident electric field. As a first step, the state $\mathbf{x}$ is expressed using a convenient formalism. The end goal here is to be able to use linear algebra because it makes the derivation easier. Let $N$ be the total number of neurons. This implies that $\mathbf{x}$ should be a $N$-dimensional vector that can developed as a linear combination of basis vectors:
+
+\begin{equation}
+	\mathbf{x} = \sum_{i=1}^{N} x_i \hat{\mathbf{e}}_i
+\end{equation}
+
+If the basis vectors are adequately chosen, the state vector $\mathbf{x}$ can reduce to the value of the electric field inside the reservoir. The basis vectors are defined as:
+
+\begin{equation}
+	\hat{\mathbf{e}}_n = e^{i\omega_nt} = e^{i(\omega+n\Omega)t}
+\end{equation}
+
+Moreover, to be consistent, the numbering of the neurons should be modified such that $\hat{\mathbf{e}}_0$ corresponds to the central frequency. Let $\eta$ be the new variable used to iterate through the neurons such that the sum in the linear combination will go from $-\eta$ to $\eta$ instead of from 1 to $N$. $\eta$ is given by $\lfloor N/2 \rfloor$. The state vector $\mathbf{x}$ now reads:
+
+\begin{equation}
+	\mathbf{x} = \sum_{i=-\eta}^{\eta} x_i \hat{\mathbf{e}}_i
+\end{equation}
+
+This is precisely equal to the electric field inside the reservoir. The results from the previous section con now be used to derive the discrete dynamics equation. Knowing the value of each of the neurons at discrete time $n$ and the effect of a \gls{pm}, one can compute the new state vector. To do so, linear algebra is used. One knows that the reservoir is linear, therefore, it should be possible to find a linear mapping between two successive states. If there exists a linear mapping, since one is working in discrete space, there is a matrix representation of this mapping. Furthermore, given that one knows the effect of a \gls{pm} on each of the basis vectors, one can explicitly define this matrix.
+
+\begin{equation}
+	\mathbf{J} = \begin{bmatrix}
+		J_0(m) & J_{-1}(m) & \dots & J_{-\eta}(m) & \dots & J_{-2\eta} \\
+		J_1(m) & J_0(m) & \dots & J_{-\eta+1}(m) & \dots & J_{-2\eta+1} \\
+		\vdots & \vdots &  & \vdots &  & \vdots \\
+		J_{2\eta}(m) & J_{2\eta-1}(m) & \dots & J_\eta(m) & \dots & J_0
+	\end{bmatrix}
+\end{equation}
+
+One should note that each time the light goes around the cavity, it acquires some phase which is dependent on the wavelength. This should be taken into account in the derivation as well. If $\phi_i$ is the phase acquired by the neuron propagating with the frequency $\pulsefreq{\omega_i}$, one can define the phase matrix:
+
+\begin{equation}
+	\mathbf{\Phi} = \begin{bmatrix}
+		e^{i\phi_{-\eta}} & 0 & \dots & \dots & \dots & 0 \\
+		0 & e^{i\phi_{-\eta+1}} & 0 & \dots & \dots & 0 \\
+		\vdots & 0 & \ddots & & & \vdots \\
+		\vdots & \vdots & & e^{i\phi_i} & & \vdots \\
+		\vdots & \vdots & & & \ddots & 0 \\
+		0 & 0 & \dots & \dots & 0 & e^{i\phi_{\eta}}
+	\end{bmatrix}
+\end{equation}
+
+Both $\mathbf{J}$ and $\mathbf{\Phi}$ are $N\times N$ matrices. Finally, recalling that $\alpha$ and $\beta$ are the feedback and input gains, respectively, and that the source laser only injects in the central wavelength, one can express the discrete time dynamics of the reservoir:
+
+\begin{equation}
+	\mathbf{x}(n+1) = \alpha \mathbf{\Phi} \mathbf{J} \mathbf{x}(n) + \beta u(n+1) \hat{\mathbf{e}}_0
+\end{equation}
+
+A few things need to be mentioned. The value of $\alpha$ can be adjusted experimentally by changing the intra-cavity amplification and that of $\beta$ numerically in the computer controlling the experiment. Finally, to be consistent with the model derived here, the figure \ref{wdm_rc_principle}, coming directly from \cite{AkroutAkram2016Pprc}, should be slightly modified. Indeed, the \gls{pm} should be positioned before the input coupler and not between the input and readout coupler, because according to the figure, there should be no inhomogeneous term corresponding to the input signal.
+
 %%%%%%%%%% CHALLENGES %%%%%%%%%%
 
 \section{Challenges}
