@@ -99,7 +99,9 @@ Different elements need to be defined:
 
 \subsection{Computation of the output weights}
 
-To determine the output matrix $\mathbf{W}^{\text{out}}$ in the batch learning approach, one needs to perform a ridge (or Tikhonov) regression \cite{NIPS2010_4056}, which is an improved version of multivariate linear regression that improves the numerical stability of the scheme. By restricting the desired output to a scalar function $\hat{y}(n)$ and by taking a learning period of $T$ time steps, one defines the matrices $\mathbf{X}$ and $\hat{\mathbf{Y}}$ and solves the following equation to find the output weights vector $\mathbf{W}^{\text{out}}$:
+\label{subsec-rc-training}
+
+To determine the output matrix $\mathbf{W}^{\text{out}}$ in the batch learning approach, one needs to perform a ridge (or Tikhonov) regression \cite{NIPS2010_4056}, which is an improved version of multivariate linear regression that improves the numerical stability of the scheme, and that prevents overfitting of the data. By restricting the desired output to a scalar function $\hat{y}(n)$ and by taking a learning period of $T$ time steps, one defines the matrices $\mathbf{X}$ and $\hat{\mathbf{Y}}$ and solves the following equation to find the output weights vector $\mathbf{W}^{\text{out}}$:
 
 \begin{equation}
 	\mathbf{X} = \begin{bmatrix}
@@ -117,6 +119,7 @@ To determine the output matrix $\mathbf{W}^{\text{out}}$ in the batch learning a
 
 \begin{equation}
 	\left(\mathbf{X}^{\text{T}} \mathbf{X}+\epsilon \mathbf{I} \right) \mathbf{W}^{\text{out}} = \mathbf{X}^{\text{T}} \hat{\mathbf{Y}}
+	\label{ridge-regression}
 \end{equation}
 
 Here $\epsilon$ is the constant used for the Tikhonov regression. By setting $\epsilon$ to 0, one finds the \textit{normal equation} that comes up when solving a linear regression \cite{Goudarzi2014ACS} in the sense of the least squares. This procedure can be generalised to higher dimensions desired output vectors $\hat{\mathbf{y}}(n)$. Different optimisation algorithms can be used to compute the output weights in practice, but their description is out of the scope of this work, see \cite{Lukoeviius2009} for more details.\\
