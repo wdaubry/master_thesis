@@ -26,7 +26,7 @@ The input time series $u(n)$ is converted into a continuous signal $\tilde{u}(t)
 
 \paragraph{Cavity}
 
-The modulated data is then coupled to an optical cavity around 20 metres long\footnote{The length of the cavity can be derived from its \gls{fsr}, which is studied in the next chapter}. Inside this cavity, a \gls{pm} mixes the different optical frequencies. More information about the \gls{pm} can be found in section \ref{subsec-freq-coupling}. Losses are introduced inside the cavity by two main sources, the intrinsic losses of the fibre and the insertion losses of the \gls{pm}, hence the presence of an intra-cavity amplifier used to compensate for them. The neurons are encoded in the electric field evolving inside this cavity, which is schematised on the figure by the three different colours for the fibre loops. Therefore, from now on, the cavity is referred to as the \textit{reservoir}. The holding time $\tau$ introduced earlier should be equal to the \gls{rtt} of the reservoir. This is done in order to update the discrete dynamics of the \rcer each time the light completes a trip around the cavity. Doing so, one ensures that the value of the neuron $x_j$ at discrete time $n+1$ depends on the values of the neurons $x_i$, with $i \in \{1,\dots, N\}$, at precisely time $n$. 
+The modulated data is then coupled to a ring cavity around 20 metres long\footnote{The length of the cavity can be derived from its \gls{fsr}, which is studied in the next chapter}. Inside this cavity, a \gls{pm} mixes the different optical frequencies. More information about the \gls{pm} can be found in section \ref{subsec-freq-coupling}. Losses are introduced inside the cavity by two main sources, the intrinsic losses of the fibre and the insertion losses of the \gls{pm}, hence the presence of an intra-cavity amplifier used to compensate for them. The neurons are encoded in the electric field evolving inside this cavity, which is schematised on the figure by the three different colours for the fibre loops. Therefore, from now on, the cavity is referred to as the \textit{reservoir}. The holding time $\tau$ introduced earlier should be equal to the \gls{rtt} of the reservoir. This is done in order to update the discrete dynamics of the \rcer each time the light completes a trip around the cavity. Doing so, one ensures that the value of the neuron $x_j$ at discrete time $n+1$ depends on the values of the neurons $x_i$, with $i \in \{1,\dots, N\}$, at precisely time $n$. 
 
 \paragraph{Readout}
 
@@ -73,7 +73,7 @@ However, what can already be said about $m$ is that it cannot exceed 2 in practi
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=.7\textwidth]{power-in-neurons}
+	\includegraphics[width=.5\textwidth]{power-in-neurons}
 	\caption{Experimental spectral density inside the reservoir \cite{AkroutAkram2016Pprc}}
 	\label{power-in-neurons}
 \end{figure}
@@ -130,30 +130,11 @@ One should note that each time the light goes around the cavity, it acquires som
 	\end{bmatrix}
 \end{equation}
 
-Both $\mathbf{J}$ and $\mathbf{\Phi}$ are $N\times N$ matrices. Finally, recalling that $\alpha$ and $\beta$ are the feedback and input gains, respectively, and that the source laser only injects in the central wavelength, one can express the discrete time dynamics of the reservoir:
+Both $\mathbf{J}$ and $\mathbf{\Phi}$ are $N\times N$ matrices, with associated linear operators $\hat{\mathbf{J}}$ and $\hat{\mathbf{\Phi}}$. Finally, recalling that $\alpha$ and $\beta$ are the feedback and input gains, respectively, and that the source laser only injects light in the central wavelength, one can express the discrete time dynamics of the reservoir:
 
 \begin{equation}
-	\mathbf{x}(n+1) = \alpha \mathbf{\Phi} \mathbf{J} \mathbf{x}(n) + \beta u(n+1) \hat{\mathbf{e}}_0
+	\mathbf{x}(n+1) = \alpha \hat{\mathbf{\Phi}} \hat{\mathbf{J}} \mathbf{x}(n) + \beta u(n+1) \hat{\mathbf{e}}_0
 \end{equation}
 
 A few things need to be mentioned. The value of $\alpha$ can be adjusted experimentally by changing the intra-cavity amplification and that of $\beta$ numerically in the computer controlling the experiment. Finally, to be consistent with the model derived here, the figure \ref{wdm_rc_principle}, coming directly from \cite{AkroutAkram2016Pprc}, should be slightly modified. Indeed, the \gls{pm} should be positioned before the input coupler and not between the input and readout coupler, because according to the figure, there should be no inhomogeneous term corresponding to the input signal.
-
-%%%%%%%%%% CHALLENGES %%%%%%%%%%
-
-\section{Challenges}
-
-\label{sec-challenges-wdm}
-
-% Stabilisation
-% Stabilisation signal is the same as data signal
-
-
-
-
-
-
-
-
-
-
 
