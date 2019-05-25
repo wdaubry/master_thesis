@@ -15,23 +15,25 @@ In this introductory section, the concept of interferometry is presented. As the
 The \gls{fp} plays an important role in modern optics as it is really ubiquitous. This can be explained by the fact that, despite its great simplicity, it can reach good performance using high reflectivity mirrors, which can be produced using nowadays technologies. In practice, a \gls{fp} cavity is simply made of two facing mirrors as can be viewed on figure \ref{fp}. On this figure, one can see the two mirrors, represented by the vertical black lines, and the different electric fields. The resonance condition, namely the regime where the transmitted electric field $E_{\text{t}}$ is maximum, can be seen intuitively as a situation where the intra-cavity field $E_1$ is in phase with the incident field $E_{\text{in}}$, which leads to the build up of a very intense intra-cavity electric field. On the other hand, the anti-resonance condition is met when $E_{\text{in}}$ and $E_1$ are out of phase. The transmissivity of the \gls{fp} interferometer, which is defined as the ratio $|E_{\text{t}}|^2/|E_{\text{in}}|^2$, is given by \cite{Perot1899}:
 
 \begin{equation}
-	\mathcal{T} = \frac{1}{1+\mathcal{F}\sin^2{\left(\frac{\delta \omega}{\text{FSR}}\right)}}
+	\mathcal{T}(\omega) = \frac{1}{1+\mathcal{F}\sin^2{\left(\frac{\omega}{\text{FSR}}\right)}}
+	\label{transmissivity}
 \end{equation}
 
-By using the conservation of energy argument, the reflectivity of the cavity, which is defined as the ratio $|E_{\text{ref}}|^2/|E_{\text{in}}|^2$, reads:
+In this expression, $\mathcal{F}$ is the finesse of the cavity, $\omega$ is the angular frequency of the incident electric field, and FSR is the \acrlong{fsr} of the cavity. In a stationary regime, the energy inside the cavity does not evolve, therefore the energy carried by the incident electric field $E_{\text{in}}$ can either be transmitted or reflected, which implies that the reflectivity of the cavity which is defined as the ratio $|E_{\text{ref}}|^2/|E_{\text{in}}|^2$ is simply given by:
 
 \begin{equation}
-	\mathcal{R} = 1 - \mathcal{T}
+	\mathcal{R}(\omega) = 1 - \mathcal{T}(\omega)
+	\label{reflectivity}
 \end{equation}
-
-
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=.7\textwidth]{fp}
+	\includegraphics[width=.65\textwidth]{fp}
 	\caption{Schematic representation of a \acrlong{fp} interferometer. $E_{\text{in}}$ is the incident electric field, $E_{\text{ref}}$ is the reflected electric field, $E_{\text{t}}$ is the transmitted electric field, $E_{1}$ is the intra-cavity electric field propagating from left to right, $E_{2}$ is the intra-cavity electric field propagating from right to left, $R$ and $T$ are the reflectivity and transmissivity of the mirrors and $L$ is the distance between them.}
 	\label{fp}
 \end{figure}
+
+On figure \ref{fp-tf}, the transmissivity (right) and reflectivity (left) can be viewed. These graphs are made of peaks which are distant of the \gls{fsr} in the spectral domain. Recalling that $\text{FSR} = c/2nL$, one can see that the \gls{fsr} is linked to the length of the cavity, with $c$ the speed of light and $n$ the refractive index of the medium that could be present between the two mirrors ($nL$ is the optical path). The finesse $\mathcal{F}$ is related to the width of the peaks and depends on the reflectivity of the mirrors as $\mathcal{F} = 4R/(1-R)^2$. As the reflectivity of the mirrors tends to 1, the finesse tends to infinity, and the peaks get infinitely narrow. On the other hand, with a lower reflectivity, more energy can leak out of the cavity even outside the resonance condition. Seeing the broadening of the peaks as energy leakage will be useful when drawing a parallel between \gls{fp} and ring cavity interferometers.
 
 \begin{figure}[h]
 	\centering
@@ -43,23 +45,40 @@ By using the conservation of energy argument, the reflectivity of the cavity, wh
 		\centering
 		\includegraphics[width=\textwidth]{fp-ref-tf}
 	\end{subfigure}
-	\caption{Transmissivity $\mathcal{T}$ (left) and reflectivity $\mathcal{R}$ (right) of the cavity. Finesse $\mathcal{F}=50$. }
+	\caption{Transmissivity $\mathcal{T}$ (left) and reflectivity $\mathcal{R}$ (right) of the cavity. Finesse $\mathcal{F}=50$. $\delta \nu$ denotes the deviation from a resonant frequency.}
 	\label{fp-tf}
 \end{figure}
 
-%%% RING CAVITY INTERFEROMETER %%%
+Equation \eqref{transmissivity} and \eqref{reflectivity} indicate that $\mathcal{T}$ and $\mathcal{R}$ depend on $\omega/\text{FSR}$. This value can be rearranged as:
 
-\subsection{Ring cavity interferometer}
+\begin{equation}
+	\frac{\omega}{\text{FSR}} = kL = \phi
+\end{equation}
+
+Where $k$ is the wave number defined as $n \omega/c$ and $\phi$ is the phase acquired by the electric field when propagating along the cavity. Therefore, by measuring the transmitted or reflected power, one can gain information about the phase of the electric field. This is the idea underlying interferometry.
+
+%%% RING CAVITY %%%
+
+\subsection{Ring cavity}
+
+A ring cavity exhibits the same behaviour as a \gls{fp} interferometer. The structure of a ring cavity interferometer is displayed on figure \ref{cavity_vs_fp}. This is a fibre-based setup in which the incident electric field $E_{\text{in}}$ penetrates the cavity from the left through a coupler. $E_{\text{ref}}$ denotes the electric field exiting the cavity and $E_1$ and $E_2$ refer to the fields entering and leaving the fibre loop, respectively. The nomenclature for the fields was chosen in such a way that the analogy with the \gls{fp} cavity can be understood. Indeed, one could see the coupler acting as the leftmost mirror from the figure \ref{fp}, and the fibre loop as the one on the right side because it turns $E_1$ into $E_2$ and dissipates energy through fibre losses, whereas for the mirror it was by leakage out of the cavity.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=.7\textwidth]{cavity_vs_fb}
-	\caption{Schematic view of an optical cavity}
+	\includegraphics[width=.7\textwidth]{cavity_vs_fp}
+	\caption{Schematic view of a ring cavity}
+	\label{cavity_vs_fp}
 \end{figure}
+
+Because of the similarities between ring cavities and \glspl{fp}, the former show the same transmissivity and reflectivity as the latter. Therefore, by measuring the reflected power, one can determine the phase acquired by the electric field inside the cavity.
 
 %%% Challenge %%%
 
 \subsection{Challenge}
+
+The basic principle of interferometry has been introduced through the presentation of the \gls{fp} interferometer, and in the discussion that followed, it has been shown that a ring cavity, such as the reservoir cavity studied in this thesis, can be used as an interferometer. Moreover, it has also been showed that $\mathcal{R}$ depend on the frequency (or wavelength) and on the length of the cavity and that the phase acquired by the incident electric field after one round trip could be determined by studying the reflected power.\\
+
+In the reservoir cavity, many different wavelengths coexist because they encode the different neurons. Furthermore, after each round trip, phase acquired by each neuron should be a constant, as shown on equation \eqref{model-reservoir}. Recalling the phase matrix $\mathbf{\Phi}$, the phase acquired by the $i^{\text{th}}$ neuron is given by $\Phi_{ii}$.
 
 %%%%%%%%%% EXPERIMENTAL SETUP %%%%%%%%%%
 

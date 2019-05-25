@@ -128,12 +128,14 @@ One should note that each time the light goes around the cavity, it acquires som
 		\vdots & \vdots & & & \ddots & 0 \\
 		0 & 0 & \dots & \dots & 0 & e^{i\phi_{\eta}}
 	\end{bmatrix}
+	\label{pahse-matrix}
 \end{equation}
 
 Both $\mathbf{J}$ and $\mathbf{\Phi}$ are $N\times N$ matrices, with associated linear operators $\hat{\mathbf{J}}$ and $\hat{\mathbf{\Phi}}$. Finally, recalling that $\alpha$ and $\beta$ are the feedback and input gains, respectively, and that the source laser only injects light in the central wavelength, one can express the discrete time dynamics of the reservoir:
 
 \begin{equation}
 	\mathbf{x}(n+1) = \alpha \hat{\mathbf{\Phi}} \hat{\mathbf{J}} \mathbf{x}(n) + \beta u(n+1) \hat{\mathbf{e}}_0
+	\label{model-reservoir}
 \end{equation}
 
 A few things need to be mentioned. The value of $\alpha$ can be adjusted experimentally by changing the intra-cavity amplification and that of $\beta$ numerically in the computer controlling the experiment. Finally, to be consistent with the model derived here, the figure \ref{wdm_rc_principle}, coming directly from \cite{AkroutAkram2016Pprc}, should be slightly modified. Indeed, the \gls{pm} should be positioned before the input coupler and not between the input and readout coupler, because according to the figure, there should be no inhomogeneous term corresponding to the input signal.
