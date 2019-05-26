@@ -55,7 +55,7 @@ Equation \eqref{transmissivity} and \eqref{reflectivity} indicate that $\mathcal
 	\frac{\omega}{\text{FSR}} = kL = \phi
 \end{equation}
 
-Where $k$ is the wave number defined as $n \omega/c$ and $\phi$ is the phase acquired by the electric field when propagating along the cavity. Therefore, by measuring the transmitted or reflected power, one can gain information about the phase of the electric field. This is the idea underlying interferometry.
+Where $k$ is the wave number defined as $n \omega/c$ and $\phi$ is the phase acquired by the electric field when propagating along the cavity. Therefore, by measuring the transmitted or reflected power, one can gain information about the phase (modulo $\pi$, because the periodicity of $\mathcal{T}$ and $\mathcal{R}$ in the phase domain is $\pi$) of the electric field. This is the idea underlying interferometry.
 
 %%% RING CAVITY %%%
 
@@ -76,20 +76,60 @@ Because of the similarities between ring cavities and \glspl{fp}, the former sho
 
 \subsection{Challenge}
 
-The basic principle of interferometry has been introduced through the presentation of the \gls{fp} interferometer, and in the discussion that followed, it has been shown that a ring cavity, such as the reservoir cavity studied in this thesis, can be used as an interferometer. Moreover, it has also been showed that $\mathcal{R}$ depend on the frequency (or wavelength) and on the length of the cavity and that the phase acquired by the incident electric field after one round trip could be determined by studying the reflected power.\\
+The basic principle of interferometry has been introduced through the presentation of the \gls{fp} interferometer, and in the discussion that followed, it has been shown that a ring cavity, such as the reservoir cavity studied in this thesis, can be used as an interferometer. Moreover, it has also been showed that $\mathcal{R}$ depends on the frequency (or wavelength) and on the length of the cavity and that the phase acquired by the incident electric field after one round trip could be determined by studying the reflected power.\\
 
-In the reservoir cavity, many different wavelengths coexist because they encode the different neurons. Furthermore, after each round trip, phase acquired by each neuron should be a constant, as shown on equation \eqref{model-reservoir}. Recalling the phase matrix $\mathbf{\Phi}$, the phase acquired by the $i^{\text{th}}$ neuron is given by $\Phi_{ii}$.
+In the reservoir cavity, many different wavelengths coexist because they encode the different neurons. Furthermore, after each round trip, the phase acquired by each neuron should be a constant, as shown on equation \eqref{model-reservoir}. Recalling the phase matrix $\mathbf{\Phi}$ defined in equation \eqref{phase-matrix}, the phase factor multiplying the $k^{\text{th}}$ neuron is given by $\Phi_{kk} = \exp{(i\phi_k)}$.	The phase $\phi_k$ is given by:
+
+\begin{equation}
+	\phi_k = \beta(\omega+k\Omega) L
+\end{equation}
+
+With $\beta$ the fibre wave number, $\omega+k\Omega$ the angular frequency of the $k^{\text{th}}$ neuron and $L$ the length of the fibre loop. Because $k\Omega \ll \omega$, the wave number can be Taylor expanded: 
+
+\begin{equation}
+	\beta(\omega+k\Omega) = \beta(\omega) + \left. \frac{\partial\beta}{\partial\omega}\right\rvert_\omega k\Omega + \mathcal{O}\left((k\Omega)^2\right)
+\end{equation}
+
+By rewriting $\beta(\omega)$ and $\partial\beta/\partial\omega\rvert_\omega$ as $\beta_0$ and $\beta_1$ as it is often done in the literature, the acquired phase is given by:
+
+\begin{equation}
+	\phi_k \approx \beta_0 L + k \beta_1 \Omega L = \phi_0 + k \phi_1
+\end{equation}
+
+This means that if $\phi_1$ is an integer multiple of $\pi$, the phase factor multiplying all the neurons will be the same up to a sign:
+
+\begin{equation}
+	e^{i(\phi_0+k\phi_1)} = e^{i\phi_0}e^{ikm\pi} =(-1)^{km} e^{i\phi_0}, \quad m \in \mathbb{Z}
+\end{equation}
+
+A periodicity of $\pi$ and not $2\pi$ is considered here, because as claimed before, an interferometer can only inform about a phase modulo $\pi$. Looking for an acquired phase equal to $\pi$ is the approximately the same as taking a modulation frequency $\Omega$ for the \gls{pm} which is an integer multiple of the \gls{fsr}. Indeed, by considering $\beta_1 \approx n/c$, one can find:
+
+\begin{equation}
+	\beta_1 \Omega L \approx \frac{\Omega n L}{c} = m\pi \longrightarrow \Omega \approx \frac{m\pi c}{n L} = m2\pi ~\text{FSR}
+\end{equation}
+
+This is a legitimate assumption given the fact that in the region of interest the curve of $\beta(\omega)$ computed using the Sellmeier relations \cite{Bruckner,malitson1965interspecimen} is very linear.\\
+
+It is not critical to modulate the phase at an angular frequency $\Omega$ which is an integer multiple of the \gls{fsr}, the reservoir can in fact operate in different regimes. Those considerations were presented to better understand the physics underlying the phase management of the reservoir.\\
+
+The main practical challenge regarding the reservoir concerns its stabilisation. The reservoir has to be stabilised because during its operation, external elements disturb it, which deteriorates the performances and even make it unusable in the worst case. The perturbations acting on the reservoir can come from various sources, such as mechanical constraints or temperature changes for example, and can induce a phase fluctuation. This is where interferometric stabilisation comes into play. Indeed, by measuring the power reflected by the reservoir, one can infer the current phase and take the appropriate action to maintain it at a setpoint. This can be achieved using classical regulation strategies, such as a \gls{pid} regulator. Elements of regulation will be presented later. Furthermore, this needs to be performed for all the neurons at the same time. This explains why different elements regarding the relative phases between the different neurons were discussed in the previous paragraph. Finally, the last technological difficulty associated to this scheme is the fact that the electric field used to stabilise the cavity is modulated in amplitude to carry the data to be processed by the reservoir. Indeed, a regulator struggles to differentiate a variation in the reflected power due to a phase fluctuation or to the modulation of the incident field.
 
 %%%%%%%%%% EXPERIMENTAL SETUP %%%%%%%%%%
 
 \section{Experimental setup}
 
-% Mention only one PD
+In this section, the experimental setup employed to physically implement the \gls{wdm} \gls{prc} is presented. First, it is detailed based with the help of the schematic representation of figure \ref{exp-setup}. Then, technical data about the devices involved in the experiment are given.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\textwidth]{exp-setup}
+	\caption{Schematic representation of the experimental setup for the \gls{wdm} reservoir computer experiment}
+	\label{exp-setup}
 \end{figure}
+
+Let us start the presentation of the experiment by a general remark. On figure \ref{exp-setup}, the black lines represent electrical wires and the red lines optical fibres. The optical fibres used in the setup are polarisation maintaining single mode fibres.
+
+% Mention only one PD
 
 %%%%%%%%%% CHARACTERISATION OF THE RESERVOIR %%%%%%%%%%
 
