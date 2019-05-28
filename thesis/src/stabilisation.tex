@@ -135,37 +135,207 @@ The setup presented here is mostly an update on the one presented on \cite{Akrou
 	\sin{ \left(\frac{\pi}{2} \left(\frac{V_{\text{MZM}}(t)}{V_{\pi,\text{RF}}} + \frac{V_0}{V_{\pi, \text{DC}}} \right) \right)}
 \end{equation}
 
-With $V_{\text{MZM}} \in [-\beta V_{\pi,\text{RF}},\beta V_{\pi,\text{RF}}]$, and $V_{\pi,\text{RF}}$ and $V_{\pi,\text{DC}}$ the dynamic and static characteristic voltages of the \gls{mzm}, respectively. The modulated electric field is then pre-amplified using an \gls{edfa}, and undergoes a first phase modulation. This is required to be able to implement the \gls{pdh} stabilisation technique, which is an advanced cavity stabilisation scheme that is described with greater length in section \ref{sec-pdh}. The \gls{pm} is driven by the alternative voltage $V_{\text{PDH}} = A_{\text{PDH}} \sin{(\Omega_{\text{PDH}}t)}$ supplied by the \textit{Toptica Digilock 110} feedback controller denoted "Digilock" on the figure. This device handles every aspects related to the stabilisation of the reservoir, which is why it needs to be connected to the photodiode "PD" and to the laser, which are both involved in the regulation of the cavity (see later). The electric field then enters the reservoir through the coupler "C3". At this point, the colour used to represent the optical fibres changes from red to blue to indicate that inside the reservoir, several wavelengths are present whereas before the coupler there was only one. Inside the reservoir, the \gls{pm} is used to mix the different frequencies and is driven by an external alternative voltage $V_{\text{mod}}(t) = A_{\text{mod}} \sin{ (\Omega_{\text{mod}} t)}$. It introduces insertion losses that are compensated using the \gls{edfa}, whose pump current is adjusted to tune the feedback gain $\alpha$ that appears in equation \eqref{model-reservoir}. The electric field exiting the reservoir at the level of the coupler "C3" towards the photodiode "PD" is the reflected field, according to what was discussed in section \ref{subsec-ring-cavity}. The electric field finally illuminates the photodiode "PD", which produces a voltage proportional to its intensity. This measured signal enters the Digilock where it is compared to a reference. Based on the deviation between those two values, the Digilock outputs a control voltage that is applied to a piezoelectric crystal inside the laser cavity and that modifies its emission wavelength. The output of the reservoir exits the cavity thought the coupler "C4" and is amplified by a \gls{soa} called "BOA" for Boost Optical Amplifier to improve the \gls{snr}. A demultiplexing scheme allowing to obtain the value of each individual neuron at the same time has not been implemented yet. To overcome this limitation, the adjustable band-pass filter denoted "Wave Shaper" is used to record the evolution of only one neuron at a time. This implies that if one wants to compute the output of the reservoir $y(n)$, one has to run the same experiment once for each of the neuron, to program the Wave Shaper to filter out all the other sidebands and to save its evolution on the computer. Once this has been done, $y(n)$ can be reconstructed. As far as the learning procedure is concerned, it follows the same procedure as the one previously described, but modified to take this sequential measurements of the neurons into account. In terms of the devices used to perform this task, the photodiode "Readout PD" measures the intensity of each of the filtered neuron, and the "Digitizer" handles the conversion between continuous time dependent signals into time series usable by the computer. To conclude this description of the experimental setup, one should note that even though the couplers "C1" and "C2" seem useless, they are used in practice to monitor the electric fields when modifications are made to the optical table and that the AWG, Digilock, Wave Shaper and Digitizer are all controlled by the computer. The technical specifications of the devices used in the experiment can be found in appendix \ref{app-data}.
+With $V_{\text{MZM}} \in [-\beta V_{\pi,\text{RF}},\beta V_{\pi,\text{RF}}]$, and $V_{\pi,\text{RF}}$ and $V_{\pi,\text{DC}}$ the dynamic and static characteristic voltages of the \gls{mzm}, respectively. The modulated electric field is then pre-amplified using an \gls{edfa}, and undergoes a first phase modulation. This is required to be able to implement the \gls{pdh} stabilisation technique, which is an advanced cavity stabilisation scheme that is described with greater length in section \ref{sec-pdh}. The \gls{pm} is driven by the alternative voltage $V_{\text{PDH}} = A_{\text{PDH}} \sin{(\Omega_{\text{PDH}}t)}$ supplied by the \textit{Toptica Digilock 110} feedback controller denoted "Digilock" on the figure. This device handles every aspects related to the stabilisation of the reservoir, which is why it needs to be connected to the photodiode "PD" and to the laser, which are both involved in the regulation of the cavity (see later). The electric field then enters the reservoir through the coupler "C3". At this point, the colour used to represent the optical fibres changes from red to blue to indicate that inside the reservoir, several wavelengths are present whereas before the coupler there was only one. Inside the reservoir, the \gls{pm} is used to mix the different frequencies and is driven by an external alternative voltage $V_{\text{mod}}(t) = A_{\text{mod}} \sin{ (\Omega_{\text{mod}} t)}$. To allow a clear distinction between the different sidebands without degrading the achievable modulation depth, the modulation frequency $\pulsefreq{\Omega_{\text{mod}}}$ is around 20 GHz. The \gls{pm} introduces insertion losses that are compensated using the \gls{edfa}, whose pump current is adjusted to tune the feedback gain $\alpha$ that appears in equation \eqref{model-reservoir}. The electric field exiting the reservoir at the level of the coupler "C3" towards the photodiode "PD" is the reflected field, according to what was discussed in section \ref{subsec-ring-cavity}. The electric field finally illuminates the photodiode "PD", which produces a voltage proportional to its intensity. This measured signal enters the Digilock where it is compared to a reference. Based on the deviation between those two values, the Digilock outputs a control voltage that is applied to a piezoelectric crystal inside the laser cavity and that modifies its emission wavelength. The output of the reservoir exits the cavity thought the coupler "C4" and is amplified by a \gls{soa} called "BOA" for Boost Optical Amplifier to improve the \gls{snr}. A demultiplexing scheme allowing to obtain the value of each individual neuron at the same time has not been implemented yet. To overcome this limitation, the adjustable band-pass filter denoted "Wave Shaper" is used to record the evolution of only one neuron at a time. This implies that if one wants to compute the output of the reservoir $y(n)$, one has to run the same experiment once for each of the neuron, to program the Wave Shaper to filter out all the other sidebands and to save its evolution on the computer. Once this has been done, $y(n)$ can be reconstructed. As far as the learning procedure is concerned, it follows the same procedure as the one previously described, but modified to take this sequential measurements of the neurons into account. In terms of the devices used to perform this task, the photodiode "Readout PD" measures the intensity of each of the filtered neuron, and the "Digitizer" handles the conversion between continuous time dependent signals into time series usable by the computer. To conclude this description of the experimental setup, one should note that even though the couplers "C1" and "C2" seem useless, they are used in practice to monitor the electric fields when modifications are made to the optical table, and that the AWG, Digilock, Wave Shaper and Digitizer are all controlled by the computer. The technical specifications of the devices used in the experiment can be found in appendix \ref{app-data}.
 
 %%%%%%%%%% CHARACTERISATION OF THE RESERVOIR %%%%%%%%%%
 
 \section{Characterisation of the reservoir}
 
-To be able to develop a reliable stabilisation scheme for the reservoir, some of its characteristics need to be studied as a preliminary work.  
+To be able to develop a reliable stabilisation scheme for the reservoir, some of its characteristics need to be studied as a preliminary work. First, one can gain important insights by modelling the transfer function of the reservoir. In this context, the transfer function is simply the reflectivity of the cavity. However, given the fact that the reservoir is a more complex ring cavity than the one depicted in section \ref{subsec-ring-cavity}, it will not exhibit the exact same behaviour as the one of a \gls{fp} cavity as displayed on figure \ref{fp-tf}. A mathematical model is first derived and the results it provides are compared to experimental transfer functions. After that, the experimental study of the effective losses is tackled. The effective losses are used in the model to take into account the fibre losses, the insertion losses of the \gls{pm} and the gain of \gls{edfa} using only one factor. Finally, an empirical relation between the modulation amplitude driving the intra-cavity \gls{pm} and its modulation depth is determined experimentally.
 
 %%% TRANSFER FUNCTION OF THE CAVITY %%%
 
 \subsection{Transfer function of the cavity}
 
+As already claimed, in the context of cavity stabilisation, the transfer function is the reflectivity. When operating the reservoir, the reflected power which is proportional to the intensity of the electric field reflected by the cavity gives an indication on the phase of the field inside it, which implies that the regulation procedure relies on the measurement of this signal. \\
+
+On figure \ref{schematic_reservoir}, the reservoir is represented with the different electric fields that turn out to be useful when studying the transfer function. The colour code for the fibres is the same as the one used previously. The incident electric field $\efield{in}$ enters the cavity through a coupler from the top left optical fibre. Inside the cavity, it is amplified by the \gls{edfa} and then is phase modulated. After that, a portion of the electric field exits the cavity through the coupler C4 to be read out. The light inside the cavity finally terminates its round trip.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.7\textwidth]{reservoir}
+	\caption{Schematic representation of the reservoir}
+	\label{schematic_reservoir}
+\end{figure}
+
 % MATHEMATICAL MODEL %
 
 \subsubsection{Mathematical model}
 
-% SIMULATIONS %
+In this section, a mathematical model for the transfer function is derived. To do so, the formalism introduced in section \ref{subsec-reservoir-model} needs to be used. This can be done because the basis vectors where chosen such that a neurons state vector $\mathbf{x}$ is formally equal to an electric field. Therefore, one should pay attention to the fact that when referring the a vectorial electric field $\mathbf{E}$, it denotes an electric field expressed in the abstract basis $\{ \hat{\mathbf{e}}_j | \hat{\mathbf{e}}_j = \exp{ (i (\omega+j\Omega_{\text{mod}}t)}, ~j\in [-\eta, \eta ] \}$ instead of the usual physical space $\{\mathbf{1}_x, \mathbf{1}_y,\mathbf{1}_z \}$.\\
 
-\subsubsection{Simulations}
+The transfer function $\mathbf{R}$ is defined as the link between the incident and reflected electric fields:
+
+\begin{equation}
+	\efield{ref} = \mathbf{R} ~\efield{in}
+\end{equation}
+
+Given the vectorial nature of $\efield{ref}$ and $\efield{in}$, the transfer function is in fact a transfer matrix in this particular context. Recalling that the laser only emits light at the center wavelength, the incident field $\efield{in}$ is given by:
+
+\begin{equation}
+	\efield{in} = E_0 \hat{\mathbf{e}}_0
+\end{equation}
+
+With $E_0$ being an arbitrary complex amplitude. Given the properties of the coupler C3, one finds:
+
+\begin{equation}
+	\begin{bmatrix}
+		\efield{ref}\\
+		\efield{4}
+	\end{bmatrix} = \begin{bmatrix}
+		\epsilon_1 & i\sqrt{1-\epsilon_1^2} \\
+		i\sqrt{1-\epsilon_1^2} & \epsilon_1
+	\end{bmatrix}
+	\begin{bmatrix}
+		\efield{in}\\
+		\efield{2}
+	\end{bmatrix} 
+\end{equation}
+
+Which yields to the following expression for the reflected field:
+
+\begin{equation}
+	\efield{ref} = \epsilon_1 \efield{in} + i \sqrt{1-\epsilon_1^2} \efield{2}
+	\label{eq-ref}
+\end{equation}
+
+Let us now express $\efield{2}$ as a function of $\efield{in}$ to close the system. Using the transfer matrix of the coupler C4, $\efield{2}$ reads :
+
+\begin{equation}
+	\begin{bmatrix}
+		\efield{2}\\
+		\efield{ro}
+	\end{bmatrix} = e^{-\gamma L} \begin{bmatrix}
+		\epsilon_2\\
+		\sqrt{1-\epsilon_2^2}
+	\end{bmatrix} \efield{5} \Longrightarrow \efield{2} = \epsilon_2 e^{-\gamma L} \efield{5}
+\end{equation}
+
+With $\gamma$ the effective losses coefficient and $L$, the length of the reservoir. Since the system is in a linear regime, the position of the coupler C4 in the cavity has no influence on the losses and on the phase. By defining $\xi \in [0,1]$ as the variable indicating the relative position of the \gls{pm} inside the cavity ($\xi = 0$ if it is at the beginning of the cavity, $\xi=1$ if it is at the end). The phase acquired  by the electric field inside the reservoir is now dependent on the position of the \gls{pm}. This leads to the definition of two new matrices $\mathbf{\Phi}_\xi$ and $\mathbf{\Phi}_{1-\xi}$, which are based on the phase matrix $\mathbf{\Phi}$. They are diagonal matrices, expressed as:
+
+\begin{align}
+	\Phi_{\xi,nn} &= \exp{ \left(i \beta (\omega+n\Omega_{\text{mod}}) \xi L \right)} \nonumber \\
+	\Phi_{1-\xi,nn} &= \exp{ \left(i \beta (\omega+n\Omega_{\text{mod}}) (1-\xi) L \right)}
+\end{align}
+
+With $\beta (\omega+n\Omega_{\text{mod}})$ the dispersion relation of the fibre evaluated at the frequency of the $n^{\text{th}}$ neuron. Recalling the coupling matrix of the \gls{pm} $\mathbf{J}$, one can rewrite $\efield{5}$ as a function of $\efield{4}$:
+
+\begin{equation}
+	\efield{5} = \mathbf{\Phi}_{1-\xi} \mathbf{J} \mathbf{\Phi}_\xi \efield{4}
+\end{equation}
+
+Using the transfer matrix of the coupler C3, one can express $\efield{4}$ as a function of $\efield{in}$ and $\efield{2}$:
+
+\begin{equation}
+	\efield{4} = i\sqrt{1-\epsilon_1^2} \efield{in} + \epsilon_1 \efield{2}
+\end{equation}
+
+This yields to a closed equation to determine $\efield{2}$:
+
+\begin{align}
+	\efield{2} &= i\sqrt{1-\epsilon_1^2} \epsilon_2 e^{-\gamma L} \mathbf{\Phi}_{1-\xi} \mathbf{J} \mathbf{\Phi}_\xi \efield{in} + \epsilon_1 \epsilon_2 e^{-\gamma L} \mathbf{\Phi}_{1-\xi} \mathbf{J} \mathbf{\Phi}_\xi \efield{2} \nonumber \\
+	\hookrightarrow \efield{2} &= i \sqrt{1-\epsilon_1^2} \epsilon_2 e^{-\gamma L} \left( \mathbf{I} - \epsilon_1 \epsilon_2 e^{- \gamma L} \mathbf{\Phi}_{1-\xi} \mathbf{J} \mathbf{\Phi}_\xi \right)^{-1} \mathbf{\Phi}_{1-\xi} \mathbf{J} \mathbf{\Phi}_\xi \efield{in}
+\end{align}
+
+Now that $\efield{2}$ has been determined, it is easy to compute $\efield{ref}$ using equation \eqref{eq-ref}:
+
+\begin{align}
+	\efield{ref} &= \epsilon_1 \efield{in} - (1-\epsilon_1^2) \epsilon_2 e^{-\gamma L} \left( \mathbf{I} - \epsilon_1 \epsilon_2 e^{- \gamma L} \mathbf{\Phi}_{1-\xi} \mathbf{J} \mathbf{\Phi}_\xi \right)^{-1} \mathbf{\Phi}_{1-\xi} \mathbf{J} \mathbf{\Phi}_\xi \efield{in} \nonumber \\
+	\hookrightarrow \efield{ref} &= (\epsilon_1 \mathbf{I} - (1-\epsilon_1^2) \epsilon_2 e^{-\gamma L} \left( \mathbf{I} - \epsilon_1 \epsilon_2 e^{- \gamma L} \mathbf{\Phi}_{1-\xi} \mathbf{J} \mathbf{\Phi}_\xi \right)^{-1} \mathbf{\Phi}_{1-\xi} \mathbf{J} \mathbf{\Phi}_\xi) \efield{in}
+\end{align}
+
+This last equality reveals the expression of the transfer matrix $\mathbf{R}$:
+
+\begin{equation}
+	\boxed{\mathbf{R} = \epsilon_1 \mathbf{I} - (1-\epsilon_1^2) \epsilon_2 e^{-\gamma L} \left( \mathbf{I} - \epsilon_1 \epsilon_2 e^{- \gamma L} \mathbf{\Phi}_{1-\xi} \mathbf{J} \mathbf{\Phi}_\xi \right)^{-1} \mathbf{\Phi}_{1-\xi} \mathbf{J} \mathbf{\Phi}_\xi}
+\end{equation}
+
+Even if this result is interesting, it cannot be measured directly since it involves electric fields instead of intensities. What is measured using a \gls{pd} is the reflectivity $\mathcal{R}$ linking the incident intensity to the reflected intensity. Recalling that the incident electric field is given by $\efield{in} = E_0 \hat{\mathbf{e}}_0$, the reflected electric field is given by:
+
+\begin{equation}
+	\efield{ref} = \mathbf{R}~\efield{in} = E_0\sum_{n=-\eta}^\eta R_{n,0} \hat{\mathbf{e}}_n
+\end{equation}
+
+The sum in this formula is expressed using the numbering introduced in section \ref{subsec-reservoir-model} which is more natural for this kind of situation. As a reminder, instead of going through the indices from 1 to $N$, this alternative notation goes from $-\eta$ to $\eta$, with index 0 referring to the central neuron. Thus, the above equation basically means that $\efield{ref}$ is equal to $E_0$ multiplying the central column of $\mathbf{R}$.\\
+
+The reflected intensity is given by:
+
+\begin{equation}
+	|\efield{ref}|^2 = |E_0|^2 \left(\sum_{n=-\eta}^\eta R_{n,0} \hat{\mathbf{e}}_n \right) \left(\sum_{m=-\eta}^\eta R_{m,0}^* \hat{\mathbf{e}}_m^* \right)
+\end{equation}
+
+This expression seems complicated at first sight, but it can be simplified by putting forward an experimental argument. First, let us consider the product $\hat{\mathbf{e}}_n \cdot \hat{\mathbf{e}}_m^*$, which is equal to $\exp{(i(n-m)\Omega_{\text{mod}}t)}$. If $m=n$, then the product is equal to one and the term $|R_n,0|^2$ has to be taken into account in the sum. On the other hand, if $m\neq m$, then product corresponds to a beating of the intensity at frequency $(n-m)\pulsefreq{\Omega_{\text{mod}}}$, which is an integer number of times approximately 20 GHz. However, as can be seen in the appendix \ref{app-data}, the bandwidth of the \gls{pd} is limited to 120 MHz. Therefore the \gls{pd} is not able to resolve the beating waves, which implies that when $m=n$, the signals do not contribute to the sum. This yields to a simplified version of the reflected intensity:
+
+\begin{equation}
+	|\efield{ref}|^2 = |E_0|^2 \sum_{n=-\eta}^\eta |R_{n,0}|^2
+\end{equation}
+
+The reflectivity of the reservoir is finally given by:
+
+\begin{equation}
+	\mathcal{R} = \sum_{n=-\eta}^\eta |R_{n,0}|^2
+\end{equation}
+
+Note that this model is solely valid when considering the evolution of the reservoir at time scales much larger than $2\pi / \omega$. This assumption ensures that one is working in a stationary regime with respect to the oscillations of the electric field.
 
 % EXPERIMENTAL RESULTS %
 
 \subsubsection{Experimental results}
 
+The adequacy of the analytical model just derived is assessed by comparing its predictions to experimental data. To capture data concerning transfer functions, one performs a \textit{sweep} using the Digilock. As already explained, the Digilock is connected to a piezoelectric crystal controlling the emission wavelength of the laser, whose shift is proportional to the applied tension. As a reminder, the transfer function is the reflectivity $\mathcal{R}$ as a function of $\omega$, therefore one needs to be able to scan the frequency domain. The sweep procedure allows to do it by applying a triangular periodic voltage to the piezoelectric, which leads to a similar evolution of the emission wavelength of the laser. The frequency and amplitude of this signal are controlled by the Digilock interface. After doing this trick, one can plot the reflected power as a function of the time to observe its shape.\\
+
+To relate the theoretical curves to raw data, one should express the link between the time and the angular frequency. Using a first order Taylor approximation, the angular frequency variation reads:
+
+\begin{equation}
+	\delta \omega = -\frac{2\pi c}{\lambda_0^2} \delta \lambda
+\end{equation}
+
+With $\lambda_0$ the central wavelength (1555 nm). In appendix \ref{app-data}, one can find that the piezoelectric tuning characteristic is equal 0.1 pm/V. Let us denote this value by $\alpha$ and let us call $\beta$ the slope of the triangular voltage as a function of the time, which depends on the settings of the sweep. Multiplying those two constants provides a proportionality indicating the range of wavelengths spanned per unit of time. This yields to a link between time and angular frequency:
+
+\begin{equation}
+	\omega = - \alpha \beta \frac{2 \pi c}{\lambda_0^2} t
+\end{equation}
+
+Below, comparisons between simulations and experimental data are displayed for three different regimes: first sideband at resonance (figure \ref{tf_0}), first sideband half-way between resonance and anti-resonance (figure \ref{tf_25}) and first sideband at anti-resonance (figure \ref{tf_50}).
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.7\textwidth]{exp-tf-reservoir/tf_0.png}
+	\caption{Reflected power [V] as a function of the time [s] during a sweep of the Digilock. First sideband at resonance. $\Omega_{\text{mod}}$ = 19.99 GHz, modulation depth $m$ = 2, $\gamma = 0.0126~\text{m}^{-1}$}
+	\label{tf_0}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.7\textwidth]{exp-tf-reservoir/tf_25.png}
+	\caption{Reflected power [V] as a function of the time [s] during a sweep of the Digilock. First sideband half-way between resonance and anti-resonance. $\Omega_{\text{mod}}$ = 19.9997 GHz, modulation depth $m$ = 2}
+	\label{tf_25}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=.7\textwidth]{exp-tf-reservoir/tf_50.png}
+	\caption{Reflected power [V] as a function of the time [s] during a sweep of the Digilock. First sideband at anti-resonance. $\Omega_{\text{mod}}$ = 19.9997 GHz, modulation depth $m$ = 2}
+	\label{tf_50}
+\end{figure}
+
 %%% EFFECTIVE LOSSES %%%
 
 \subsection{Effective losses}
 
+\begin{figure}
+	\centering
+	\includegraphics[width=.7\textwidth]{exp-tf-reservoir/eff_losses.png}
+\end{figure}
+
 %%% MODULATION DEPTH %%%
 
 \subsection{Modulation depth}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=.7\textwidth]{exp-tf-reservoir/mod_depth.png}
+\end{figure}
 
 %%%%%%%%%% PDH STABILISATION TECHNIQUE %%%%%%%%%%
 
@@ -175,6 +345,7 @@ To be able to develop a reliable stabilisation scheme for the reservoir, some of
 
 % Cite LIGO
 % Cite PID
+% Clarify nomenclature
 
 %%% INTRODUCTION %%%
 

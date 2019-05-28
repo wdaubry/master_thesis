@@ -88,6 +88,8 @@ On figure \ref{power-in-neurons}, the elements regarding the fast decrease of th
 
 \subsection{Mathematical model}
 
+\label{subsec-reservoir-model}
+
 This section tackles the derivation of the discrete equation governing the dynamics of the reservoir. This calculation relies on the result stemming from the previous section regarding the effect of a \gls{pm} on an incident electric field. As a first step, the state $\mathbf{x}$ is expressed using a convenient formalism. The end goal here is to be able to use linear algebra because it makes the derivation easier. Let $N$ be the total number of neurons. This implies that $\mathbf{x}$ should be a $N$-dimensional vector that can developed as a linear combination of basis vectors:
 
 \begin{equation}
@@ -134,9 +136,8 @@ One should note that each time the light goes around the cavity, it acquires som
 Both $\mathbf{J}$ and $\mathbf{\Phi}$ are $N\times N$ matrices, with associated linear operators $\hat{\mathbf{J}}$ and $\hat{\mathbf{\Phi}}$. Finally, recalling that $\alpha$ and $\beta$ are the feedback and input gains, respectively, and that the source laser only injects light in the central wavelength, one can express the discrete time dynamics of the reservoir:
 
 \begin{equation}
-	\mathbf{x}(n+1) = \alpha \hat{\mathbf{\Phi}} \hat{\mathbf{J}} \mathbf{x}(n) + \beta u(n+1) \hat{\mathbf{e}}_0
+	\mathbf{x}(n+1) = \alpha \hat{\mathbf{\Phi}} \hat{\mathbf{J}}( \mathbf{x}(n) + \beta u(n+1) \hat{\mathbf{e}}_0)
 	\label{model-reservoir}
 \end{equation}
 
-A few things need to be mentioned. The value of $\alpha$ can be adjusted experimentally by changing the intra-cavity amplification and that of $\beta$ numerically in the computer controlling the experiment. Finally, to be consistent with the model derived here, the figure \ref{wdm_rc_principle}, coming directly from \cite{AkroutAkram2016Pprc}, should be slightly modified. Indeed, the \gls{pm} should be positioned before the input coupler and not between the input and readout coupler, because according to the figure, there should be no inhomogeneous term corresponding to the input signal.
-
+The value of $\alpha$ can be adjusted experimentally by changing the intra-cavity amplification and that of $\beta$ numerically in the computer controlling the experiment. 
