@@ -135,7 +135,7 @@ The setup presented here is mostly an update on the one presented on \cite{Akrou
 	\sin{ \left(\frac{\pi}{2} \left(\frac{V_{\text{MZM}}(t)}{V_{\pi,\text{RF}}} + \frac{V_0}{V_{\pi, \text{DC}}} \right) \right)}
 \end{equation}
 
-With $V_{\text{MZM}} \in [-\beta V_{\pi,\text{RF}},\beta V_{\pi,\text{RF}}]$, and $V_{\pi,\text{RF}}$ and $V_{\pi,\text{DC}}$ the dynamic and static characteristic voltages of the \gls{mzm}, respectively. The modulated electric field is then pre-amplified using an \gls{edfa}, and undergoes a first phase modulation. This is required to be able to implement the \gls{pdh} stabilisation technique, which is an advanced cavity stabilisation scheme that is described with greater length in section \ref{sec-pdh}. The \gls{pm} is driven by the alternative voltage $V_{\text{PDH}} = A_{\text{PDH}} \sin{(\Omega_{\text{PDH}}t)}$ supplied by the \textit{Toptica Digilock 110} feedback controller denoted "Digilock" on the figure. This device handles every aspects related to the stabilisation of the reservoir, which is why it needs to be connected to the photodiode "PD" and to the laser, which are both involved in the regulation of the cavity (see later). The electric field then enters the reservoir through the coupler "C3". At this point, the colour used to represent the optical fibres changes from red to blue to indicate that inside the reservoir, several wavelengths are present whereas before the coupler there was only one. Inside the reservoir, the \gls{pm} is used to mix the different frequencies and is driven by an external alternative voltage $V_{\text{mod}}(t) = A_{\text{mod}} \sin{ (\Omega_{\text{mod}} t)}$. To allow a clear distinction between the different sidebands without degrading the achievable modulation depth, the modulation frequency $\pulsefreq{\Omega_{\text{mod}}}$ is around 20 GHz. The \gls{pm} introduces insertion losses that are compensated using the \gls{edfa}, whose pump current is adjusted to tune the feedback gain $\alpha$ that appears in equation \eqref{model-reservoir}. The electric field exiting the reservoir at the level of the coupler "C3" towards the photodiode "PD" is the reflected field, according to what was discussed in section \ref{subsec-ring-cavity}. The electric field finally illuminates the photodiode "PD", which produces a voltage proportional to its intensity. This measured signal enters the Digilock where it is compared to a reference. Based on the deviation between those two values, the Digilock outputs a control voltage that is applied to a piezoelectric crystal inside the laser cavity and that modifies its emission wavelength. The output of the reservoir exits the cavity thought the coupler "C4" and is amplified by a \gls{soa} called "BOA" for Boost Optical Amplifier to improve the \gls{snr}. A demultiplexing scheme allowing to obtain the value of each individual neuron at the same time has not been implemented yet. To overcome this limitation, the adjustable band-pass filter denoted "Wave Shaper" is used to record the evolution of only one neuron at a time. This implies that if one wants to compute the output of the reservoir $y(n)$, one has to run the same experiment once for each of the neuron, to program the Wave Shaper to filter out all the other sidebands and to save its evolution on the computer. Once this has been done, $y(n)$ can be reconstructed. As far as the learning procedure is concerned, it follows the same procedure as the one previously described, but modified to take this sequential measurements of the neurons into account. In terms of the devices used to perform this task, the photodiode "Readout PD" measures the intensity of each of the filtered neuron, and the "Digitizer" handles the conversion between continuous time dependent signals into time series usable by the computer. To conclude this description of the experimental setup, one should note that even though the couplers "C1" and "C2" seem useless, they are used in practice to monitor the electric fields when modifications are made to the optical table, and that the AWG, Digilock, Wave Shaper and Digitizer are all controlled by the computer. The technical specifications of the devices used in the experiment can be found in appendix \ref{app-data}.
+With $V_{\text{MZM}} \in [-\beta V_{\pi,\text{RF}},\beta V_{\pi,\text{RF}}]$, and $V_{\pi,\text{RF}}$ and $V_{\pi,\text{DC}}$ the dynamic and static characteristic voltages of the \gls{mzm}, respectively. The modulated electric field is then pre-amplified using an \gls{edfa}, and undergoes a first phase modulation. This is required to be able to implement the \gls{pdh} stabilisation technique, which is an advanced cavity stabilisation scheme that is described with greater length in section \ref{sec-pdh}. The \gls{pm} is driven by the alternative voltage $V_{\text{PDH}} = A_{\text{PDH}} \sin{(\Omega_{\text{PDH}}t)}$ supplied by the \textit{Toptica Digilock 110} feedback controller denoted "Digilock" on the figure. This device handles every aspects related to the stabilisation of the reservoir, which is why it needs to be connected to the photodiode "PD" and to the laser, which are both involved in the regulation of the cavity (see later). The electric field then enters the reservoir through the coupler "C3". The reservoir cavity is made of the fibres of the different couplers and is around \SI{18}{m} long. At this point, the colour used to represent the optical fibres changes from red to blue to indicate that inside the reservoir, several wavelengths are present whereas before the coupler there was only one. Inside the reservoir, the \gls{pm} is used to mix the different frequencies and is driven by an external alternative voltage $V_{\text{mod}}(t) = A_{\text{mod}} \sin{ (\Omega_{\text{mod}} t)}$. To allow a clear distinction between the different sidebands without degrading the achievable modulation depth, the modulation frequency $\pulsefreq{\Omega_{\text{mod}}}$ is around 20 GHz. This allows the existence of 13 neurons inside the cavity (6 sidebands on both sides of the central frequency) with wavelengths going from \SIrange{1.554}{1.556}{\micro\metre}. The \gls{pm} introduces insertion losses that are compensated using the \gls{edfa}, whose pump current is adjusted to tune the feedback gain $\alpha$ that appears in equation \eqref{model-reservoir}. The electric field exiting the reservoir at the level of the coupler "C3" towards the photodiode "PD" is the reflected field, according to what was discussed in section \ref{subsec-ring-cavity}. The electric field finally illuminates the photodiode "PD", which produces a voltage proportional to its intensity. This measured signal enters the Digilock where it is compared to a reference. Based on the deviation between those two values, the Digilock outputs a control voltage that is applied to a piezoelectric crystal inside the laser cavity and that modifies its emission wavelength. The output of the reservoir exits the cavity thought the coupler "C4" and is amplified by a \gls{soa} called "BOA" for Boost Optical Amplifier to improve the \gls{snr}. A demultiplexing scheme allowing to obtain the value of each individual neuron at the same time has not been implemented yet. To overcome this limitation, the adjustable band-pass filter denoted "Wave Shaper" is used to record the evolution of only one neuron at a time. This implies that if one wants to compute the output of the reservoir $y(n)$, one has to run the same experiment once for each of the neuron, to program the Wave Shaper to filter out all the other sidebands and to save its evolution on the computer. Once this has been done, $y(n)$ can be reconstructed. As far as the learning procedure is concerned, it follows the same procedure as the one previously described, but modified to take this sequential measurements of the neurons into account. In terms of the devices used to perform this task, the photodiode "Readout PD" measures the intensity of each of the filtered neuron, and the "Digitizer" handles the conversion between continuous time dependent signals into time series usable by the computer. To conclude this description of the experimental setup, one should note that even though the couplers "C1" and "C2" seem useless, they are used in practice to monitor the electric fields when modifications are made to the optical table, and that the AWG, Digilock, Wave Shaper and Digitizer are all controlled by the computer. The technical specifications of the devices used in the experiment can be found in appendix \ref{app-data}.
 
 %%%%%%%%%% CHARACTERISATION OF THE RESERVOIR %%%%%%%%%%
 
@@ -290,52 +290,101 @@ To relate the theoretical curves to raw data, one should express the link betwee
 	\delta \omega = -\frac{2\pi c}{\lambda_0^2} \delta \lambda
 \end{equation}
 
-With $\lambda_0$ the central wavelength (1555 nm). In appendix \ref{app-data}, one can find that the piezoelectric tuning characteristic is equal 0.1 pm/V. Let us denote this value by $\alpha$ and let us call $\beta$ the slope of the triangular voltage as a function of the time, which depends on the settings of the sweep. Multiplying those two constants provides a proportionality indicating the range of wavelengths spanned per unit of time. This yields to a link between time and angular frequency:
+With $\lambda_0$ the central wavelength (1555 nm). In appendix \ref{app-data}, one can find that the piezoelectric tuning characteristic is equal 0.1 pm/V at a sweeping frequency of \SI{100}{\Hz}. Let us denote this value by $\alpha$ and let us call $\beta$ the slope of the triangular voltage as a function of the time, which depends on the settings of the sweep. Multiplying those two constants provides a proportionality indicating the range of wavelengths spanned per unit of time. This yields to a link between time and angular frequency:
 
 \begin{equation}
 	\omega = - \alpha \beta \frac{2 \pi c}{\lambda_0^2} t
+	\label{eq-omega-vs-t}
 \end{equation}
 
-Below, comparisons between simulations and experimental data are displayed for three different regimes: first sideband at resonance (figure \ref{tf_0}), first sideband half-way between resonance and anti-resonance (figure \ref{tf_25}) and first sideband at anti-resonance (figure \ref{tf_50}).
+Below, comparisons between simulations and experimental data are shown for three different regimes. Since the theoretical reflectivity $\mathcal{R}$ is a ratio, it is comprised between 0 and 1. Therefore, it had to be rescaled in order to be compared with the reflected powers measured by the \gls{pd}.
 
-\begin{figure}[h]
+\paragraph{First sideband at resonance} If the central neuron is at resonance, this means that $\omegamod$ is chosen such that the first sideband is at resonance as well. In other words, $\pulsefreq{\omegamod}$ is an integer number of times the \gls{fsr} of the cavity. This is displayed on figure \ref{tf_0}.
+
+\begin{figure}
 	\centering
 	\includegraphics[width=.7\textwidth]{exp-tf-reservoir/tf_0.png}
 	\caption{Reflected power [V] as a function of the time [s] during a sweep of the Digilock. First sideband at resonance. $\Omega_{\text{mod}}$ = 19.99 GHz, modulation depth $m$ = 2, $\gamma = 0.0126~\text{m}^{-1}$}
 	\label{tf_0}
 \end{figure}
 
-\begin{figure}[h]
+\paragraph{First sideband halfway between resonance and anti-resonance} $\omegamod$ is tuned such that $\pulsefreq{\omegamod}$ is an odd number of times the quarter of the \gls{fsr}. The experimental results are given on the figure \ref{tf_25}.
+
+\begin{figure}
 	\centering
 	\includegraphics[width=.7\textwidth]{exp-tf-reservoir/tf_25.png}
-	\caption{Reflected power [V] as a function of the time [s] during a sweep of the Digilock. First sideband half-way between resonance and anti-resonance. $\Omega_{\text{mod}}$ = 19.9997 GHz, modulation depth $m$ = 2}
+	\caption{Reflected power [V] as a function of the time [s] during a sweep of the Digilock. First sideband halfway between resonance and anti-resonance. $\Omega_{\text{mod}}$ = 19.9997 GHz, modulation depth $m$ = 2, $\gamma = \SI{0.0126}{\per\metre}$.}
 	\label{tf_25}
 \end{figure}
 
-\begin{figure}[h]
+\paragraph{First sideband at anti-resonance} $\pulsefreq{\omegamod}$ is an odd number of times half of the \gls{fsr}. The graphs are depicted on the figure \ref{tf_50}.\\
+
+\begin{figure}
 	\centering
 	\includegraphics[width=.7\textwidth]{exp-tf-reservoir/tf_50.png}
-	\caption{Reflected power [V] as a function of the time [s] during a sweep of the Digilock. First sideband at anti-resonance. $\Omega_{\text{mod}}$ = 19.9997 GHz, modulation depth $m$ = 2}
+	\caption{Reflected power [V] as a function of the time [s] during a sweep of the Digilock. First sideband at anti-resonance. $\Omega_{\text{mod}}$ = 19.9997 GHz, modulation depth $m$ = 2, $\gamma = \SI{0.0126}{\per\metre}$.}
 	\label{tf_50}
 \end{figure}
+
+One those graphs, one can see that the transfer function highly depends on the modulation frequency, and more specifically, on the position of the first sideband. Even though the experimental adequacy is not perfect, it is sufficient to have a qualitative idea of the behaviour of the reservoir. It also allows to experimentally deduce its \gls{fsr} by measuring the temporal periodicity of the reflectivity, and then to translate in the frequency domain using equation \eqref{eq-omega-vs-t}.
+
+\begin{equation}
+	\Delta t = \SI{1.155}{\milli\second} \Longrightarrow \text{FSR} \approx  \alpha \beta \frac{c}{\lambda_0^2} \Delta t  \approx \SI{11.5}{\mega\hertz}
+\end{equation}
+
+Recalling that the \gls{fsr} for a ring cavity is given by\footnote{This comes from the fact that the resonance condition is not exactly the same as \gls{fp} for a ring cavity: $\beta L = 2m\pi$ instead of $\beta L = m \pi$ for a \gls{fp}}:
+
+\begin{equation}
+	\mathrm{FSR} = \frac{c}{nL}
+\end{equation}
+
+Using this formula, one can compute the length of the cavity: $L=\SI{18.33}{\metre}$.
+
+As a final remark, the relative position of the \gls{pm} inside the cavity (controlled using the variable $\xi$) does not seem to have an influence on the shape of the transfer function.
 
 %%% EFFECTIVE LOSSES %%%
 
 \subsection{Effective losses}
 
+Given the model derived, the only physical quantity that cannot be known from a simple inspection of the data sheets are the effective losses $\gamma$. They arise due to the conjugated effects of the fibre losses, the insertion loss of the intra-cavity \gls{pm} and the gain of the \gls{edfa}, and in the same way that the use of a lower reflectivity mirror induced a worse finesse for a \gls{fp}, the effective losses lead to a broadening of the resonance peaks. Although their value could have been derived analytically, it has been chosen to determine it experimentally. To do so, a least square fit is performed. Basically, this means that one compares an experimental curve with an analytical one, for which the value of $\gamma$ is not fixed. The deviation between those two curves is therefore a function of $\gamma$, and can be minimised. Mathematically speaking, the experimental effective losses $\tilde{\gamma}$ are given by:
+
+\begin{equation}
+	\tilde{\gamma} = \underset{\gamma}{\mathrm{argmin}} \sum_{i=1}^T (\mathcal{R}_i - \mathcal{R}(t_i;\gamma))^2
+\end{equation}
+
+Where $T$ is the total number samples, $\mathcal{R}_i$ is the measured reflected power for the $i^{\text{th}}$ sample and $\mathcal{R}(t_i;\gamma)$ is the theoretical rescaled reflectivity evaluated at $t=t_i$ and $\gamma$, which is the time corresponding to the $i^{\text{th}}$ sample and the effective losses, respectively. On figure \ref{eff-losses}, one can see the result of this optimisation. It was performed on the reservoir without phase modulation because it is assumed that the insertion losses do not dependent on whether a phase modulation is going on. The effective losses that were determined using this procedure read:
+
+\begin{equation}
+	\gamma = \SI{0.0126}{\per\metre}
+\end{equation}
+
 \begin{figure}
 	\centering
 	\includegraphics[width=.7\textwidth]{exp-tf-reservoir/eff_losses.png}
+	\caption{Reflected power [V] as function of the time [s] during a sweep of the Digilock, no intra-cavity phase modulation, $\gamma = \SI{0.0126}{\per\metre}$.}
+	\label{eff-losses}
 \end{figure}
 
 %%% MODULATION DEPTH %%%
 
 \subsection{Modulation depth}
 
+When one wants to modify the modulation depth during a phase modulation process, one has to change the modulation power of the RF generator. However, these two quantities are not the same, even though they are related. The goal of this section is to determine an empirical relation linking the modulation power, expressed in dBm, and the modulation depth. The procedure to compute it is the following: one applies a methodology similar to the one from the previous chapter, except that instead of optimising for $\gamma$, one should to do it for $m$, the modulation depth. This procedure is repeated several times, for different modulation powers, in other to form a data set. Finally, when one has gathered enough data, one can perform a polynomial interpolation that provides the link between the power and the depth that one was looking for. This method works better when one is working in the situation where the first sideband is at anti-resonance, because in this this regime, the depth of the side peaks (see figure \ref{tf_50}) depends a lot on the modulation depth.\\
+
 \begin{figure}
 	\centering
 	\includegraphics[width=.7\textwidth]{exp-tf-reservoir/mod_depth.png}
+	\caption{Modulation depth $m$ as a function of the modulation power [dBm] and second degree polynomial interpolation for $\pulsefreq{\omegamod}=\SI{19.9943}{\giga\hertz}$}
+	\label{mod_depth}
 \end{figure}
+
+On figure \ref{mod_depth}, one can see the data, as well as the second degree polynomial interpolation. The experimental points only start at 13 dBm because below this value, the side peak was too small to lead significant measures. As already claimed, one cannot go above $m = 2$ experimentally because the RF generator is not able to supply modulation powers higher than 20 dBm at such high modulation frequencies. The empirical polynomial relation is:
+
+\begin{equation}
+	m(P[\textrm{dBm}]) = \num{8.004d-3} P^2[\textrm{dBm}] - 0.1215 P[\textrm{dBm}] + 1.222
+\end{equation}
+
+It was decided not to go further that a second degree polynomial interpolation because the results were already satisfying.
 
 %%%%%%%%%% PDH STABILISATION TECHNIQUE %%%%%%%%%%
 
@@ -343,25 +392,54 @@ Below, comparisons between simulations and experimental data are displayed for t
 
 \label{sec-pdh}
 
-% Cite LIGO
-% Cite PID
-% Clarify nomenclature
+In this section, the \gls{pdh} stabilisation technique is presented. First, the rationale behind its introduction is discussed. After that, it is shown that the error function resulting from the \gls{pdh} modulation reveals new informations about the phase of the electric field inside the cavity that allow to reach better stabilisation performances.
 
 %%% INTRODUCTION %%%
 
 \subsection{Introduction}
 
-%%% ERROR FUNCTION %%%
+The \gls{pdh} stabilisation technique was proposed in 1983 in \cite{drever1983laser} and since then has proven to be a powerful scheme enabling to accurately stabilise optical cavities. Among other applications, it has been used to to stabilise the laser and measure the thermal noise in the arms of the Michelson interferometer of the LIGO \cite{black1998notes}, which made possible the observation of gravitational waves.\\
 
-\subsection{Error function}
+The basic idea of the \gls{pdh} technique is to modify the transfer function of the cavity in such a way that its observation will provide more information about the phase. This is implemented in practice by using an additional \gls{pm} and some electronic post-processing, which is handled by the Digilock in our setup.
+
+\subsubsection{Cavity stabilisation}
+
+Before discussing the \gls{pdh} scheme, the principles of cavity stabilisation are presented. As a reminder, this action consists in keeping the relative phase between the electric field inside the cavity after a round trip and the incident electric field equal to a given reference value. Its value can be estimated by measuring the power reflected by the cavity, and can be modified by using actuators to change either the length of the cavity, or the emission wavelength of the laser. \\
+
+\begin{figure}
+	\centering
+	\includegraphics[width=.7\textwidth]{cavity_stab_principle}
+	\caption{Schematic representation of cavity stabilisation}
+	\label{cavity_stab_principle}
+\end{figure}
+
+On figure \ref{cavity_stab_principle}, one can observe the basic principle of the regulation of an optical cavity. The top branch of the figure is well-known at this point. The incident field $E_{\text{in}}$ enters the cavity at the level of the coupler, where the reflected $E_{\text{ref}}$ exits the cavity. The latter is then measured by the \gls{pd}. Henceforth, the different elements should be looked at under the light of control theory. The measured tension $V_{\text{ref}}$ is compared to a reference, which is the value that the regulator is trying to maintain. The difference between the reference and the measured tension is the error, which is processed by a device called the \gls{pid} regulator. In all generality, a \gls{pid} regulator, or \gls{pid} in short, is governed by this equation in the time domain \cite[p.196]{franklin2015feedback}:
+
+\begin{equation}
+	u(t) = k_P e(t) + k_I \int_{-\infty}^t e(\tau) d\tau + k_D \frac{de}{dt}(t)
+\end{equation}
+
+With $u(t)$ the output of the \gls{pid}, which is in this context the tension applied to the piezoelectric $V_{\text{pz}}$, $e(t)$ the error and $k_I$, $k_P$ and $k_D$ the proportional, integral, and differential coefficients, respectively. In order to get the \gls{pid} to work, one needs to tune those three coefficients, either using analytical methods, or heuristically by scanning the different values. The latter option was the one followed in the experimental implementations described in this work.\\
+
+The voltage $V_{\text{pz}}$, the output of the \gls{pid}, is applied to the piezoelectric crystal of the laser and alters its emission wavelength to stay synchronised with the reference.\\
+
+The main limitation of this scheme is linked to the symmetry of the transfer function $\mathcal{R}$. Let us illustrate why the symmetry is a shortcoming by considering a specific situation, with the help of the figure \ref{tf_near_resonance}.  Let us assume an initial condition when one has a cavity stabilised at the resonance, namely at the minimum of the curve. If the cavity is disturbed by any kind of perturbations, the reflected signal will increase, but due to the symmetry with respect to the resonance frequency, how will one know if the phase is increasing or decreasing ? The measured signal will be exactly the same in both situations. This is problematic because instead of rejecting the perturbations, the \gls{pid} could amplify them by interpreting the measured signal in the wrong way. A trick to still be able to stabilise a cavity using this method is to consider not only the instantaneous value of the reflected signal, but also its slope. Doing so, one is able to differentiate between a larger (positive slope) or smaller (negative slope) frequency. Yet, this hack is not recommended because it is more convenient to work only with instantaneous signals. The \gls{pdh} technique overcomes this limitation by introducing a transfer function, called the error function, which is anti-symmetric with respect to the resonance frequencies.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=.5\textwidth]{tf_near_resonance}
+	\caption{Schematic graph of the transfer function $\mathcal{R}$ near a resonance as function of the frequency \cite{nickersonreview}}
+	\label{tf_near_resonance}
+\end{figure}
+
+%%% PDH SCHEME %%%
+
+\subsection{Pound-Drever-Hall scheme}
 
 % MATHEMATICAL MODEL %
 
 \subsubsection{Mathematical model}
-
-% SIMULATION %
-
-\subsubsection{Simulation}
+% Clarify nomenclature
 
 % EXPERIMENTAL RESULTS %
 
