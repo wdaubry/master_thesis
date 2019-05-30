@@ -436,7 +436,7 @@ The main limitation of this scheme is linked to the symmetry of the transfer fun
 
 \subsection{Pound-Drever-Hall scheme}
 
-\begin{figure}
+\begin{figure}[h]
 	\centering
 	\includegraphics[width=.7\textwidth]{pdh_principle}
 	\caption{Schematic representation of the cavity stabilisation using the \gls{pdh} technique, based on the original blueprint presented in \cite{drever1983laser}}
@@ -503,7 +503,7 @@ The end of the regulation scheme is the same as the previous one. The \gls{pdh} 
 \begin{figure}
 	\centering
 	\includegraphics[width=.7\textwidth]{pdh_th/im_zeta.png}
-	\caption{\gls{pdh} error function $\varepsilon$ as function of the normalised frequency $\delta \nu /\text{FSR}$ for a ring cavity with $\pulsefreq{\tind{\Omega}{PDH}}=\SI{58}{\percent}$ of the \gls{fsr}}
+	\caption{Normalised \gls{pdh} error function $\varepsilon$ as function of the normalised frequency $\delta \nu /\text{FSR}$ for a ring cavity with $\pulsefreq{\tind{\Omega}{PDH}}=\SI{58}{\percent}$ of the \gls{fsr}}
 	\label{im_zeta}
 \end{figure}
 
@@ -511,9 +511,19 @@ The end of the regulation scheme is the same as the previous one. The \gls{pdh} 
 
 \subsection{Pound-Drever-Hall technique for the reservoir}
 
+The \gls{pdh} technique can be applied to stabilise the reservoir.Yet, the error needs to be slightly modified to take into account the presence of different wavelengths inside the cavity. The result is actually quite straightforward if one recalls that the reflected field is simply given by $\efield{ref} = E_0 \sum_{n=-\eta}^\eta R_{n,0}(\omega) \hat{\mathbf{e}}_n$ thanks to the reservoir transfer matrix $\mathbf{R}$ and that the \gls{pd} cannot capture beatings whose frequencies are integer multiples of \SI{20}{\giga\hertz}. With these two elements in mind, $\zeta(\omega)$ becomes:
+
+\begin{equation}
+	\zeta(\omega) = \sum_{n=-\eta}^\eta R_{n,0}(\omega)R_{n,0}^*(\omega+\tind{\Omega}{PDH}) - R_{n,0}^*(\omega) R_{n,0}(\omega - \tind{\Omega}{PDH})
+\end{equation}
+
+The error function $\epsilon$ remains defined as the imaginary part of $\zeta$. On figure \ref{pdh_exp}, one can observe that the theoretical model is in line with the measured error function. The graph does not have the same shape as the one from figure \ref{im_zeta}, but since it exhibits regions with steep slopes, it can be used to stabilise the reservoir. In practice, the Digilock handles all the data-processing that has been introduced in this section, and the \gls{pid} regulation as well.
+
 \begin{figure}
 	\centering
 	\includegraphics[width=.7\textwidth]{pdh_exp/3130_4.png}
+	\caption{\gls{pdh} error signal $\epsilon$ as a function of the time [s] for the reservoir cavity during a sweep of the Digilock. \gls{pdh} Modulation amplitude $\tind{V}{PDH}= \SI{0.4}{\voltptp}$ (peak to peak), \gls{pdh} modulation frequency $\tind{\nu}{PDH} = \SI{3.13}{\mega\hertz}$, intra-cavity modulation depth $m=2$, intra-cavity modulation frequency $\tind{\nu}{mod} = \SI{19.9998}{\giga\hertz}$}
+	\label{pdh_exp}
 \end{figure}
 
 %%%%%%%%%% CHARACTERISATION OF THE STABILISATION PERFORMANCE FOR DIFFERENT REGIMES %%%%%%%%%%
