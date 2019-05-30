@@ -413,7 +413,7 @@ Before discussing the \gls{pdh} scheme, the principles of cavity stabilisation a
 	\label{cavity_stab_principle}
 \end{figure}
 
-On figure \ref{cavity_stab_principle}, one can observe the basic principle of the regulation of an optical cavity. The top branch of the figure is well-known at this point. The incident field $E_{\text{in}}$ enters the cavity at the level of the coupler, where the reflected $E_{\text{ref}}$ exits the cavity. The latter is then measured by the \gls{pd}. Henceforth, the different elements should be looked at under the light of control theory. The measured tension $V_{\text{ref}}$ is compared to a reference, which is the value that the regulator is trying to maintain. The difference between the reference and the measured tension is the error, which is processed by a device called the \gls{pid} regulator. In all generality, a \gls{pid} regulator, or \gls{pid} in short, is governed by this equation in the time domain \cite[p.196]{franklin2015feedback}:
+On figure \ref{cavity_stab_principle}, one can observe the basic principle of the regulation of an optical cavity. The top branch of the figure is well-known at this point. The incident field $E_{\text{in}}$ enters the cavity at the level of the coupler, where the reflected $E_{\text{ref}}$ exits the cavity. The latter is then measured by the \gls{pd}. Henceforth, the different elements should be looked at under the light of control theory. The measured tension $V_{\text{ref}}$ is compared to a reference, which is the value that the regulator is trying to maintain. The difference between the reference and the measured tension is the so-called error, which is processed by a device named the \gls{pid} regulator. In all generality, a \gls{pid} regulator, or \gls{pid} in short, is governed by this equation in the time domain \cite[p.196]{franklin2015feedback}:
 
 \begin{equation}
 	u(t) = k_P e(t) + k_I \int_{-\infty}^t e(\tau) d\tau + k_D \frac{de}{dt}(t)
@@ -423,7 +423,7 @@ With $u(t)$ the output of the \gls{pid}, which is in this context the tension ap
 
 The voltage $V_{\text{pz}}$, the output of the \gls{pid}, is applied to the piezoelectric crystal of the laser and alters its emission wavelength to stay synchronised with the reference.\\
 
-The main limitation of this scheme is linked to the symmetry of the transfer function $\mathcal{R}$. Let us illustrate why the symmetry is a shortcoming by considering a specific situation, with the help of the figure \ref{tf_near_resonance}.  Let us assume an initial condition when one has a cavity stabilised at the resonance, namely at the minimum of the curve. If the cavity is disturbed by any kind of perturbations, the reflected signal will increase, but due to the symmetry with respect to the resonance frequency, how will one know if the phase is increasing or decreasing ? The measured signal will be exactly the same in both situations. This is problematic because instead of rejecting the perturbations, the \gls{pid} could amplify them by interpreting the measured signal in the wrong way. A trick to still be able to stabilise a cavity using this method is to consider not only the instantaneous value of the reflected signal, but also its slope. Doing so, one is able to differentiate between a larger (positive slope) or smaller (negative slope) frequency. Yet, this hack is not recommended because it is more convenient to work only with instantaneous signals. The \gls{pdh} technique overcomes this limitation by introducing a transfer function, called the error function, which is anti-symmetric with respect to the resonance frequencies.
+The main limitation of this scheme is linked to the symmetry of the transfer function $\mathcal{R}$. Let us illustrate why the symmetry is a shortcoming by considering a specific situation, with the help of the figure \ref{tf_near_resonance}.  Let us assume an initial condition when one has a cavity stabilised at the resonance, namely at the minimum of the curve. If the cavity is disturbed by any kind of perturbations, the reflected signal will increase, but due to the symmetry with respect to the resonance frequency, how will one know if the phase is increasing or decreasing ? The measured signal will be exactly the same in both situations. This is problematic because instead of rejecting the perturbations, the \gls{pid} could amplify them by interpreting the measured signal in the wrong way. A trick to still be able to stabilise a cavity using this method is to consider not only the instantaneous value of the reflected signal, but also its slope. Doing so, one is able to differentiate between a larger (positive slope) or smaller (negative slope) frequency. Yet, this hack is not recommended because it is more convenient to work only with instantaneous signals. The \gls{pdh} technique overcomes this limitation by introducing a transfer function, called the error function, which is antisymmetric with respect to the resonance frequencies.
 
 \begin{figure}
 	\centering
@@ -436,14 +436,85 @@ The main limitation of this scheme is linked to the symmetry of the transfer fun
 
 \subsection{Pound-Drever-Hall scheme}
 
-% MATHEMATICAL MODEL %
+\begin{figure}
+	\centering
+	\includegraphics[width=.7\textwidth]{pdh_principle}
+	\caption{Schematic representation of the cavity stabilisation using the \gls{pdh} technique, based on the original blueprint presented in \cite{drever1983laser}}
+	\label{pdh_principle}
+\end{figure}
 
-\subsubsection{Mathematical model}
-% Clarify nomenclature
+The \gls{pdh} stabilisation technique relies on the addition of a \gls{pm} and electronic post-processing, as can be viewed on figure \ref{pdh_principle}. The light sent by the laser goes through a \gls{pm} driven by an AC voltage at frequency $\pulsefreq{\tind{\Omega}{PDH}}$ emitted by a RF generator. The modulation depth is chosen in such a way that all the sidebands but the first are negligible (one sideband on each side of the carrier frequency). Therefore, the electric field incident on the cavity $\tind{E}{in}$ reads:
 
-% EXPERIMENTAL RESULTS %
+\begin{equation}
+	\tind{E}{in} = E_0 \left(J_0(m) e^{i\omega t} + J_1(m)e^{i(\omega +\tind{\omega}{PDH})t} - J_1(m)e^{i(\omega -\tind{\omega}{PDH})t}  \right)
+\end{equation}
 
-\subsubsection{Experimental results}
+Given the fact that the cavity is linear, one can assume that its transfer function\footnote{As a reminder, the transfer function is the function such that $|R|^2=\mathcal{R}$} $R$ is linear as well, which gives for the reflected field $\tind{E}{ref}$:
+
+\begin{gather}
+	\tind{E}{ref} = E_0 ( J_0(m) R(\omega) \phaseone{\omega} + J_1(m) R(\omega+\tind{\Omega}{PDH}) \phase{\omega+\tind{\Omega}{PDH}} \nonumber \\
+	- J_1(m) R(\omega-\tind{\Omega}{PDH}) \phase{\omega-\tind{\Omega}{PDH}} )
+\end{gather}
+
+The voltage at the \gls{pd} is proportional to the intensity:
+
+\begin{gather}
+	\tind{V}{ref} \propto |E_0|^2 \bigg( J_0^2(m) \mathcal{R}(\omega) + J_1^2(m) (\mathcal{R}(\omega+\tind{\Omega}{PDH}) + \mathcal{R}(\omega-\tind{\Omega}{PDH})) \nonumber \\
+	+ 2 J_0(m)J_1(m) \text{Re}[R(\omega)R^*(\omega+\tind{\Omega}{PDH})-R^*(\omega)R(\omega-\tind{\Omega}{PDH})] \cos{(\tind{\Omega}{PDH} t)} \nonumber \\
+	+ 2 J_0(m)J_1(m) \text{Im}[R(\omega)R^*(\omega+\tind{\Omega}{PDH})-R^*(\omega)R(\omega-\tind{\Omega}{PDH})] \sin{(\tind{\Omega}{PDH} t)} \nonumber \\
+	+ \text{terms at } 2\tind{\Omega}{PDH} \bigg)
+\end{gather}
+
+This signal goes to a band pass filter centred at $\tind{\Omega}{PDH}$ in order to remove the DC component and the terms oscillating at $2\tind{\Omega}{PDH}$. Let us define $\zeta(\omega)$ as:
+
+\begin{equation}
+	\zeta(\omega) = R(\omega)R^*(\omega+\tind{\Omega}{PDH})-R^*(\omega)R(\omega-\tind{\Omega}{PDH})
+\end{equation}
+
+The voltage at the output of the band pass filter reads:
+
+\begin{equation}
+	\tind{V}{BP} \propto \text{Re}[\zeta(\omega)]\cos{(\tind{\Omega}{PDH}t)} + \text{Im}[\zeta(\omega)] \sin{(\tind{\Omega}{PDH}t)}
+\end{equation}
+
+After that, the signal is mixed with the harmonic voltage of the RF generator driving the \gls{pm}, with an additional phase $\phi$. A mixer is basically a nonlinear electronic device that multiplies two signals. Multiplying $\tind{V}{BP}$ by $\sin{(\tind{\Omega}{PDH}t+\phi)}$ leads to a DC component, which contains the information one is trying to extract, and to a $2\tind{\Omega}{PDH}$ component. At this point, one only has to use a low pass filter to retrieve the signal \cite{nickersonreview}. Recalling two trigonometric identities:
+
+\begin{align}
+	\cos{(\tind{\Omega}{PDH}t)}\cdot \sin{(\tind{\Omega}{PDH}t+\phi)} &= \frac{1}{2} (\cos{(2\tind{\Omega}{PDH}t+\phi)}+\sin{(\phi)})  \\
+	\sin{(\tind{\Omega}{PDH}t)}\cdot \sin{(\tind{\Omega}{PDH}t+\phi)} &= \frac{1}{2} (-\cos{(2\tind{\Omega}{PDH}t+\phi)}+\cos{(\phi)}) 
+\end{align}
+
+One can see that multiplying $\tind{V}{BP}$ by $\sin{(\tind{\Omega}{PDH}t+\phi)}$ and then low pass filtering yields to the following expression for $\tind{V}{PDH}$:
+
+\begin{equation}
+	\tind{V}{PDH} \propto \text{Re}[\zeta(\omega)]\sin{(\phi)} + \text{Im}[\zeta(\omega)]\cos{(\phi)}
+\end{equation}
+
+One can therefore select which component to use by changing the value of $\phi$. The \gls{pdh} error function $\varepsilon(\omega)$ is defined as:
+
+\begin{equation}
+	\varepsilon(\omega) = \text{Im}[\zeta(\omega)]
+\end{equation}
+
+The graph of the \gls{pdh} error function is depicted on figure \ref{im_zeta}. As required, it is antisymmetric with respect to the resonance frequency, which allows to immediately differentiate between an increase or a decrease of phase. Moreover, thanks to the steep slope of the curve at resonance, a small variation of phase implies a large variation of $\varepsilon$.\\
+
+The end of the regulation scheme is the same as the previous one. The \gls{pdh} signal $\tind{V}{PDH}$ (with $\phi=0$) is compared to a reference, which gives the error, and this error is used by the \gls{pid} to regulate the laser. This scheme can stabilise the cavity at any phase, provided that the slope on the neighbourhood of this phase is steep enough. This condition is being quite vague, it should be checked experimentally whether it is possible to stabilise at a given phase.\\
+
+\begin{figure}
+	\centering
+	\includegraphics[width=.7\textwidth]{pdh_th/im_zeta.png}
+	\caption{\gls{pdh} error function $\varepsilon$ as function of the normalised frequency $\delta \nu /\text{FSR}$ for a ring cavity with $\pulsefreq{\tind{\Omega}{PDH}}=\SI{58}{\percent}$ of the \gls{fsr}}
+	\label{im_zeta}
+\end{figure}
+
+%%% PDH TECHNIQUE FOR THE RESERVOIR %%%
+
+\subsection{Pound-Drever-Hall technique for the reservoir}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=.7\textwidth]{pdh_exp/3130_4.png}
+\end{figure}
 
 %%%%%%%%%% CHARACTERISATION OF THE STABILISATION PERFORMANCE FOR DIFFERENT REGIMES %%%%%%%%%%
 
@@ -452,6 +523,8 @@ The main limitation of this scheme is linked to the symmetry of the transfer fun
 %%% APPROACH %%%
 
 \subsection{Approach}
+
+% Clarify nomenclature
 
 %%% RESULTS %%%
 
