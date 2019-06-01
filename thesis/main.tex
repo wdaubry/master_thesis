@@ -24,21 +24,7 @@
 
 %%% TOC %%%
 
-\begingroup
-\makeatletter
-% Redefine the \chapter* header macro to remove vertical space
-\def\@makeschapterhead#1{%
-  %\vspace*{50\p@}% Remove the vertical space
-  {\parindent \z@ \raggedright
-    \normalfont
-    \interlinepenalty\@M
-    \Huge \bfseries  #1\par\nobreak
-    \vskip 20\p@
-  }}
-\makeatother
-
 \tableofcontents
-\endgroup
 
 %%% Introduction %%%
 

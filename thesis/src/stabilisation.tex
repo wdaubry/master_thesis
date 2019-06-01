@@ -530,17 +530,146 @@ The error function $\epsilon$ remains defined as the imaginary part of $\zeta$. 
 
 \section{Characterisation of the stabilisation performance for different regimes}
 
-The central part of this work is presented in this section. 
+This section presents the performances that can be achieved when stabilising the reservoir with the help of the \gls{pdh} scheme, which is the core issue tackled in this thesis. First, the problem is recalled and specified in a comprehensive way, then the experimental procedure followed to obtain relevant data is presented, and finally the actual results are shown and discussed.
 
 %%% INTRODUCTION %%%
 
 \subsection{Introduction}
 
+The main issue that has prevented the reservoir from working so far is the complexity linked to the fact of keeping it stabilised for all the neurons at the same time. Given how efficient the \gls{pdh} scheme is at stabilising cavities, it has been chosen to use it instead of the simple procedure relying only on the reflected power. \\
+
+As already claimed, the \gls{pdh} technique is capable of stabilising the cavity at any phase, provided that the slope of the \gls{pdh} error function is steep enough for this phase. Therefore, one the features being investigated experimentally is the determination of the range of phases at which the cavity can be stabilised. This is of great practical importance, because as shown at section \ref{model-reservoir}, the phase accumulated at each round trip is a global parameter that can alter the performances of the \rcer.\\
+
+Another element that has been studied experimentally is the quality of the stabilisation. First, one has to use a relevant metric to assess how good the reservoir is stabilised. What is used throughout this section is the standard deviation of the phase during one run of measurements. Assume one is stabilising the reservoir at phase $\phi$ for some time. The phase inevitably fluctuates, but the better the cavity is stabilised, the lower these fluctuations. By recording the change of the phase, one can compute the standard deviation, the so-called phase noise, which therefore gives a quantitative indication on the efficiency of the stabilisation. This estimation can be done based on different kinds of signals, as it is explained in section \ref{subsec-approach}.\\
+
+The \gls{pdh} technique also has its drawbacks. The phase modulation required to break the symmetry exhibited by the transfer function of the reservoir induces oscillations in the reflected power, whose amplitude is dependent on the experimental \gls{pdh} parameters, namely the modulation amplitude and frequency. Intuitively, one can understand that if $\tind{A}{PDH}$ and $\tind{\Omega}{PDH}$ are increased, this will result in larger oscillations. This is annoying because in general, boosting those parameters allows to obtain a sharper \gls{pdh} error function, with a better \gls{snr}, ultimately enabling to reach a more robust stabilisation. A trade-off has to found between a high-performance stabilisation scheme and low oscillation in the reflected power, as one does not want to improve one feature at the cost of completely deteriorating the other.\\
+
+These different issues are investigated for different \gls{pdh} phase modulation regimes, namely couple of values of $\tind{A}{PDH}$ and $\tind{\Omega}{PDH}$. At the end of the fay, this thorough characterisation of the stabilisation properties of the reservoir allows one to choose the regulation parameters that lead to the best chance of making the \rcer work.
+
 %%% APPROACH %%%
 
 \subsection{Approach}
 
-% Clarify nomenclature
+\label{subsec-approach}
+
+Before explaining the experimental procedure, a few points have to be discussed. First, compared to an actual \rcer experiment, the characterisation procedure is simplified because the amplitude of the electric field is not modulated by the \gls{mzm}. In practice, the intensity modulation deteriorates the stabilisation signals, and this will need to be taken into account in the future, yet it has been neglected in the present analysis because not all challenges can be tackled at the same time. What is assumed, however, is that the \gls{pdh} regime allowing to reach the best stabilisation is the same regardless of the intensity modulation being active or not.\\
+
+To avoid any confusion, let us introduce the terminology used in this section:
+
+\begin{itemize}
+	\item Transfer function: this is the transfer function of the cavity $\mathcal{R}$ (time-independent)
+	\item Reflected power: this is the power reflected by the reservoir (time-dependent)
+	\item Error function: this is the \gls{pdh} error function of the cavity $\epsilon$ (time-independent)
+	\item Error signal: this is the instantaneous \gls{pdh} error (time-dependent)
+\end{itemize}
+
+As far as the experimental parameters are concerned, preliminary numerical simulations\footnote{Courtesy to Lorenz Butschek} showed that the intra-cavity phase modulation frequency minimising the error rate of the reservoir when being used as a \rcer was $\tind{\nu}{mod} = \SI{19.9998}{\giga\hertz}$, with a modulation power $\tind{P}{mod} = \SI{20}{\dbm}$ ($m=2$). This modulation frequency is obtained by taking the one at which the first sideband is at resonance detuned by \SI{500}{\kilo\hertz}. It is therefore important to note that all the results of this section will only be valid for this modulation frequency, since changing it completely modifies the transfer and error functions of the reservoir. The characterisation covers different \gls{pdh} regimes: the modulation frequency $\tind{\nu}{PDH}$ take the values \SI{390}{\kilo\hertz}, \SI{781}{\kilo\hertz}, \SI{1.56}{\mega\hertz} and \SI{3.13}{\mega\hertz} and the modulation amplitude $\tind{V}{PDH}$ \SI{0.2}{\voltptp}, \SI{0.3}{\voltptp} and \SI{0.4}{\voltptp}. For all the frequencies, the three voltages are investigated except for $\tind{\nu}{PDH} = \SI{390}{\kilo\hertz}$ where only $\tind{V}{PDH} = \SI{0.4}{\voltptp}$ is studied. A peculiarity of the regulation for the reservoir is that the proportional and derivative terms of the \gls{pid} have no influence on the stabilisation. At this point, there is no clear explanation on why it is the case, but performing a proper characterisation of the step responses of all the devices involved in the regulation could bring some insight. Furthermore, the impact of the value of $k_I$, the integral coefficient on the \gls{pid}, on the stabilisation is very limited. Several order of magnitude can be spanned without altering significantly the quality of the regulation. The coefficient was set heuristically to $k_I=\SI{17000}{\volt\per\second}$ because around this value the results seemed better, and was kept constant for all the measurements.
+
+% PHASE %
+
+\subsubsection{Phase}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=.7\textwidth]{stab_phase/phase.png}
+	\caption{Error function [a.u.] and transfer function [\si{\volt}] as a function of the time [\si{\second}] with $\tind{A}{PDH} = \SI{0.4}{\voltptp}$ and $\tind{\nu}{PDH} = \SI{3.13}{\mega\hertz}$, and schematic representation of the method followed to compute the phase.}
+	\label{phase}
+\end{figure}
+
+The first key feature to determine is the phase at which one is stabilising. In practice, to choose the stabilisation position, a \gls{pdh} error signal is selected as reference using the Digilock. To relate the \gls{pdh} error signal value to an actual, one needs to use both the error signal and the transfer function, as depicted on figure \ref{phase}. The transfer function is used to determine the position of the anti-resonance, located at the maxima, which corresponds to a phase of $\pm \SI{\pi}{\radian}$. Let $A\equiv(t^*,\epsilon^*)$ be the point whose $y$-coordinate corresponds to the reference error function value $\epsilon^*$ set up in the Digilock. If $T$ is the delay between two maxima of the transfer function, and if $\Delta t$ is the time interval between $t^*$ and the first maximum, then the phase is given by:
+
+\begin{equation}
+	\phi = -\pi + \frac{\Delta t}{T} 2\pi
+\end{equation}
+
+Let the region of the \gls{pdh} error function comprised between the two maxima of the transfer function be the restricted error function. For a given \pdh error function value $\epsilon^*$, if there exists several points $B\equiv (t,\epsilon^*)$ in the restricted region, then it might be possible to stabilise at this value $\epsilon^*$, but it will be impossible to infer the corresponding phase.
+
+% PDH SIGNAL %
+
+\subsubsection{Pound-Drever-Hall signal}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=.7\textwidth]{stab_pdh/error_function.png}
+	\caption{Error function as a function of the time [\si{\second}] with $\tind{A}{PDH} = \SI{0.4}{\voltptp}$ and $\tind{\nu}{PDH} = \SI{390}{\kilo\hertz}$, reservoir stabilised at $\epsilon^* = \SI{-300}{\au}$}
+	\label{stab_prdh_error_function}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=.7\textwidth]{stab_pdh/signal.png}
+	\caption{Error signal as a function of the time [\si{\second}] with $\tind{A}{PDH} = \SI{0.4}{\voltptp}$ and $\tind{\nu}{PDH} = \SI{390}{\kilo\hertz}$, reservoir stabilised at $\epsilon^* = \SI{-300}{\au}$}
+	\label{stab_pdh_signal}
+\end{figure}
+
+The next value of interest is the phase noise estimated based on the error signal. On the figure \ref{stab_pdh_signal}, one can see the evolution of the \pdh error signal when the reservoir is being stabilised at \SI{-300}{\au}. Based on these data, one can easily compute the standard deviation of the error signal $\sigma(\epsilon^*)$. This value still needs to be translated into a phase noise. To do so, one uses the error function displayed on the figure \ref{stab_prdh_error_function}. First, one linearises the error function at the point of interest, which is represented by the red line segment on the figure. This allows to locally link $\sigma(\epsilon^*)$ to a time variation $\Delta t$. The trick is to notice that the proportion are conserved between the phase space and the time space. In other words, the ratio between $\Delta t$ and $T$ (the delay between two maxima, as previously) is the same as the ratio between $\tind{\sigma}{PDH}$, the phase noise, and $2\pi$. If one defines $\alpha$ as the slope of the tangent at the point of interest, the phase noise reads:
+
+\begin{equation}
+	\tind{\sigma}{PDH}[\si{\radian}] = \frac{\sigma(\epsilon^*)[\si{\au}]}{\alpha T} 2\pi
+\end{equation}
+
+This justify why it is better to work with steep slopes when using the \pdh technique.
+
+% REFLECTED POWER %
+
+\subsubsection{Reflected power}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=.7\textwidth]{stab_ref/stab_pdh_tf.png}
+	\caption{Error function and transfer function [\si{\volt}] as a function of the time [\si{\second}], with $\tind{A}{PDH} = \SI{0.4}{\voltptp}$ and $\tind{\nu}{PDH} = \SI{781}{\kilo\hertz}$, and with the reservoir stabilised at $\epsilon^* = \SI{-500}{\au}$}
+	\label{stab_ref_pdh_tf}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=.7\textwidth]{stab_ref/tf.png}
+	\caption{Transfer function [\si{\volt}] as a function of the time [\si{\second}] without \pdh modulation, with the reservoir stabilised at $\epsilon^* = \SI{-500}{\au}$}
+	\label{stab_ref_tf}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=.7\textwidth]{stab_ref/reflected.png}
+	\caption{Reflected power [\si{\volt}] as a function of the time [\si{\second}] with $\tind{A}{PDH} = \SI{0.4}{\voltptp}$ and $\tind{\nu}{PDH} = \SI{781}{\kilo\hertz}$ and with the reservoir stabilised at $\epsilon^* = \SI{-500}{\au}$}
+	\label{stab_ref_reflected}
+\end{figure}
+
+The method to obtain the phase noise based on the reflected power is similar to that of the \pdh error signal. The only difference is that it requires one more step, due to the fact that this time, the slope of the transfer function is needed instead of that of the error signal. On figures \ref{stab_ref_pdh_tf} and \ref{stab_ref_reflected}, one can see that, as mentioned in the introduction, the \pdh phase modulation introduces oscillations. This implies that this transfer function cannot be used directly because linearising such an oscillating curve does not make much sense. Another solution has to be explored. The idea is to use a transfer function measured without \pdh phase modulation, as the one displayed on figure \ref{stab_ref_tf}. Let $A\equiv(\Delta t_1, \epsilon^*)$ be the point at which the cavity is stabilised whose phase can be determined using the method presented above. Its $x$-coordinate can be reduced assuming that one is working in the restricted region. One would like to determine the point $B\equiv(\Delta t_2, V^*)$ on the figure \ref{stab_ref_tf} that has the same phase as $A$. If $T$ denotes the delay between two maxima and if the indices 1,2 represent the transfer function and without phase modulation respectively, then $\Delta t_2$ simply reads:
+
+\begin{equation}
+	\Delta t_2 = \frac{\Delta t_1}{T_1} T_2
+\end{equation}
+
+Once the coordinates of the point $B$ are known, the principle is identical to that of the previous one: measure the slope $\alpha_2$ of the transfer function at point $B$, use the data from figure \ref{stab_ref_reflected} to calculate the standard deviation $\sigma(\epsilon^*)$ and compute the phase noise $\tind{\sigma}{ref}$ as:
+
+\begin{equation}
+	\tind{\sigma}{ref}[\si{\radian}] = \frac{\sigma(\epsilon^*)[\si{\volt}]}{\alpha_2 T_2}2\pi
+\end{equation}
+
+% MODULATION INTENSITY %
+
+\subsubsection{Modulation intensity}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=.7\textwidth]{stab_mod/signal.png}
+	\caption{Reflected power [\si{\volt}] as a function of the time [\si{\second}] with $\tind{A}{PDH} = \SI{0.3}{\voltptp}$ and $\tind{\nu}{PDH} = \SI{1.56}{\mega\hertz}$ and with the reservoir stabilised at $\epsilon^* = \SI{300}{\au}$. Experimental data and sinusoidal fit.}
+\end{figure}
+
+% RESIDUAL REFLECTED POWER % 
+
+\subsubsection{Residual reflected power}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=.7\textwidth]{stab_mod/res.png}
+	\caption{Residual reflected power [\si{\volt}] as a function of the time [\si{\second}] with $\tind{A}{PDH} = \SI{0.3}{\voltptp}$ and $\tind{\nu}{PDH} = \SI{1.56}{\mega\hertz}$ and with the reservoir stabilised at $\epsilon^* = \SI{300}{\au}$}
+\end{figure}
+
+% LONG TIME-SCALE PDH SIGNAL %
+
+\subsubsection{Long time-scale Pound-Drever-Hall signal}
 
 %%% RESULTS %%%
 
