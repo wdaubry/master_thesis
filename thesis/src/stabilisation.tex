@@ -573,7 +573,7 @@ In the following paragraphs, the different quantities experimentally studied are
 
 \subsubsection{Phase}
 
-\begin{figure}
+\begin{figure}[h]
 	\centering
 	\includegraphics[width=.7\textwidth]{stab_phase/phase.png}
 	\caption{Error function [a.u.] and transfer function [\si{\volt}] as a function of the time [\si{\second}] with $\tind{A}{PDH} = \SI{0.4}{\voltptp}$ and $\tind{\nu}{PDH} = \SI{3.13}{\mega\hertz}$, and schematic representation of the method followed to compute the phase.}
@@ -721,7 +721,11 @@ To be able to distinguish the modulation oscillations, the sampling frequency of
 
 \subsection{Results}
 
-The results of the measurements can be found in the tables of the appendix \ref{app-exp}. For each \pdh configuration and for each \pdh stabilisation position $\epsilon^*$, five data sets were measured in order to obtain results that are statistically more significant. In the tables, $\phi$, $\tind{\sigma}{PDH}$, $\tind{\sigma}{PDH,l}$, $\tind{\sigma}{ref}$, $\Delta \varphi$ and $\tind{\sigma}{res}$ are averages taken over the data sets, and $\mathcal{S}(\dots)$ are their respective standard deviations. The dimension of the different values is the \si{\milli\radian} unless specified otherwise. For some $\epsilon^*$, there is an additional value called the \textit{challenger}. This is heuristic used to determine the best stabilisation configuration and position. It is defined as the product:
+The results of the measurements can be found in the tables of the appendix \ref{app-exp}. For each \pdh configuration and for each \pdh stabilisation position $\epsilon^*$, five data sets were measured in order to obtain results that are statistically more significant. In the tables, $\phi$, $\tind{\sigma}{PDH}$, $\tind{\sigma}{PDH,l}$, $\tind{\sigma}{ref}$, $\Delta \varphi$ and $\tind{\sigma}{res}$ are averages taken over the data sets, and $\mathcal{S}(\dots)$ are their respective standard deviations. The dimension of the different values is the \si{\milli\radian} unless specified otherwise.\\
+
+ At the bottom of the tables, there is an additional row. It corresponds to the values obtained at a position indicated by $\epsilon^*$, but with a value of $k_I$ decreased to only \SI{500}{\volt\per\second}. This is done in anticipation of actual \rcer experiments for which this parameter needs to be smaller. During a run of the \rcer, the input power of the reservoir is modulated in intensity, therefore a change of the reflected power can be due to a variation of the input power, and not necessarily to a phase fluctuation. Decreasing the integral coefficient of the \gls{pid} makes it less likely to overreact to an intensity modulation. For each configuration, the stabilisation performance are only computed at one position, because the idea is have a first approximation on how a smaller $k_I$ impacts the reservoir.\\
+
+For some $\epsilon^*$, there is an additional value called the \textit{challenger}. This is heuristic used to determine the best stabilisation configuration and position. It is defined as the product:
 
 \begin{equation}
 	\text{Challenger} = \tind{\sigma}{PDH} \cdot \Delta \varphi
@@ -735,7 +739,9 @@ Recalling that both $\tind{\sigma}{PDH}$ and $\Delta \varphi$ should be as small
 	\item Where $\tind{\sigma}{PDH}$,  $\tind{\sigma}{PDH,l}$ and $\tind{\sigma}{res}$ are not included in an interval \SI{10}{\milli\radian} wide, all at the same time. When they are included, it increases the confidence in the measurements because it suggests that similar phase noises can be obtained in three different ways.
 \end{itemize}
 
-\begin{table}
+The five configurations and positions most likely to meet the criteria are presented in table \ref{ranking}. A striking feature emerging from these results is the fact the \pdh modulation frequency is the same for all the candidates. Therefore, when setting up a \rcer experiment, one should pay attention to use a \pdh modulation frequency of \SI{781}{\kilo\hertz}.
+
+\begin{table}[h]
 	\centering
 	\begin{tabular}{|c|c|c|c|c|c|}
 		\hline
@@ -753,7 +759,4 @@ Recalling that both $\tind{\sigma}{PDH}$ and $\Delta \varphi$ should be as small
 	\label{ranking}
 \end{table}
 
-
-
-
-
+One last remark concerns the modulation intensities. In theory, for a given configuration, they should be constant, since the two parameters influencing them, $\tind{A}{PDH}$ and $\tind{\nu}{PDH}$, are not changed. When looking at the data in appendix \ref{app-exp}, one notices that it is not the case here, even when restricting the list of results to those with a challenger value (because one has more confidence on the quality of their measure). At this point, there is no satisfying explanation on why the modulation amplitude experiences position-dependent fluctuations.
