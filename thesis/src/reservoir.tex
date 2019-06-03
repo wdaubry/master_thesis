@@ -12,11 +12,19 @@ First, in section \ref{sec-scheme-wdm}, a description of the working principle i
 
 \label{sec-scheme-wdm}
 
-In this section, the working principle of \gls{wdm} \gls{prc} is first given. This scheme takes advantage of the wave character of light and uses different wavelength to encode the neurons. It is fibre-based and relies on an optical cavity made of a fibre loop. Inside the resonator, the different neurons need to be able to interact, therefore one has to provide some coupling mechanism for the different frequencies. This issue is tackled in section \ref{subsec-freq-coupling} and provides interesting mathematical insights that are eventually used to derive a suitable model for this other kind of linear \rcer.
+In this section, the working principle of \gls{wdm} \gls{prc} is first given. This scheme takes advantage of the wave character of light and uses different wavelength to encode the neurons. It is fibre-based and relies on an optical cavity made of a fibre loop. Inside the resonator, the different neurons need to be able to interact, therefore one has to provide some coupling mechanism for the different frequencies. This issue is tackled in section \ref{subsec-freq-coupling} and provides interesting mathematical insights that are eventually used to derive a suitable model for this kind of linear \rcer.
 
 %%% WORKING PRINCIPLE %%%
 
 \subsection{Working principle}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\textwidth]{wdm_rc_principle}
+	\caption{Schematic representation of the working principle of the \gls{wdm} \gls{prc} \cite{AkroutAkram2016Pprc}. A monochromatic laser sends light which is modulated in intensity to carry the data $u(n)$. It is coupled into a ring cavity through the coupler on the left side. It undergoes phase modulation and amplification during one round trip in the cavity. It exits the cavity by the coupler on the right side and is demultiplexed. The signals read by the photodiodes in the array are linearly combined using the output weights to construct the output of the reservoir.}
+	\label{wdm_rc_principle}
+\end{figure}
+
 
 The working principle of the new reservoir is schematised on figure \ref{wdm_rc_principle}. The whole setup is fibre-based, and the fibre used is a polarisation maintaining, single mode fibre. 
 
@@ -36,13 +44,6 @@ The electric field encoding the neurons exits the cavity through another coupler
 	y(n) = \sum_{i=1}^{N} W_i^{\text{out}} |x_i(n)|^2
 \end{equation}
 
-\begin{figure}[h]
-	\centering
-	\includegraphics[width=\textwidth]{wdm_rc_principle}
-	\caption{Schematic representation of the working principle of the \gls{wdm} \gls{prc} \cite{AkroutAkram2016Pprc}}
-	\label{wdm_rc_principle}
-\end{figure}
-
 \paragraph{Training and testing}
 
 The training scheme used for this setup is the batch learning. Thus, to compute the output weights $\wout$, one can use the ridge regression technique introduced in section \ref{subsec-rc-training}. To do so, one needs to discard the first state vectors $\mathbf{x}$ because they correspond to the transient of the reservoir, and then to store them\footnote{Since the output $y$ is constructed using the squared modulus of the activation of the neurons, the matrix $\mathbf{X}$ is filled with $|x_i(n)|^2$ instead of what is indicated in section \ref{subsec-rc-training}, namely $x_i(n)$} as well as the desired outputs $\hat{y}$ during the whole learning period to create the matrices $\mathbf{X}$ and $\hat{\mathbf{Y}}$. After that, it is straightforward to solve equation \eqref{ridge-regression} and to find the output weights. Once the \rcer is trained, it can move on to the testing phase, during which the outputs $y(n)$ are compared to the desired outputs. From that, one can quantify the performance of the \rcer using the appropriate metric, such as the \gls{nmse} for example.
@@ -53,28 +54,28 @@ The training scheme used for this setup is the batch learning. Thus, to compute 
 
 \label{subsec-freq-coupling}
 
-To mix the different frequencies present inside the reservoir a \gls{pm} is used. This kind of device is well known for creating equidistant sidebands. Let $Ee^{i\omega t}$ be the input electric field entering the \gls{pm}. Since a \gls{pm} is an optoelectronic device, it needs to be externally driven by a voltage generator with a RF modulation signal $V_{\text{RF}}(t) = A \sin{(\Omega t)}$, with $\Omega \ll \omega$. Using the \textit{Anger-Jacobi} expansion that allows to express the exponential of a trigonometric function in the basis of its harmonics, one can express the effect of a \gls{pm}:
+To mix the different frequencies present inside the reservoir a \gls{pm} is used. This kind of device is well known for creating equidistant sidebands. Let $Ee^{i\omega t}$ be the input electric field entering the \gls{pm}. Since a \gls{pm} is an optoelectronic device, it needs to be externally driven by a voltage generator with a RF modulation signal $V_{\text{RF}}(t) = m \sin{(\Omega t)}$, with $\Omega \ll \omega$. Using the \textit{Anger-Jacobi} expansion that allows to express the exponential of a trigonometric function in the basis of its harmonics, one can express the effect of a \gls{pm}:
 
 \begin{align}
 	&Ee^{i\omega t} \overset{\Omega}{\longrightarrow} Ee^{i\omega t}e^{im\sin{(\Omega t)}} \nonumber \\
 	& = E \sum_{n=-\infty}^{\infty} J_n(m) e^{i(\omega+n\Omega)t} \label{tf-pm}
 \end{align}
 
-This formula indicates that the resulting wave is a discrete superposition of planar waves whose frequencies are evenly spaced ($\pulsefreq{\Omega}$ between each frequency component) and centred on the input electric field frequency $\pulsefreq{\omega}$. The coefficient $J_n(m)$ weighting the superposition is the $n^{\text{th}}$ order Bessel function and $m$ is the modulation depth. The latter is related to the modulation amplitude $A$, but the link between them is not straightforward and is experimentally investigated in the next chapter. 
+This formula indicates that the resulting wave is a discrete superposition of planar waves whose frequencies are evenly spaced ($\pulsefreq{\Omega}$ between each frequency component) and centred on the input electric field frequency $\pulsefreq{\omega}$. The coefficient $J_n(m)$ weighting the superposition is the $n^{\text{th}}$ order Bessel function and $m$ is the modulation depth. The latter is related to the modulation amplitude $A$, but the link between them is not straightforward and is experimentally investigated in the next chapter. \\
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=.6\textwidth]{bessel}
-	\caption{Bessel function of order $n \in \{0,\dots,6\}$}
+	\caption{Bessel function of order $n \in \{0,\dots,6\}$.}
 	\label{bessel}
 \end{figure}
 
-However, what can already be said about $m$ is that it cannot exceed 2 in practice. This is due to the fact that when one increases the modulation frequency $\pulsefreq{\Omega}$, the modulation amplitude $A$ cannot be brought to arbitrarily large values. As a first approximation regarding the RF generator, one could say that the product $\Omega A$ is upper bounded. On figure \ref{bessel}, one can observe the behaviour the Bessel functions $J_n(m)$ with $n \in \{0,\dots, 6\}$. For $m \in [0,2]$, $J_n(m)$ becomes less significant for increasing order $n$. This provides an insight on an intrinsic limitation of this kind of \rcer, which is the limited number of neurons. A possible solution to improve the scheme would be to use a longitudinal multimode laser\footnote{A longitudinal multimode laser emits light at different frequencies} to inject energy in a wider range of neurons. Yet, the coupling between distant neurons would still be very faint.
+However, what can already be said about $m$ is that it cannot exceed 2 in practice. This is due to the fact that when one increases the modulation frequency $\pulsefreq{\Omega}$, the modulation amplitude $A$ cannot be brought to arbitrarily large values. As a first approximation regarding the RF generator, one could say that the product $\Omega A$ is upper bounded. On figure \ref{bessel}, one can observe the behaviour the Bessel functions $J_n(m)$ with $n \in \{0,\dots, 6\}$. For $m \in [0,2]$, $J_n(m)$ becomes less significant for increasing order $n$. This provides an insight on an intrinsic limitation of this kind of \rcer, which is the limited number of neurons. A possible solution to improve the scheme would be to use a longitudinal multimode laser\footnote{A longitudinal multimode laser emits light at different frequencies} to inject energy in a wider range of neurons. Yet, the coupling between distant neurons would still be very faint.\\
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=.5\textwidth]{power-in-neurons}
-	\caption{Experimental spectral density inside the reservoir \cite{AkroutAkram2016Pprc}}
+	\caption{Experimental spectral density inside the reservoir \cite{AkroutAkram2016Pprc}. This is the spectrum measured after passing through the \gls{pm} for an incident monochromatic wave with a wavelength of \SI{1.555}{\micro\metre}.}
 	\label{power-in-neurons}
 \end{figure}
 
@@ -112,10 +113,10 @@ This is precisely equal to the electric field inside the reservoir. The results 
 
 \begin{equation}
 	\mathbf{J} = \begin{bmatrix}
-		J_0(m) & J_{-1}(m) & \dots & J_{-\eta}(m) & \dots & J_{-2\eta} \\
-		J_1(m) & J_0(m) & \dots & J_{-\eta+1}(m) & \dots & J_{-2\eta+1} \\
+		J_0(m) & J_{-1}(m) & \dots & J_{-\eta}(m) & \dots & J_{-2\eta}(m) \\
+		J_1(m) & J_0(m) & \dots & J_{-\eta+1}(m) & \dots & J_{-2\eta+1}(m) \\
 		\vdots & \vdots &  & \vdots &  & \vdots \\
-		J_{2\eta}(m) & J_{2\eta-1}(m) & \dots & J_\eta(m) & \dots & J_0
+		J_{2\eta}(m) & J_{2\eta-1}(m) & \dots & J_\eta(m) & \dots & J_0(m)
 	\end{bmatrix}
 \end{equation}
 
@@ -140,4 +141,8 @@ Both $\mathbf{J}$ and $\mathbf{\Phi}$ are $N\times N$ matrices, with associated 
 	\label{model-reservoir}
 \end{equation}
 
-The value of $\alpha$ can be adjusted experimentally by changing the intra-cavity amplification and that of $\beta$ numerically in the computer controlling the experiment. 
+The value of $\alpha$ can be adjusted experimentally by changing the intra-cavity amplification and that of $\beta$ numerically in the computer controlling the experiment. The output of the reservoir is obtained by computing a linear combination of the squared modulus of the different neurons, like in equation \eqref{lin_output_rc}:
+
+\begin{equation}
+	y(n+1) = \sum_{i=-\eta}^\eta W_i^{\text{out}} | x_i(n+1) |^2
+\end{equation}
