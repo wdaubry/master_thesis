@@ -12,7 +12,7 @@ In this introductory section, the concept of interferometry is presented. As the
 
 \subsection{Fabry-Perot interferometer}
 
-The \gls{fp} plays an important role in modern optics as it is really ubiquitous. This can be explained by the fact that, despite its great simplicity, it can reach good performance using high reflectivity mirrors, which can be produced using recent technologies. In practice, a \gls{fp} cavity is simply made of two mirrors facing each other as can be viewed on figure \ref{fp}. One can see the two mirrors, represented by the vertical black lines, and the different electric fields. The resonance condition, namely the situation where the transmitted electric field $E_{\text{t}}$ is maximum, can be seen intuitively as a situation where the intra-cavity field $E_1$ is in phase with the incident field $E_{\text{in}}$, which leads to the build up of an intra-cavity standing wave. On the other hand, the anti-resonance condition is met when $E_{\text{in}}$ and $E_1$ are out of phase. The transmissivity of the \gls{fp} interferometer, which is defined as the ratio $|E_{\text{t}}|^2/|E_{\text{in}}|^2$, is given by \cite{Perot1899}:
+The \gls{fp} plays an important role in modern optics as it is really ubiquitous. This can be explained by the fact that, despite its great simplicity, it can reach good performance using high reflectivity mirrors, which can be produced using recent technologies. In practice, a \gls{fp} cavity is simply made of two mirrors facing each other as can be viewed in figure \ref{fp}. One can see the two mirrors, represented by the vertical black lines, and the different electric fields. The resonance condition, namely the situation where the transmitted electric field $E_{\text{t}}$ is maximum, can be seen intuitively as a situation where the intra-cavity field $E_1$ is in phase with the incident field $E_{\text{in}}$, which leads to the build up of an intra-cavity standing wave. On the other hand, the anti-resonance condition is met when $E_{\text{in}}$ and $E_1$ are out of phase. The transmissivity of the \gls{fp} interferometer, which is defined as the ratio $|E_{\text{t}}|^2/|E_{\text{in}}|^2$, is given by \cite{Perot1899}:
 
 \begin{equation}
 	\mathcal{T}(\omega) = \frac{1}{1+\mathcal{F}\sin^2{\left(\frac{\omega}{\text{FSR}}\right)}}
@@ -63,7 +63,7 @@ Where $k$ is the wave number defined as $n \omega/c$ and $\phi$ is the phase acq
 
 \label{subsec-ring-cavity}
 
-A ring cavity exhibits the same behaviour as a \gls{fp} interferometer. The structure of a ring cavity interferometer is displayed on figure \ref{cavity_vs_fp}. This is a fibre-based setup in which the incident electric field $E_{\text{in}}$ penetrates the cavity from the left through a coupler. $E_{\text{ref}}$ denotes the electric field exiting the cavity and $E_1$ and $E_2$ refer to the fields entering and leaving the fibre loop, respectively. The nomenclature for the fields was chosen in such a way that the analogy with the \gls{fp} cavity can be understood. Indeed, one could see the coupler acting as the leftmost mirror from the figure \ref{fp}, and the fibre loop as the one on the right side because it turns $E_1$ into $E_2$ and dissipates energy through fibre losses, whereas for the mirror it was by leakage out of the lossless \gls{fp} cavity.
+A ring cavity exhibits the same behaviour as a \gls{fp} interferometer. The structure of a ring cavity interferometer is displayed in figure \ref{cavity_vs_fp}. This is a fibre-based setup in which the incident electric field $E_{\text{in}}$ penetrates the cavity from the left through a coupler. $E_{\text{ref}}$ denotes the electric field exiting the cavity and $E_1$ and $E_2$ refer to the fields entering and leaving the fibre loop, respectively. The nomenclature for the fields was chosen in such a way that the analogy with the \gls{fp} cavity can be understood. Indeed, one could see the coupler acting as the leftmost mirror from the figure \ref{fp}, and the fibre loop as the one on the right side because it turns $E_1$ into $E_2$ and dissipates energy through fibre losses, whereas for the mirror it was by leakage out of the lossless \gls{fp} cavity.
 
 \begin{figure}[h]
 	\centering
@@ -141,7 +141,7 @@ With $V_{\text{MZM}} \in [-\beta V_{\pi,\text{RF}},\beta V_{\pi,\text{RF}}]$, an
 
 \section{Characterisation of the reservoir}
 
-To be able to develop a reliable stabilisation scheme for the reservoir, some of its characteristics need to be studied as a preliminary work. First, one can gain important insights by modelling the transfer function of the reservoir. In this context, the transfer function is simply the reflectivity of the cavity as a function of the frequency of the incident wave. However, given the fact that the reservoir is a more complex ring cavity than the one depicted in section \ref{subsec-ring-cavity}, it will not exhibit the same behaviour as the one of a \gls{fp} cavity as displayed on figure \ref{fp-tf}. A mathematical model is first derived and the results it provides are compared to experimental transfer functions. After that, the experimental study of the effective losses is tackled. The effective losses are used in the model to take into account the fibre losses, the insertion losses of the \gls{pm} and the gain of \gls{edfa} using only one factor. Finally, an empirical relation between the modulation amplitude driving the intra-cavity \gls{pm} and its modulation depth is determined experimentally.
+To be able to develop a reliable stabilisation scheme for the reservoir, some of its characteristics need to be studied as a preliminary work. First, one can gain important insights by modelling the transfer function of the reservoir. In this context, the transfer function is simply the reflectivity of the cavity as a function of the frequency of the incident wave. However, given the fact that the reservoir is a more complex ring cavity than the one depicted in section \ref{subsec-ring-cavity}, it will not exhibit the same behaviour as the one of a \gls{fp} cavity as displayed in figure \ref{fp-tf}. A mathematical model is first derived and the results it provides are compared to experimental transfer functions. After that, the experimental study of the effective losses is tackled. The effective losses are used in the model to take into account the fibre losses, the insertion losses of the \gls{pm} and the gain of \gls{edfa} using only one factor. Finally, an empirical relation between the modulation amplitude driving the intra-cavity \gls{pm} and its modulation depth is determined experimentally.
 
 %%% TRANSFER FUNCTION OF THE CAVITY %%%
 
@@ -149,7 +149,7 @@ To be able to develop a reliable stabilisation scheme for the reservoir, some of
 
 As already claimed, in the context of cavity stabilisation, the transfer function is the reflectivity. When operating the reservoir, the reflected power which is proportional to the intensity of the electric field reflected by the cavity gives an indication on the phase of the field inside it, which implies that the regulation procedure relies on the measurement of this signal. \\
 
-On figure \ref{schematic_reservoir}, the reservoir is represented with the different electric fields that turn out to be useful when studying the transfer function. The colour code for the fibres is the same as the one used previously. The incident electric field $\efield{in}$ enters the cavity through a coupler from the top left optical fibre. Inside the cavity, it is amplified by the \gls{edfa} and then is phase modulated. After that, a portion of the electric field exits the cavity through the coupler C4 to be read out. The light inside the cavity finally terminates its round trip.
+In figure \ref{schematic_reservoir}, the reservoir is represented with the different electric fields that turn out to be useful when studying the transfer function. The colour code for the fibres is the same as the one used previously. The incident electric field $\efield{in}$ enters the cavity through a coupler from the top left optical fibre. Inside the cavity, it is amplified by the \gls{edfa} and then is phase modulated. After that, a portion of the electric field exits the cavity through the coupler C4 to be read out. The light inside the cavity finally terminates its round trip.
 
 \begin{figure}[h]
 	\centering
@@ -303,7 +303,7 @@ With $\lambda_0$ the central wavelength (1555 nm). In appendix \ref{app-data}, o
 
 Below, comparisons between simulations and experimental data are shown for three different regimes. Since the theoretical reflectivity $\mathcal{R}$ is a ratio, it is comprised between 0 and 1. Therefore, it had to be rescaled in order to be compared with the reflected powers measured by the \gls{pd}.
 
-\paragraph{First sideband at resonance} If the central neuron is at resonance, this means that $\omegamod$ is chosen such that the first sideband is at resonance as well. In other words, $\pulsefreq{\omegamod}$ is an integer number of times the \gls{fsr} of the cavity. This is displayed on figure \ref{tf_0}.
+\paragraph{First sideband at resonance} If the central neuron is at resonance, this means that $\omegamod$ is chosen such that the first sideband is at resonance as well. In other words, $\pulsefreq{\omegamod}$ is an integer number of times the \gls{fsr} of the cavity. This is displayed in figure \ref{tf_0}.
 
 \begin{figure}
 	\centering
@@ -453,7 +453,7 @@ The main limitation of this scheme is linked to the symmetry of the transfer fun
 	\label{pdh_principle}
 \end{figure}
 
-The \gls{pdh} stabilisation technique relies on the addition of a \gls{pm} and electronic post-processing, as can be viewed on figure \ref{pdh_principle}. The light sent by the laser goes through a \gls{pm} driven by an AC voltage at frequency $\pulsefreq{\tind{\Omega}{PDH}}$ emitted by a RF generator. The modulation depth is chosen in such a way that all the sidebands but the first are negligible (one sideband on each side of the carrier frequency). Therefore, the electric field incident on the cavity $\tind{E}{in}$ reads:
+The \gls{pdh} stabilisation technique relies on the addition of a \gls{pm} and electronic post-processing, as can be viewed in figure \ref{pdh_principle}. The light sent by the laser goes through a \gls{pm} driven by an AC voltage at frequency $\pulsefreq{\tind{\Omega}{PDH}}$ emitted by a RF generator. The modulation depth is chosen in such a way that all the sidebands but the first are negligible (one sideband on each side of the carrier frequency). Therefore, the electric field incident on the cavity $\tind{E}{in}$ reads:
 
 \begin{equation}
 	\tind{E}{in} = E_0 \left(J_0(m) e^{i\omega t} + J_1(m)e^{i(\omega +\tind{\omega}{PDH})t} - J_1(m)e^{i(\omega -\tind{\omega}{PDH})t}  \right)
@@ -534,7 +534,7 @@ The \gls{pdh} technique can be applied to stabilise the reservoir, but error nee
 	\zeta(\omega) = \sum_{n=-\eta}^\eta R_{n,0}(\omega)R_{n,0}^*(\omega+\tind{\Omega}{PDH}) - R_{n,0}^*(\omega) R_{n,0}(\omega - \tind{\Omega}{PDH})
 \end{equation}
 
-The error function $\epsilon$ remains defined as the imaginary part of $\zeta$. On figure \ref{pdh_exp}, one can observe that the theoretical model is in line with the measured error function. Just like the reflectivity of the reservoir $\mathcal{R}$, the shape of the \pdh error function depends on the intra-cavity modulation frequency. The graph does not have the same shape as the one from figure \ref{zeta}, but since it exhibits regions with steep slopes, it can be used to stabilise the reservoir. In practice, the Digilock handles all the data-processing that has been introduced in this section, and the \gls{pid} regulation as well.
+The error function $\epsilon$ remains defined as the imaginary part of $\zeta$. In figure \ref{pdh_exp}, one can observe that the theoretical model is in line with the measured error function. Just like the reflectivity of the reservoir $\mathcal{R}$, the shape of the \pdh error function depends on the intra-cavity modulation frequency. The graph does not have the same shape as the one from figure \ref{zeta}, but since it exhibits regions with steep slopes, it can be used to stabilise the reservoir. In practice, the Digilock handles all the data-processing that has been introduced in this section, and the \gls{pid} regulation as well.
 
 \begin{figure}
 	\centering
@@ -589,7 +589,7 @@ In the following paragraphs, the different quantities experimentally studied are
 	\label{phase}
 \end{figure}
 
-The first key feature to determine is the phase at which one is stabilising. In practice, to choose the stabilisation position, a \gls{pdh} error signal level is selected as reference using the Digilock. To relate the \gls{pdh} error signal value to a phase, one needs to use both the error signal and the transfer function, as depicted on figure \ref{phase}. The transfer function is used to determine the position of the anti-resonance, located at the maxima, which corresponds to a phase of $\pm \SI{\pi/2}{\radian}$. Let $A\equiv(t^*,\epsilon^*)$ be the point whose $y$-coordinate corresponds to the reference error function value $\epsilon^*$ set up in the Digilock. If $T$ is the delay between two maxima of the transfer function, and if $\Delta t$ is the time interval between $t^*$ and the first maximum, then the phase is given by:
+The first key feature to determine is the phase at which one is stabilising. In practice, to choose the stabilisation position, a \gls{pdh} error signal level is selected as reference using the Digilock. To relate the \gls{pdh} error signal value to a phase, one needs to use both the error signal and the transfer function, as depicted in figure \ref{phase}. The transfer function is used to determine the position of the anti-resonance, located at the maxima, which corresponds to a phase of $\pm \SI{\pi/2}{\radian}$. Let $A\equiv(t^*,\epsilon^*)$ be the point whose $y$-coordinate corresponds to the reference error function value $\epsilon^*$ set up in the Digilock. If $T$ is the delay between two maxima of the transfer function, and if $\Delta t$ is the time interval between $t^*$ and the first maximum, then the phase is given by:
 
 \begin{equation}
 	\phi = -\frac{\pi}{2} + \frac{\Delta t}{T} \pi
@@ -611,14 +611,14 @@ Let the region of the \gls{pdh} error function comprised between the two maxima 
 \begin{figure}
 	\centering
 	\includegraphics[width=.7\textwidth]{stab_pdh/signal.png}
-	\caption{Error signal as a function of the time [\si{\second}] with $\tind{A}{PDH} = \SI{0.4}{\voltptp}$ and $\tind{\nu}{PDH} = \SI{390}{\kilo\hertz}$, reservoir stabilised at $\epsilon^* = \SI{-300}{\au}$.}
+	\caption{Error signal as a function of the time [\si{\second}] with $\tind{A}{PDH} = \SI{0.4}{\voltptp}$ and $\tind{\nu}{PDH} = \SI{390}{\kilo\hertz}$, reservoir stabilised at $\epsilon^* = \SI{-300}{\au}$. The experimental conditions are the same as in \ref{stab_prdh_error_function}.}
 	\label{stab_pdh_signal}
 \end{figure}
 
-The next value of interest is the phase noise estimated based on the error signal. On the figure \ref{stab_pdh_signal}, one can see the evolution of the \pdh error signal when the reservoir is being stabilised at \SI{-300}{\au}. Based on these data, one can easily compute the standard deviation of the error signal $\sigma(\epsilon^*)$. This value still needs to be translated into a phase noise. To do so, one uses the error function displayed on the figure \ref{stab_prdh_error_function}. First, one linearises the error function at the point of interest, which is represented by the red line segment on the figure. This allows to locally link $\sigma(\epsilon^*)$ to a time variation $\Delta t$. The trick is to notice that the proportion are conserved between the phase space and the time space. In other words, the ratio between $\Delta t$ and $T$ (the delay between two maxima, as previously) is the same as the ratio between $\tind{\sigma}{PDH}$, the phase noise in \si{\radian}, and $2\pi$. If one defines $\alpha$ as the slope of the tangent at the point of interest (in \si{\au\per\second}), the phase noise reads:
+The next value of interest is the phase noise estimated based on the error signal. On the figure \ref{stab_pdh_signal}, one can see the evolution of the \pdh error signal when the reservoir is being stabilised at \SI{-300}{\au}. Based on these data, one can easily compute the standard deviation of the error signal $\sigma(\epsilon^*)$. This value still needs to be translated into a phase noise. To do so, one uses the error function displayed on the figure \ref{stab_prdh_error_function}. First, one linearises the error function at the point of interest, which is represented by the red line segment on the figure. This allows to locally link $\sigma(\epsilon^*)$ to a time variation $\Delta t$. Because the relation linking the wavelength of the laser to the piezo voltage is proportional, the ratio between $\Delta t$ and $T$ (the delay between two maxima, as previously) is the same as the ratio between $\tind{\sigma}{PDH}$, the phase noise in \si{\radian}, and $\pi$. If one defines $\alpha$ as the slope of the tangent at the point of interest (in \si{\au\per\second}), the phase noise reads:
 
 \begin{equation}
-	\tind{\sigma}{PDH} = \frac{\tind{\sigma(\epsilon^*)}{PDH} }{|\alpha| T} 2\pi
+	\tind{\sigma}{PDH} = \frac{\tind{\sigma(\epsilon^*)}{PDH} }{|\alpha| T} \pi
 \end{equation}
 
 This justify why it is better to work with steep slopes when using the \pdh technique.
@@ -630,25 +630,25 @@ This justify why it is better to work with steep slopes when using the \pdh tech
 \begin{figure}
 	\centering
 	\includegraphics[width=.7\textwidth]{stab_ref/stab_pdh_tf.png}
-	\caption{Error function and transfer function [\si{\volt}] as a function of the time [\si{\second}], with $\tind{A}{PDH} = \SI{0.4}{\voltptp}$ and $\tind{\nu}{PDH} = \SI{781}{\kilo\hertz}$, and with the reservoir stabilised at $\epsilon^* = \SI{-500}{\au}$.}
+	\caption{Error function and transfer function [\si{\volt}] as a function of the time [\si{\second}], with $\tind{A}{PDH} = \SI{0.4}{\voltptp}$ and $\tind{\nu}{PDH} = \SI{781}{\kilo\hertz}$, and with the reservoir stabilised at $\epsilon^* = \SI{-500}{\au}$. The reflected power for this stabilisation is illustrated in figure \ref{stab_ref_reflected}.}
 	\label{stab_ref_pdh_tf}
 \end{figure}
 
 \begin{figure}
 	\centering
 	\includegraphics[width=.7\textwidth]{stab_ref/tf.png}
-	\caption{Transfer function [\si{\volt}] as a function of the time [\si{\second}] without \pdh modulation, with the reservoir stabilised at $\epsilon^* = \SI{-500}{\au}$.}
+	\caption{Transfer function [\si{\volt}] as a function of the time [\si{\second}] without \pdh modulation, with the reservoir stabilised at $\epsilon^* = \SI{-500}{\au}$. It is the same transfer function as in figure \ref{stab_ref_pdh_tf}, except that there is no phase modulation to be able to compute the slope at the point $B$. The point $B$ corresponds to the same stabilisation position than the point $A$ in figure \ref{stab_ref_pdh_tf}. The $x$-coordinate of $B$ reads $\Delta t_2 = \frac{\Delta t_1}{T_1}T_2$. The reflected power for this stabilisation is illustrated in figure \ref{stab_ref_reflected}.}
 	\label{stab_ref_tf}
 \end{figure}
 
 \begin{figure}
 	\centering
 	\includegraphics[width=.7\textwidth]{stab_ref/reflected.png}
-	\caption{Reflected power [\si{\volt}] as a function of the time [\si{\second}] with $\tind{A}{PDH} = \SI{0.4}{\voltptp}$ and $\tind{\nu}{PDH} = \SI{781}{\kilo\hertz}$ and with the reservoir stabilised at $\epsilon^* = \SI{-500}{\au}$.}
+	\caption{Reflected power [\si{\volt}] as a function of the time [\si{\second}] with $\tind{A}{PDH} = \SI{0.4}{\voltptp}$ and $\tind{\nu}{PDH} = \SI{781}{\kilo\hertz}$ and with the reservoir stabilised at $\epsilon^* = \SI{-500}{\au}$. The experimental conditions are the same as in figures \ref{stab_ref_pdh_tf} and \ref{stab_ref_tf}.}
 	\label{stab_ref_reflected}
 \end{figure}
 
-The method to obtain the phase noise based on the reflected power is similar to that of the \pdh error signal. The only difference is that it requires one more step, due to the fact that this time, the slope of the transfer function is needed instead of that of the error signal. On figures \ref{stab_ref_pdh_tf} and \ref{stab_ref_reflected}, one can see that, as mentioned in the introduction, the \pdh phase modulation introduces oscillations. This implies that this transfer function cannot be used directly because linearising such an oscillating curve does not make much sense. Another solution has to be explored. The idea is to use a transfer function measured without \pdh phase modulation, as the one displayed on figure \ref{stab_ref_tf}. Let $A\equiv(\Delta t_1, \epsilon^*)$ be the point at which the cavity is stabilised whose phase can be determined using the method presented above. Its $x$-coordinate can be reduced assuming that one is working in the restricted region. One would like to determine the point $B\equiv(\Delta t_2, V^*)$ on the figure \ref{stab_ref_tf} that has the same phase as $A$. If $T$ denotes the delay between two maxima and if the indices 1,2 represent the transfer function and without phase modulation respectively, then $\Delta t_2$ simply reads:
+The method to obtain the phase noise based on the reflected power is similar to that of the \pdh error signal. The only difference is that it requires one more step, due to the fact that this time, the slope of the transfer function is needed instead of that of the error signal. In figures \ref{stab_ref_pdh_tf} and \ref{stab_ref_reflected}, one can see that, as mentioned in the introduction, the \pdh phase modulation introduces oscillations. This implies that this transfer function cannot be used directly because linearising such an oscillating curve does not make much sense. Another solution has to be explored. The idea is to use a transfer function measured without \pdh phase modulation, as the one displayed in figure \ref{stab_ref_tf}. Let $A\equiv(\Delta t_1, \epsilon^*)$ be the point at which the cavity is stabilised whose phase can be determined using the method presented above. Its $x$-coordinate can be reduced assuming that one is working in the restricted region. One would like to determine the point $B\equiv(\Delta t_2, V^*)$ on the figure \ref{stab_ref_tf} that has the same phase as $A$. If $T$ denotes the delay between two maxima and if the indices 1,2 represent the transfer function and without phase modulation respectively, then $\Delta t_2$ simply reads:
 
 \begin{equation}
 	\Delta t_2 = \frac{\Delta t_1}{T_1} T_2
@@ -657,17 +657,17 @@ The method to obtain the phase noise based on the reflected power is similar to 
 Once the coordinates of the point $B$ are known, the principle is identical to that of the previous one: measure the slope $\alpha_2$ of the transfer function at point $B$ (in \si{\volt\per\second}), use the data from figure \ref{stab_ref_reflected} to calculate the standard deviation $\tind{\sigma(\epsilon^*)}{ref}$ (in \si{\volt}) and compute the phase noise $\tind{\sigma}{ref}$ (in \si{\radian}) as:
 
 \begin{equation}
-	\tind{\sigma}{ref} = \frac{\tind{\sigma(\epsilon^*)}{ref}}{|\alpha_2| T_2}2\pi
+	\tind{\sigma}{ref} = \frac{\tind{\sigma(\epsilon^*)}{ref}}{|\alpha_2| T_2}\pi
 \end{equation}
 
-% MODULATION INTENSITY %
+% Phase noise amplitude %
 
-\subsubsection{Modulation intensity}
+\subsubsection{Phase noise amplitude}
 
 \begin{figure}
 	\centering
 	\includegraphics[width=.7\textwidth]{stab_mod/signal.png}
-	\caption{Reflected power [\si{\volt}] as a function of the time [\si{\second}] with $\tind{A}{PDH} = \SI{0.3}{\voltptp}$ and $\tind{\nu}{PDH} = \SI{1.56}{\mega\hertz}$ and with the reservoir stabilised at $\epsilon^* = \SI{300}{\au}$. Experimental data and sinusoidal fit.}
+	\caption{Reflected power [\si{\volt}] as a function of the time [\si{\second}] with $\tind{A}{PDH} = \SI{0.3}{\voltptp}$ and $\tind{\nu}{PDH} = \SI{1.56}{\mega\hertz}$ and with the reservoir stabilised at $\epsilon^* = \SI{300}{\au}$. Experimental data and sinusoidal fit. The corresponding residual reflected power is illustrated in figure \ref{stab_res}.}
 	\label{stab_mod_signal}
 \end{figure}
 
@@ -677,21 +677,21 @@ The phase fluctuations in the reflected power have two components, the \pdh phas
 	\tind{\mathcal{V}}{ref}(t;\mathcal{A},\theta,\mathcal{A}_0) = \mathcal{A}\sin{(\tind{\Omega}{PDH}t+\theta)}+\mathcal{A}_0
 \end{equation}
 
-With $\mathcal{A}$, $\varphi$ and $\mathcal{A}_0$ being the three parameters to determine through the minimisation. Their value is given by:
+with $\mathcal{A}$, $\theta$ and $\mathcal{A}_0$ being the three parameters to be determined by the minimisation. Their value is given by:
 
 \begin{equation}
 	(\mathcal{A},\theta,\mathcal{A}_0) = \underset{(\mathcal{A}^*,\theta^*,\mathcal{A}_0^*)}{\text{argmin}} \sum_{i=0}^T (V_{\text{ref},i} - \tind{\mathcal{V}}{ref}(t_i;\mathcal{A}^*,\theta^*,\mathcal{A}_0^*))^2
 \end{equation}
 
-With $T$ the total number of data points, $V_{\text{ref},i}$ the value of the reflected power and $t_i$ the time of the $i^{\text{th}}$ sample. On figure \ref{stab_mod_signal}, the result of the optimisation is shown with the experimental data represented in blue, and the sinusoidal fitting in orange. It is now assumed that $\tind{\mathcal{V}}{ref}$ is the part of the reflected power that is due to the phase modulation. The formula to compute the phase noise based on the transfer derived in the previous paragraph can be adapted to this situation by considering that the spreading of the signal is due to the oscillation amplitude $\mathcal{A}$ (in \si{\volt}) rather than the standard deviation of the reflected power $\tind{\sigma(\epsilon^*)}{ref}$. To avoid any confusion with respect to the \pdh phase modulation, which comprises a modulation amplitude and frequency, this phase fluctuation is called to \textit{modulation intensity}, $\Delta \varphi$ (in \si{\radian}). It is given by:
+With $T$ the total number of data points, $V_{\text{ref},i}$ the value of the reflected power and $t_i$ the time of the $i^{\text{th}}$ sample. In figure \ref{stab_mod_signal}, the result of the optimisation is shown with the experimental data represented in blue, and the sinusoidal fitting in orange. It is now assumed that $\tind{\mathcal{V}}{ref}$ is the part of the reflected power that is due to the phase modulation. The formula to compute the phase noise based on the transfer function derived in the previous paragraph can be adapted to this situation by considering that the spreading of the signal is due to the oscillation amplitude $\mathcal{A}$ (in \si{\volt}). The phase modulation amplitude $\Delta \varphi$ (in \si{\radian}) is given by:
 
 \begin{equation}
-	\Delta \varphi = \frac{\mathcal{A}}{|\alpha_2| T_2} 2\pi
+	\Delta \varphi = \frac{\mathcal{A}}{|\alpha_2| T_2} \pi
 \end{equation} 
 
-One is still working with reflected powers, therefore with transfer functions. Moreover, the stabilisation point, represented by $B$ on the figure \ref{stab_ref_tf} has not changed, hence the use of the $\alpha_2$ and $T_2$ in this new formula.\\
+This computation relies on measures extrapolated from the reflected power and not from the error signal, hence the use of the $\alpha_2$ and $T_2$ in this new formula.\\
 
-The apparition of this modulation intensity can be detrimental to the performances of the \rcer, but not in the same way as the phase noise. This can be understood by making the connection with the dynamics equation of the \rcer presented in equation \eqref{model-reservoir}. The phase noise has an influence on the phase matrix $\mathbf{\Phi}$ by adding some fluctuations on the different phase factors, which can interpreted as an uncertainty on the phase acquired over one round trip. In contrast, the modulation intensity has an intrinsically different impact on the \rcer because it alters the input vector $u$. Indeed, instead of being simply expressed as $E_0u(n)\exp{(i\omega t)}$, the input is compromised by a time-varying phase $\varphi$, which yields to $E_0u(n)\exp{(i(\omega t+\varphi)}$ with $\varphi \in [0,\Delta \varphi]$. This implies that in the worst case scenario, the electric field entering the reservoir sees a change of phase of $\Delta \varphi$, whereas ideally the phase should have been kept constant, according to the definition of the input of a \rcer. Ironically, the modulation intensity that is observed because of the fact that the \pdh technique is required to stabilise the reservoir could prevent it from working as a \rcer. This explains why both the phase noise and the modulation intensity need to be minimised.
+The phase modulation amplitude can be detrimental to the performance of the \rcer because it will add noise on the input. Ironically, the phase modulation amplitude that is observed because of the fact that the \pdh technique is required to stabilise the reservoir could prevent it from working as a \rcer. This explains why both the phase noise and the phase modulation amplitude need to be minimised.
 
 % RESIDUAL REFLECTED POWER % 
 
@@ -710,31 +710,31 @@ What is called the residual reflected power is the part of the fluctuations of t
 	\tind{V}{res}(t) = \tind{V}{ref}(t) - \tind{\mathcal{V}}{ref}(t)
 \end{equation}
 
-The residual power coming from the signals depicted on the figure \ref{stab_mod_signal} is shown on figure \ref{stab_res}. Once again, the previous formula can be used, provided that one uses $\tind{\sigma(\epsilon^*)}{res}$ (in \si{\volt}) instead of $\tind{\sigma(\epsilon^*)}{ref}$ to determine the phase noise based on the residual power $\tind{\sigma}{res}$ (in \si{\radian}):
+The residual power coming from the signals depicted on the figure \ref{stab_mod_signal} is shown in figure \ref{stab_res}. Once again, the previous formula can be used, provided that one uses $\tind{\sigma(\epsilon^*)}{res}$ (in \si{\volt}) instead of $\tind{\sigma(\epsilon^*)}{ref}$ to determine the phase noise based on the residual power $\tind{\sigma}{res}$ (in \si{\radian}):
 
 \begin{equation}
-	\tind{\sigma}{res} = \frac{\tind{\sigma(\epsilon^*)}{res}}{|\alpha_2|T_2}2\pi
+	\tind{\sigma}{res} = \frac{\tind{\sigma(\epsilon^*)}{res}}{|\alpha_2|T_2}\pi
 \end{equation}
 
 % LONG TIME-SCALE PDH SIGNAL %
 
 \subsubsection{Long time-scale Pound-Drever-Hall signal}
 
-To be able to distinguish the modulation oscillations, the sampling frequency of the Digilock has to be at least twice the maximum \pdh modulation frequency, which is \SI{3.13}{\mega\hertz}, as required by the Shannon-Nyquist sampling theorem. To achieve higher sampling frequencies, the Digilock has to record data sets over shorter time-scales, as low as \SI{50}{\micro\second}, as can be seen on the time axis of the figure \ref{stab_res}, for example. The problem is that the duration of a \rcer experiment is in the order of the \si{\milli\second}. The long time-scale \pdh phase noise is simply a generalisation of the \pdh phase noise, but measured on a longer time-scale (\SI{5}{\milli\second}), to ensure the robustness of the stabilisation scheme over the long run. Let $\tind{\sigma(\epsilon^*)}{PDH,l}$ be the standard deviation of the \pdh error signal recorded over \SI{5}{\milli\second} (in \si{\au}). The long time-scale \pdh phase noise $\tind{\sigma}{PDH,l}$ (in \si{\radian}) is computed in exactly the same way as the \pdh phase noise, except that $\tind{\sigma(\epsilon^*)}{PDH,l}$ is used instead of $\tind{\sigma(\epsilon^*)}{PDH}$:
+To be able to distinguish the modulation oscillations, the sampling frequency of the Digilock has to be at least twice the maximum \pdh modulation frequency, which is \SI{3.13}{\mega\hertz}, as required by the Shannon-Nyquist sampling theorem. To achieve higher sampling frequencies, the Digilock has to record data sets over shorter time-scales, as low as a few tens of microseconds, as can be seen on the time axis of the figure \ref{stab_res}, for example. The problem is that the duration of a \rcer experiment is in the order of the \si{\milli\second}. The long time-scale \pdh phase noise is simply a generalisation of the \pdh phase noise, but measured on a longer time-scale (\SI{5}{\milli\second}), to ensure the robustness of the stabilisation scheme over the long run. Let $\tind{\sigma(\epsilon^*)}{PDH,l}$ be the standard deviation of the \pdh error signal recorded over \SI{5}{\milli\second} (in \si{\au}). The long time-scale \pdh phase noise $\tind{\sigma}{PDH,l}$ (in \si{\radian}) is computed in exactly the same way as the \pdh phase noise, except that $\tind{\sigma(\epsilon^*)}{PDH,l}$ is used instead of $\tind{\sigma(\epsilon^*)}{PDH}$:
 
 \begin{equation}
-	\tind{\sigma}{PDH,l} = \frac{\tind{\sigma(\epsilon^*)}{PDH,l}}{|\alpha|T}2\pi
+	\tind{\sigma}{PDH,l} = \frac{\tind{\sigma(\epsilon^*)}{PDH,l}}{|\alpha|T}\pi
 \end{equation}
 
 %%% RESULTS %%%
 
 \subsection{Results}
 
-The results of the measurements can be found in the tables of the appendix \ref{app-exp}. For each \pdh configuration and for each \pdh stabilisation position $\epsilon^*$, five data sets were measured in order to obtain results that are statistically more significant. In the tables, $\phi$, $\tind{\sigma}{PDH}$, $\tind{\sigma}{PDH,l}$, $\tind{\sigma}{ref}$, $\Delta \varphi$ and $\tind{\sigma}{res}$ are averages taken over the data sets, and $\mathcal{S}(\dots)$ are their respective standard deviations. The dimension of the different values is the \si{\milli\radian} unless specified otherwise.\\
+The results of the measurements can be found in the tables of the appendix \ref{app-exp}. For each \pdh configuration and for each \pdh stabilisation position $\epsilon^*$, five data sets were measured in order to obtain results that are statistically more significant. In the tables, $\phi$, $\tind{\sigma}{PDH}$, $\tind{\sigma}{PDH,l}$, $\tind{\sigma}{ref}$, $\Delta \varphi$ and $\tind{\sigma}{res}$ are averages taken over the data sets, and $\mathcal{S}(\dots)$ are their respective standard deviations. The dimension of the different values is in \si{\milli\radian} unless specified otherwise.\\
 
- At the bottom of the tables, there is an additional row. It corresponds to the values obtained at a position indicated by $\epsilon^*$, but with a value of $k_I$ decreased to only \SI{500}{\volt\per\second}. This is done in anticipation of actual \rcer experiments for which this parameter needs to be smaller. During a run of the \rcer, the input power of the reservoir is modulated in intensity, therefore a change of the reflected power can be due to a variation of the input power, and not necessarily to a phase fluctuation. Decreasing the integral coefficient of the \gls{pid} makes it less likely to overreact to an intensity modulation. For each configuration, the stabilisation performance are only computed at one position, because the idea is have a first approximation on how a smaller $k_I$ impacts the reservoir.\\
+ At the bottom of the tables, there is an additional row. It corresponds to the values obtained at a position indicated by $\epsilon^*$, but with a value of $k_I$ decreased to only \SI{500}{\volt\per\second}. This is done in anticipation of actual \rcer experiments for which this parameter needs to be smaller. During a run of the \rcer, the input power of the reservoir is modulated in intensity, therefore a change of the reflected power can be due to a variation of the input power, and not necessarily to a phase fluctuation. Decreasing the integral coefficient of the \gls{pid} makes it less likely to overreact to an intensity modulation. For each configuration, the stabilisation performance are only computed at one position, because this is done only to have a first idea of how a smaller $k_I$ impacts the reservoir.\\
 
-For some $\epsilon^*$, there is an additional value called the \textit{challenger}. This is heuristic used to determine the best stabilisation configuration and position. It is defined as the product:
+For some $\epsilon^*$, there is an additional value called the \textit{challenger}, which is a heuristic used to determine the best stabilisation configuration and position. It is defined as the product:
 
 \begin{equation}
 	\text{Challenger} = \tind{\sigma}{PDH} \cdot \Delta \varphi
@@ -768,4 +768,9 @@ The five configurations and positions most likely to meet the criteria are prese
 	\label{ranking}
 \end{table}
 
-One last remark concerns the modulation intensities. In theory, for a given configuration, they should be constant, since the two parameters influencing them, $\tind{A}{PDH}$ and $\tind{\nu}{PDH}$, are not changed. When looking at the data in appendix \ref{app-exp}, one notices that it is not the case here, even when restricting the list of results to those with a challenger value (because one has more confidence on the quality of their measure). At this point, there is no satisfying explanation on why the modulation amplitude experiences position-dependent fluctuations.
+One important remark concerns the phase modulation amplitudes. In theory, for a given configuration, they should be constant, since $\tind{A}{PDH}$ is not changed. When looking at the data in appendix \ref{app-exp}, one notices that it is not the case, even when restricting the list of results to those with a challenger value (because one has more confidence on the quality of their measure). At this point, there is no satisfying explanation on why the modulation amplitude experiences position-dependent fluctuations. This incoherence can come from two main sources: the raw data measurement and the software post-processing. Regarding the former, most of the time during the measurements an external oscilloscope was plotting the different signals, and their shape agreed with the signals of the Digilock. This does not mean that an error on the measurements is impossible, but this increases the confidence that can be placed in them. Regarding the software used to analyse the results, there are two main components: the least square fitting of the sine function, and the slope estimator. The first is a function used as a black box leading to satisfying results, with a \SI{95}{\percent} confidence interval on the oscillation amplitude $\mathcal{A}$ very narrow (less than a percent relative to $\mathcal{A}$). This suggests that the failing component of the code is the estimation of the slope of the transfer function, even though the algorithm was always supervised while running, and did not seem to return aberrant results. One thing is certain, in the future, this phase modulation issue should be further investigated. This would benefit the whole experiment by making the characterisation results more solid.
+
+
+
+
+
