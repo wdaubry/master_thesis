@@ -333,7 +333,7 @@ Below, comparisons between simulations and experimental data are shown for three
 On those graphs, one can see that the transfer function highly depends on the modulation frequency. Even though the experimental adequacy is not perfect, it is sufficient to have a qualitative idea of the behaviour of the reservoir. It also allows to experimentally deduce its \gls{fsr} by measuring the temporal periodicity of the reflectivity, and then to translate in the frequency domain using equation \eqref{eq-omega-vs-t}.
 
 \begin{equation}
-	\Delta t = \SI{1.155}{\milli\second} \Longrightarrow \text{FSR} \approx  \alpha \beta \frac{c}{\lambda_0^2} \Delta t  \approx \SI{11.5}{\mega\hertz}
+	\Delta t = \SI{1.155}{\milli\second} \Longrightarrow \text{FSR} \approx  p q \frac{c}{\lambda_0^2} \Delta t  \approx \SI{11.5}{\mega\hertz}
 \end{equation}
 
 Recalling that the \gls{fsr} for a ring cavity is given by:
@@ -506,7 +506,7 @@ One can therefore select which component to use by changing the value of $\phi$.
 	\varepsilon(\omega) = \text{Im}[\zeta(\omega)]
 \end{equation}
 
-The graph of the \gls{pdh} error function is depicted on the right side of figure \ref{im_zeta}. As required, it is antisymmetric with respect to the resonance frequency, which allows to immediately differentiate between an increase or a decrease of phase. Moreover, thanks to the steep slope of the curve at resonance, a small variation of phase implies a large variation of $\varepsilon$. On the right side of the figure, one can see that $\text{Re}[\zeta]$ provides no useful information about the phase, which is why it is not used in practice.\\
+The graph of the \gls{pdh} error function is depicted on the right side of figure \ref{zeta}. As required, it is antisymmetric with respect to the resonance frequency, which allows to immediately differentiate between an increase or a decrease of phase. Moreover, thanks to the steep slope of the curve at resonance, a small variation of phase implies a large variation of $\varepsilon$. On the right side of the figure, one can see that $\text{Re}[\zeta]$ provides no useful information about the phase, which is why it is not used in practice.\\
 
 The end of the regulation scheme is the same as the previous one. The \gls{pdh} signal $\tind{V}{PDH}$ (with $\phi=0$) is compared to a reference, which gives the error, and this error is used by the \gls{pid} to regulate the laser. This scheme can stabilise the cavity at any phase, provided that the slope on the neighbourhood of this phase is steep enough. This condition being quite vague, it should be checked experimentally whether it is possible to stabilise at a given phase.\\
 
