@@ -22,6 +22,13 @@
 \usepackage{amsmath}
 \usepackage{stackengine}
 \usepackage{siunitx}
+
+\sisetup{detect-all}
+\DeclareSIQualifier\peaktopeak{PP}
+\DeclareSIUnit\voltptp{\volt\peaktopeak}
+\DeclareSIUnit\dbm{dBm}
+\DeclareSIUnit\au{a.u.}
+
 \usepackage{pgfplots} % drawing graphs
 \usepackage{empheq}
 \pgfplotsset{width=\textwidth}
@@ -47,6 +54,8 @@
 }
 
 % ------- Functions ----------
+
+\renewcommand\epsilon{\varepsilon}
 
 \newcommand{\op}[1]{\mathop{}\!\ensurestackMath{\smash{\stackon[-0.8ex]{%
     \mathbf{#1}}{\mathbf{\hat{}}}}}\vphantom{#1}} % used to display hat higher (look nicer)
