@@ -1,4 +1,4 @@
-\documentclass{beamer}
+\documentclass[dvipsnames]{beamer}
 
 % ----------- PACKAGES FOR LANGUAGES AND ENCODING ----------
 
@@ -13,8 +13,12 @@
 \usetheme{Boadilla} % theme for beamer
 \usecolortheme{seahorse}
 \usepackage{sidecap}
+\usepackage{cancel}
 \beamertemplatenavigationsymbolsempty
 \setbeamertemplate{bibliography item}[text]
+\setbeamertemplate{caption}{\insertcaption}
+\defbeamertemplate{itemize item}{image}{\small\includegraphics[height=1ex]{sourire.jpg}}
+\setbeamertemplate{itemize item}[image]
 \graphicspath{{../shared-resources/pictures/},{pictures/}}
 
 % --------- PACKAGES FOR SCIENTIFIC WRITINGS ---------
@@ -26,7 +30,6 @@
 \sisetup{detect-all}
 \DeclareSIQualifier\peaktopeak{PP}
 \DeclareSIUnit\voltptp{\volt\peaktopeak}
-\DeclareSIUnit\dbm{dBm}
 \DeclareSIUnit\au{a.u.}
 
 \usepackage{pgfplots} % drawing graphs
@@ -39,7 +42,7 @@
 \usepackage[
 	backend=biber,
 	style=alphabetic,
-	citestyle=alphabetic
+	citestyle=authoryear
 ]{biblatex}
 \addbibresource{../shared-resources/biblio/biblio.bib}
 
@@ -47,7 +50,7 @@
 
 \AtBeginSection[]
 {
-  \begin{frame}
+  \begin{frame}[noframenumbering]
   \frametitle{Outline}
   \tableofcontents[currentsection, hideothersubsections]
   \end{frame} 
